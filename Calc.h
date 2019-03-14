@@ -14,11 +14,11 @@ using namespace std;
 class Calc: public MainBaseVisitor {
 public:
         antlrcpp::Any visitProg(MainParser::ProgContext *ctx) override{
-        return (int) visit(ctx->funct(0));
+        return (int) visit(ctx->func(0));
     }
     
     
-        antlrcpp::Any visitFunct(MainParser::FunctContext *ctx) override{
+        antlrcpp::Any visitFunc(MainParser::FuncContext *ctx) override{
         return (int) visit(ctx->deffunc());
     }
     
