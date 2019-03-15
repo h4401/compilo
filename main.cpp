@@ -1,12 +1,12 @@
 //
-//  Grammar.cpp
+//  Main.cpp
 //  
 //
 //  Created by yanghua on 2019/3/10.
 //
 
 #include <iostream>
-#include "./antlr4/antlr4-runtime/antlr4-runtime.h"
+#include "antlr4-runtime.h"
 #include "GrammarLexer.h"
 #include "GrammarParser.h"
 #include "GrammarBaseVisitor.h"
