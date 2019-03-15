@@ -1,4 +1,4 @@
-grammar Main;
+grammar Grammar;
 
 prog: (func)*;
 

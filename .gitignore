@@ -3,6 +3,5 @@
 !/antlr4_parse_tree
 !/Calc.h
 !/main.cpp
-!/Main.g4
+!/Grammar.g4
 !/.gitignore
-

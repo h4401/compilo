@@ -7,9 +7,9 @@
 
 #include <iostream>
 #include "antlr4-runtime.h"
-#include "MainLexer.h"
-#include "MainParser.h"
-#include "MainBaseVisitor.h"
+#include "GrammarLexer.h"
+#include "GrammarParser.h"
+#include "GrammarBaseVisitor.h"
 #include "Calc.h"
 
 using namespace antlr4;
@@ -25,9 +25,9 @@ int main(int,const char **){
     }
     
     ANTLRInputStream input(is);
-    MainLexer lexer(&input);
+    GrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
-       MainParser parser(&tokens);
+       GrammarParser parser(&tokens);
        tree::ParseTree* tree = parser.prog();
                            
     

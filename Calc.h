@@ -7,38 +7,38 @@
 
 #pragma once
 #include "antlr4-runtime.h"
-#include "MainBaseVisitor.h"
+#include "GrammarBaseVisitor.h"
 
 using namespace std;
 
-class Calc: public MainBaseVisitor {
+class Calc: public GrammarBaseVisitor {
 public:
-        antlrcpp::Any visitProg(MainParser::ProgContext *ctx) override{
+        antlrcpp::Any visitProg(GrammarParser::ProgContext *ctx) override{
         return (int) visit(ctx->func(0));
     }
     
     
-        antlrcpp::Any visitFunc(MainParser::FuncContext *ctx) override{
+        antlrcpp::Any visitFunc(GrammarParser::FuncContext *ctx) override{
         return (int) visit(ctx->deffunc());
     }
     
-        antlrcpp::Any visitDeffunc(MainParser::DeffuncContext *ctx) override{
+        antlrcpp::Any visitDeffunc(GrammarParser::DeffuncContext *ctx) override{
         return (int) visit(ctx->block());
     }
     
-        antlrcpp::Any visitBlock(MainParser::BlockContext *ctx) override{
+        antlrcpp::Any visitBlock(GrammarParser::BlockContext *ctx) override{
         return (int) visit(ctx->statement(0));
     }
     
-        antlrcpp::Any visitStatement(MainParser::StatementContext *ctx) override{
+        antlrcpp::Any visitStatement(GrammarParser::StatementContext *ctx) override{
         return (int) visit(ctx->ret());
     }
     
-        antlrcpp::Any visitRet(MainParser::RetContext *ctx) override{
+        antlrcpp::Any visitRet(GrammarParser::RetContext *ctx) override{
         return (int) visit(ctx->expr());
     }
     
-        antlrcpp::Any visitConst(MainParser::ConstContext *ctx) override{
+        antlrcpp::Any visitConst(GrammarParser::ConstContext *ctx) override{
         return (int) stoi(ctx->INT()->getText());
     }
     
