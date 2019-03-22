@@ -13,73 +13,83 @@ using namespace std;
 
 class Calc: public GrammarBaseVisitor {
 public:
+
+// PROG
         antlrcpp::Any visitProg(GrammarParser::ProgContext *ctx) override{
-        return (int) visit(ctx->func(0));
+        //TODO        
+	return 0;
     }
     
-    
+// FUNC
         antlrcpp::Any visitFunc(GrammarParser::FuncContext *ctx) override{
-        return (int) visit(ctx->deffunc());
+	//TODO        
+	return 0;
     }
-    
-        antlrcpp::Any visitDeffunc(GrammarParser::DeffuncContext *ctx) override{
-        return (int) visit(ctx->block());
-    }
-    
+
+//BLOCK    
         antlrcpp::Any visitBlock(GrammarParser::BlockContext *ctx) override{
-        return (int) visit(ctx->statement(0));
+        //TODO
+	return 0;
     }
     
-        antlrcpp::Any visitStatement(GrammarParser::StatementContext *ctx) override{
-        return (int) visit(ctx->ret());
+// STATEMENT
+        antlrcpp::Any visitReturn(GrammarParser::ReturnContext *ctx) override{
+        //TODO
+	return 0;
+    }
+
+	antlrcpp::Any visitDefvariable(GrammarParser::DefvariableContext *ctx) override{
+	//TODO
+	return 0;
     }
     
-        antlrcpp::Any visitReturn(GrammarParser::RetContext *ctx) override{
-        return (int) visit(ctx->expr());
-    }
-    
+//EXPR
         antlrcpp::Any visitConst(GrammarParser::ConstContext *ctx) override{
-        return (int) stoi(ctx->INT()->getText());
+        //TODO
+	return 0;
     }
-	antlrcpp::Any visitVar(GrammarParser::ProgContext *ctx) override{
+
+	antlrcpp::Any visitVar(GrammarParser::VarContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitPlus(GrammarParser::ProgContext *ctx) override{
+
+	antlrcpp::Any visitPlus(GrammarParser::PlusContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitMinus(GrammarParser::ProgContext *ctx) override{
+
+	antlrcpp::Any visitMinus(GrammarParser::MinusContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitMult(GrammarParser::ProgContext *ctx) override{
+	antlrcpp::Any visitMult(GrammarParser::MultContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitDiv(GrammarParser::ProgContext *ctx) override{
+
+	antlrcpp::Any visitDiv(GrammarParser::DivContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitDefvariable(GrammarParser::ProgContext *ctx) override{
+
+//TYPE
+	antlrcpp::Any visitTypeint(GrammarParser::TypeintContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitTypeint(GrammarParser::ProgContext *ctx) override{
+
+//DECLVAR
+	antlrcpp::Any visitDeclvar(GrammarParser::DeclvarContext *ctx) override{
 	//TODO
 	return 0;
     }
-	antlrcpp::Any visitDeclvar(GrammarParser::ProgContext *ctx) override{
-	//TODO
-	return 0;
-    }
-	antlrcpp::Any visitInitvide(GrammarParser::ProgContext *ctx) override{
+
+//OPTINIT
+	antlrcpp::Any visitInitvide(GrammarParser::InitvideContext *ctx) override{
 	//TODO
 	return 0;
     }
 	
-    
-
-    
 };
 
