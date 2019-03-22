@@ -7,8 +7,11 @@ class Variable{
         int getOffset();
         bool isInitialized();
         void setInitialized();
+        std::string getValeur();
+        void setValeur(std::string val);
     private:
         std::string name;
-	int memOffset;
+        int memOffset;
         bool initialized;
+        std::string valeur;
 };

@@ -71,7 +71,8 @@ using namespace std;
 	return returnVal;
     }
 
-	antlrcpp::Any Calc::visitDefvariable(GrammarParser::DefvariableContext *ctx) {
+//DefVar
+	    antlrcpp::Any Calc::visitDefvariable(GrammarParser::DefvariableContext *ctx) {
 	string name = ctx -> defvar()-> ID()-> getText();
 	std::unordered_map<std::string,Variable *>::const_iterator it = table.find(name);
 	if (it == table.end()){
@@ -84,6 +85,7 @@ using namespace std;
 	{
 		int value = visit(ctx -> defvar()-> expr());
 	   	it->second->setInitialized();
+        it->second->setValeur(to_string(value));
 		output << "movl $" << to_string(value) << ", "<<to_string(it->second->getOffset())<< "(%rbp)" << endl;
 		return value;
 	}
@@ -107,7 +109,7 @@ using namespace std;
 		else if(!it -> second->isInitialized()){
 		    	cerr << "[!] Warning (Line " << to_string(line) << "): Uninitialized variable " << name << endl;
 		}
-		return it-> second -> getOffset();
+		return (int)stoi(it-> second -> getValeur());
     }
 
 	antlrcpp::Any Calc::visitPlus(GrammarParser::PlusContext *ctx) {
@@ -137,6 +139,7 @@ using namespace std;
 
 //DECLVAR
 	antlrcpp::Any Calc::visitDeclvar(GrammarParser::DeclvarContext *ctx) {
+
 		for(unsigned int i = 0; i < ctx -> ID().size(); i++)
 		{
 			string name = ctx -> ID(i)->getText();
@@ -149,7 +152,8 @@ using namespace std;
 			}
 			else
 			{
-				offset-=8;
+                
+                offset -=8;
 				Variable * v = new Variable(name, offset, false);
 			   	table.insert(std::make_pair(name, v));
 			}
