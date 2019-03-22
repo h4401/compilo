@@ -5,3 +5,6 @@
 !/main.cpp
 !/Grammar.g4
 !/.gitignore
+!/Variable.cpp
+!/Variable.h
+!/Calc.cpp
