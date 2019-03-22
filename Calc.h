@@ -8,6 +8,8 @@
 #pragma once
 #include "antlr4-runtime.h"
 #include "GrammarBaseVisitor.h"
+#include "Variable.h"
+#include <unordered_map>
 
 class Calc: public GrammarBaseVisitor {
 public:
@@ -52,8 +54,8 @@ public:
 
 private :
 	std::ofstream output;
-	std::unordered_map<std::string, int> table;
+	std::unordered_map<std::string, Variable*> table;
 	int offset;
-	
+	bool error;
 };
 
