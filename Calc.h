@@ -34,13 +34,50 @@ public:
         return (int) visit(ctx->ret());
     }
     
-        antlrcpp::Any visitRet(GrammarParser::RetContext *ctx) override{
+        antlrcpp::Any visitReturn(GrammarParser::RetContext *ctx) override{
         return (int) visit(ctx->expr());
     }
     
         antlrcpp::Any visitConst(GrammarParser::ConstContext *ctx) override{
         return (int) stoi(ctx->INT()->getText());
     }
+	antlrcpp::Any visitVar(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitPlus(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitMinus(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitMult(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitDiv(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitDefvariable(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitTypeint(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitDeclvar(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	antlrcpp::Any visitInitvide(GrammarParser::ProgContext *ctx) override{
+	//TODO
+	return 0;
+    }
+	
     
 
     
