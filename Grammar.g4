@@ -2,52 +2,50 @@ grammar Grammar;
 
 prog: (func)*;
 
-func : deffunc | declfunc;
+func : type ID '(' (type ID (',' type ID)*)? ')' block;
 
 	
-expr: expr ('*'|'/') expr # multdiv
-	| expr ('+'|'-') expr # addsub
+expr: expr '*' expr 		# mult
+	| expr '/' expr  	# div
+	| expr '+' expr 	# plus
+	| expr '-' expr		# minus
 	| INT			# const
-	| VAR			# var
+	| ID			# var
 	| '(' expr ')'  	# par
 	| execfunc		# exfunc
 	;
 
-declvar: TYPE VAR (',' VAR)* ';'
+declvar: type  ID optinit (',' ID optinit )* ';'  
 	;
 
-defvar : TYPE VAR '=' expr ';'
-	| VAR '=' expr ';'
+optinit : '=' INT   #init
+	|           #initvide       
 	;
 
-deffunc : TYPE VAR '(' declparam? ')' block 
+defvar : ID '=' expr ';'
 	;
 
-declfunc : TYPE VAR '(' declparam? ')' ';';  
+execfunc : ID '(' param? ')';
 
-execfunc : VAR '(' param? ')';
+block : '{' declvar* statement* '}';
 
-block : '{' statement* '}';
-
-statement : ret
-	| defvar
-	| expr
-	| declvar
+statement : ret			#return	
+	| defvar		#defvariable
+	| expr			#expression
 	;
 
 ret : 'return' expr ';';
 
-declparam : TYPE VAR (',' TYPE VAR)*;
 
 param :  expr (',' expr)*;
 
-TYPE: 'int'
-	| 'char'
-	| 'void'
+type: 'int' 		#typeint
+	| 'char'	#typechar
+	| 'void'	#typevoid
 	;
 
 INT : [0-9]+ ;
-VAR : [a-zA-Z][a-zA-Z0-9]*;
+ID : [a-zA-Z][a-zA-Z0-9]*;
 WS : [\t\r\n ] -> skip;
 
 
