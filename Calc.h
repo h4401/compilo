@@ -9,6 +9,8 @@
 #include "antlr4-runtime.h"
 #include "GrammarBaseVisitor.h"
 #include "Variable.h"
+#include "Expression.h"
+#include "ExprOperationBinary.h"
 #include <unordered_map>
 
 class Calc: public GrammarBaseVisitor {
@@ -42,6 +44,10 @@ public:
 	antlrcpp::Any visitMult(GrammarParser::MultContext *ctx) override;
 
 	antlrcpp::Any visitDiv(GrammarParser::DivContext *ctx) override;
+    
+    antlrcpp::Any visitExfunc(GrammarParser::ExfuncContext *ctx) override;
+    
+    antlrcpp::Any visitPar(GrammarParser::ParContext *ctx) override;
 
 //TYPE
 	antlrcpp::Any visitTypeint(GrammarParser::TypeintContext *ctx) override;
@@ -57,5 +63,6 @@ private :
 	std::unordered_map<std::string, Variable*> table;
 	int offset;
 	bool error;
+    bool firstMult;
 };
 
