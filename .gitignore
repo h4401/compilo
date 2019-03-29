@@ -7,3 +7,6 @@ src/Grammar*.class
 src/Grammar*.java 
 src/*.log
 antlr
+asm.s
+makefile
+comp
