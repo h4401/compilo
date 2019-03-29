@@ -8,5 +8,11 @@ src/Grammar*.java
 src/*.log
 antlr
 asm.s
-makefile
 comp
+antlr4-runtime
+lib
+note.txt
+exe
+exe.dSYM
+.DS_Store
+makefile
