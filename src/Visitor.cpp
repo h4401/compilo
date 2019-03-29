@@ -62,7 +62,7 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 {
     Expression* expr = visit(ctx->ret()->expr());
-    output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
+    output << "movl " << to_string(expr->getOffset()) << "(%rbp), %eax" << endl;
     output << "popq %rbp" << endl;
     output << "ret" << endl;
     return expr;
@@ -85,15 +85,15 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
         it->second->setInitialized();
         it->second->setValeur(to_string(expr->getValeur()));
         if (expr->getType() == EXPRBINAIRE) {
-            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
-            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
+            output << "movl " << to_string(expr->getOffset()) << "(%rbp), %eax" << endl;
+            output << "movl %eax, " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
         }
         else if (expr->getType() == CONST) {
             output << "movl $" << to_string(expr->getValeur()) << ", " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
         }
         else if (expr->getType() == VAR) {
-            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
-            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
+            output << "movl " << to_string(expr->getOffset()) << "(%rbp), %eax" << endl;
+            output << "movl %eax, " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
         }
         return expr;
     }

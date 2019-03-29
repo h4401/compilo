@@ -18,7 +18,7 @@ char ExprOperationBinary::getOperateur()
 
 void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
 {
-    output << "movl " << std::to_string(this->expressionL->getOffset()) << "(%rbp), (%eax)" << std::endl;
+    output << "movl " << std::to_string(this->expressionL->getOffset()) << "(%rbp), %eax" << std::endl;
     std::string val = "";
     if (this->expressionR->getType() == CONST) {
         val = "$" + std::to_string(this->expressionR->getValeur());
@@ -28,24 +28,24 @@ void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
     }
     switch (this->operateur) {
     case '+':
-        output << "addl " << val << ", (%eax)" << std::endl;
+        output << "addl " << val << ", %eax" << std::endl;
         break;
 
     case '-':
-        output << "subl " << val << ", (%eax)" << std::endl;
+        output << "subl " << val << ", %eax" << std::endl;
         break;
 
     case '*':
-        output << "imull " << val << ", (%eax)" << std::endl;
+        output << "imull " << val << ", %eax" << std::endl;
         break;
 
     case '/':
-        output << "idivl " << val << ", (%eax)" << std::endl;
+        output << "idivl " << val << ", %eax" << std::endl;
         break;
 
     default:
         break;
     }
-    output << "movl (%eax)"
+    output << "movl %eax"
            << ", " << std::to_string(offset) << "(%rbp)" << std::endl;
 }
