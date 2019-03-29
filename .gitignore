@@ -6,4 +6,11 @@ src/Grammar*.interp
 src/Grammar*.class 
 src/Grammar*.java 
 src/*.log
-antlr
+antlr4-runtime
+lib
+note.txt
+exe
+exe.dSYM
+.gitignore
+.DS_Store
+makefile
