@@ -1,39 +1,48 @@
-//
-//  Main.cpp
-//  
-//
-//  Created by yanghua on 2019/3/10.
-//
-
 #include <iostream>
 #include "antlr4-runtime.h"
-#include "GrammarLexer.h"
-#include "GrammarParser.h"
-#include "GrammarBaseVisitor.h"
-#include "Calc.h"
+#include "src/GrammarLexer.h"
+#include "src/GrammarParser.h"
+#include "src/GrammarBaseVisitor.h"
+#include "src/Visitor.h"
 
 using namespace antlr4;
 using namespace std;
 
-int main(int,const char **){
-    ifstream is ("2.c");
-    
-    if (!is)
-    {
-        cout << "erreur ouverture fichier" << endl;
+int main(int argc, char* argv[])
+{
+
+    /*** Arguments check ***/
+    if (argc < 2) {
+        cout << "Missing argument : Path to input file" << endl;
         return -1;
     }
-    
-    ANTLRInputStream input(is);
+
+    const char* fileName = argv[1];
+
+    /*** Creating file ***/
+    ifstream file;
+    file.open(fileName);
+
+    if (!file) {
+        cout << "Error : Problem occured while oppening the file" << endl;
+        return -1;
+    }
+
+    /*** Parsing the tree and Generating Assebly ***/
+
+    cout << "Generating Abstract Syntaxic Tree" << endl;
+    cout << "Generating Assembly" << endl;
+
+    ANTLRInputStream input(file);
     GrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
-       GrammarParser parser(&tokens);
-       tree::ParseTree* tree = parser.prog();
-                           
-    
-                           
-       Calc visitor;
-       int result = (int)visitor.visit(tree);
-       cout<<"Result"<<result<<endl;
-       return 0;
+    GrammarParser parser(&tokens);
+    tree::ParseTree* tree = parser.prog();
+    Visitor visitor;
+    int result = (int)visitor.visit(tree);
+
+    cout << "Abstract Syntaxic Tree generated" << endl;
+    cout << "Assembly generated to ./asm.s" << endl;
+
+    return result;
 }
