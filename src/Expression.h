@@ -2,8 +2,10 @@
 #define Expression_h
 
 #include <stdio.h>
+#include <fstream>
 #include "Type.h"
-class Expression {
+#include "Statement.h"
+class Expression : public Statement{
 public:
     Expression();
     virtual ~Expression();
@@ -13,6 +15,7 @@ public:
     void setType(TypeExpr type);
     int getValeur();
     void setValeur(int valeur);
+    virtual void generateAsm(std::ofstream& o, int offset);
 
 protected:
     bool isSimple;

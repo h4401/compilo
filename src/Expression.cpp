@@ -1,9 +1,9 @@
 #include "Expression.h"
 using namespace std;
 
-Expression::Expression(){};
+Expression::Expression(){}
 
-Expression::~Expression(){};
+Expression::~Expression(){}
 
 int Expression::getOffset()
 {
@@ -35,3 +35,4 @@ void Expression::setType(TypeExpr type)
     this->type = type;
 }
 
+void Expression::generateAsm(std::ofstream& o, int offset){}
