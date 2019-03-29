@@ -21,10 +21,10 @@ void Block::addStatement(Statement* stat){
 }
 
 void Block::generateAsm(ofstream& o){
-    for(int i = 0;i<statements.size();i++){
-        statements[i].generateAsm(o);
-    }
-    for(int i = 0;i<declVars.size();i++){
-        declVars[i].generateAsm(o);
-    }
+//    for(int i = 0;i<statements.size();i++){
+//        statements[i]->generateAsm(o,);
+//    }
+//    for(int i = 0;i<declVars.size();i++){
+//        declVars[i]->generateAsm(o);
+//    }
 }

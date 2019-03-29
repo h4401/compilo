@@ -9,11 +9,12 @@
 #define Block_h
 #include <vector>
 #include "Statement.h"
+#include <iostream>
 #include "DeclVar.h"
 
 class Block{
 public:
-    Block(){};
+    Block();
     virtual ~Block();
     void addStatement(Statement* stat);
     void generateAsm(std::ofstream& o);

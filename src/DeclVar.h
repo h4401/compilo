@@ -8,11 +8,13 @@
 #ifndef DeclVar_h
 #define DeclVar_h
 #include <string>
+#include <iostream>
+
 class DeclVar
 {
 public:
     
-    void generateAsm(std::ostream& stream);
+    void generateAsm(std::ostream& o);
     void setName();
     std::string getName();
   
