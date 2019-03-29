@@ -16,3 +16,4 @@ exe
 exe.dSYM
 .DS_Store
 makefile
+test.c
