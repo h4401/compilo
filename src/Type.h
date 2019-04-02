@@ -4,14 +4,14 @@
 
 
 
-class Type{
-public:
-    Type(std::string type);
-    virtual ~Type();
-    std::string getTypeName();
-protected:
-    std::string typeName;
-};
+//class Type{
+//public:
+//    Type(std::string type);
+//    virtual ~Type();
+//    std::string getTypeName();
+//protected:
+//    std::string typeName;
+//};
 
 enum Type {
     VOID = 0,

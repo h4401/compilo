@@ -1,6 +1,6 @@
-using namespace std;
 
 #include "Program.h"
+using namespace std;
 
 void Program::addFunction(Function *function)
 {

@@ -1,6 +1,6 @@
-using namespace std;
 #include "Statement.h"
 #include <iostream>
+using namespace std;
 
 Statement::Statement()
 {
