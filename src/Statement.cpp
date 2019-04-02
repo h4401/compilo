@@ -4,14 +4,10 @@ using namespace std;
 
 Statement::Statement()
 {
-    #ifdef MAP
-        cout << "Appel au constructeur de <Statement>" << endl;
-    #endif
+
 }
 
 Statement::~Statement()
 {
-    #ifdef MAP
-        cout << "Appel au destructeur de <Statement>" << endl;
-    #endif
+
 }

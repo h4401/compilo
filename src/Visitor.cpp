@@ -2,10 +2,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Variable.h"
-#include "Type.h"
+
 
 using namespace std;
+
 
 Visitor::Visitor()
 {
@@ -23,53 +23,66 @@ Visitor::~Visitor()
 // PROG
 antlrcpp::Any Visitor::visitProg(GrammarParser::ProgContext* ctx)
 {
-
-    return visit(ctx->func(0));
+    Program* prog = new Program();
+    for(auto i: ctx->func()){
+        prog->addFunction(visit(i));
+    }
+    return prog;
 }
 
 // FUNC
 antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
 {
-    output << ".file \"2.c\"" << endl;
-    output << ".text" << endl;
-    output << ".global main" << endl;
-    output << ".type main, @function" << endl;
-    output << "main:" << endl;
-    output << "pushq  %rbp" << endl;
-    output << "movq %rsp, %rbp" << endl;
-    return visit(ctx->block());
+    string name = ctx->ID(0)->getText();
+    Block* block = visit(ctx->block());
+    Type type = visit(ctx->type(0));
+    //    output << ".file \"2.c\"" << endl;
+//    output << ".text" << endl;
+//    output << ".global main" << endl;
+//    output << ".type main, @function" << endl;
+//    output << "main:" << endl;
+//    output << "pushq  %rbp" << endl;
+//    output << "movq %rsp, %rbp" << endl;
+    Function* func = new Function(name,block,type);
+
+    return func;
 }
 
 //BLOCK
 antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 {
+    Block* block = new Block();
+
     for (unsigned int i = 0; i < ctx->declvar().size(); i++) {
-        visit(ctx->declvar()[i]);
+        block->addDeclaration(visit(ctx->declvar()[i]));
     }
     for (unsigned int i = 0; i < ctx->statement().size(); i++) {
         if (GrammarParser::ReturnContext* ret = dynamic_cast<GrammarParser::ReturnContext*>(ctx->statement()[i])) {
-            Expression* expr = visit(ret);
-            return (expr->getOffset());
+            block->addStatement(visit(ctx->statement()[i]));
+            return (block);
         }
         else {
-            visit(ctx->statement()[i]);
+            
+            block->addStatement(visit(ctx->statement()[i]));
         }
     }
-    return -1;
+    return block;
 }
 
 // STATEMENT
 antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 {
-    Expression* expr = visit(ctx->ret()->expr());
-    if(expr->getType() == VAR)
-    output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
-    else if(expr->getType() == CONST)
-    output << "movl $" << to_string(expr->getValeur()) << ", (%eax)" << endl;
-
-    output << "popq %rbp" << endl;
-    output << "ret" << endl;
-    return expr;
+    Expression * expr = visit(ctx->ret()->expr());
+    Return* ret = new Return(expr);
+    
+//    if(expr->getType() == VAR)
+//    output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
+//    else if(expr->getType() == CONST)
+//    output << "movl $" << to_string(expr->getValeur()) << ", (%eax)" << endl;
+//
+//    output << "popq %rbp" << endl;
+//    output << "ret" << endl;
+    return ret;
 }
 
 //DefVar
@@ -84,33 +97,34 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
         return -1;
     }
     else {
+        
         Expression* expr = visit(ctx->defvar()->expr());
-        //        int value = visit(ctx -> defvar()-> expr());
         it->second->setInitialized();
         it->second->setValeur(to_string(expr->getValeur()));
-        if (expr->getType() == EXPRBINAIRE) {
-            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
-            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
-        }
-        else if (expr->getType() == CONST) {
-            output << "movl $" << to_string(expr->getValeur()) << ", " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
-        }
-        else if (expr->getType() == VAR) {
-            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
-            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
-        }
-        return expr;
+
+        DefVar* defvar = new DefVar(it->second, expr);
+        //        int value = visit(ctx -> defvar()-> expr());
+//                if (expr->getType() == EXPRBINAIRE) {
+//            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
+//            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
+//        }
+//        else if (expr->getType() == CONST) {
+//            output << "movl $" << to_string(expr->getValeur()) << ", " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
+//        }
+//        else if (expr->getType() == VAR) {
+//            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
+//            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
+//        }
+        return defvar;
     }
 }
 
 //EXPR
 antlrcpp::Any Visitor::visitConst(GrammarParser::ConstContext* ctx)
 {
-    Expression* expr;
-    expr = new Expression();
-    expr->setValeur((int)stoi(ctx->INT()->getText()));
-    expr->setType(CONST);
-    return expr;
+    Expression* exprC = new ExpressionConst();
+    exprC->setValeur((int)stoi(ctx->INT()->getText()));
+    return exprC;
 }
 
 antlrcpp::Any Visitor::visitVar(GrammarParser::VarContext* ctx)
@@ -200,8 +214,8 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
 //TYPE
 antlrcpp::Any Visitor::visitTypeint(GrammarParser::TypeintContext* ctx)
 {
-    //TODO
-    return 0;
+    
+    return INT;
 }
 
 //DECLVAR

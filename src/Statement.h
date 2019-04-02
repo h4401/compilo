@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <iostream>
 
@@ -9,4 +10,3 @@ public:
 
 protected:
 };
-

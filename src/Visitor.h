@@ -5,6 +5,17 @@
 #include "Expression.h"
 #include "ExprOperationBinary.h"
 #include <unordered_map>
+#include "Variable.h"
+#include "Type.h"
+#include "Program.h"
+#include "Function.h"
+#include "Block.h"
+#include "DeclVar.h"
+#include "Statement.h"
+#include "Return.h"
+#include "ExpressionConst.h"
+#include "DefVar.h"
+
 
 class Visitor : public GrammarBaseVisitor {
 public:

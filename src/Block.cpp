@@ -1,23 +1,31 @@
-//
-//  Block.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
 #include "Block.h"
+
 using namespace std;
 
 Block::Block(){
-    
+
 }
 
 Block::~Block(){
-    
+
 }
 
-void Block::addStatement(Statement* stat){
-    statements.push_back(stat);
+std::vector<Statement*> Block::getStatements()
+{
+    return this->statements;
+}
+
+void Block::addStatement(Statement* statement){
+    statements.push_back(statement);
+}
+
+std::vector<DeclVar*> Block::getDeclarations()
+{
+    return this->declarations;
+}
+
+void Block::addDeclaration(DeclVar* declaration){
+    declarations.push_back(declaration);
 }
 
 void Block::generateAsm(ofstream& o){

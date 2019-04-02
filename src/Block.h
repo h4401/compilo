@@ -1,26 +1,30 @@
-//
-//  Block.h
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
 #ifndef Block_h
 #define Block_h
 #include <vector>
 #include "Statement.h"
-#include <iostream>
 #include "DeclVar.h"
+
 
 class Block{
 public:
-    Block();
-    virtual ~Block();
-    void addStatement(Statement* stat);
-    void generateAsm(std::ofstream& o);
+	Block();
+
+	virtual ~Block();
+	
+	std::vector<DeclVar*> getDeclarations();
+
+	void addDeclaration(DeclVar* declaration);
+   
+	std::vector<Statement*> getStatements();
+
+	void addStatement(Statement* statement);
+ 	
+	void generateAsm(std::ofstream& o);
+
 protected:
-    std::vector<Statement*>statements;
-    std::vector<DeclVar*>declVars;
+	std::vector<Statement*> statements;
+
+	std::vector<DeclVar*> declarations;
 };
 
 #endif /* Block_h */
