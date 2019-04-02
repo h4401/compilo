@@ -11,3 +11,6 @@ Statement::~Statement()
 {
 
 }
+string Statement::generateIR(){
+    return "";
+}

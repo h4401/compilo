@@ -6,3 +6,8 @@
 //
 
 #include "CFG.h"
+
+CFG::CFG(Function* ast){
+    this->ast = ast;
+}
+

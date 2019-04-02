@@ -6,4 +6,16 @@
 //
 
 #include "DeclVar.h"
+using namespace std;
 
+DeclVar::DeclVar(){
+    
+}
+
+DeclVar::~DeclVar(){
+    
+}
+
+string DeclVar::generateIR(){
+    return "";
+}

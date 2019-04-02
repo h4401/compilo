@@ -35,6 +35,10 @@ Type Function::getReturnType ()
     return this->returnType;
 }
 
-
+string Function::generateIR(CFG* cfg){
+    
+    this->block->generateIR();
+    return "";
+}
 
 

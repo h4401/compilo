@@ -3,8 +3,10 @@
 #include <string>
 #include "Block.h"
 #include "Type.h"
+#include "./IR/CFG.h"
 
 using namespace std;
+
 
 class Function
 {
@@ -23,6 +25,7 @@ class Function
 
         Type getReturnType ();
     
+        string generateIR(CFG* cfg);
 
 	//virtual void generateAssembly(ofstream& f, unordered_map<string, Variable*>& addressTable);
 

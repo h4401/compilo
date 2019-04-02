@@ -13,10 +13,12 @@
 class DeclVar
 {
 public:
-    
+    DeclVar();
+    ~DeclVar();
     void generateAsm(std::ostream& o);
     void setName();
     std::string getName();
+    std::string generateIR();
   
 protected:
     std::string name;

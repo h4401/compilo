@@ -21,6 +21,7 @@ public:
  	
 	void generateAsm(std::ofstream& o);
 
+    std::string generateIR();
 protected:
 	std::vector<Statement*> statements;
 

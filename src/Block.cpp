@@ -36,3 +36,13 @@ void Block::generateAsm(ofstream& o){
 //        declVars[i]->generateAsm(o);
 //    }
 }
+
+string Block::generateIR(){
+    for(DeclVar* declvar: declarations){
+        declvar->generateIR();
+    }
+    for(Statement* statement: statements){
+        statement->generateIR();
+    }
+    return "";
+}
