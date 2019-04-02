@@ -1,4 +1,6 @@
 #include "Expression.h"
+#include "Type.h"
+
 using namespace std;
 
 Expression::Expression(){}

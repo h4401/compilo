@@ -3,8 +3,15 @@
 
 #include <stdio.h>
 #include <fstream>
-#include "Type.h"
 #include "Statement.h"
+
+
+enum TypeExpr {
+    CONST = 0,
+    VAR = 1,
+    EXPRBINAIRE = 2
+};
+
 class Expression : public Statement{
 public:
     Expression();

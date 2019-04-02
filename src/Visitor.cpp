@@ -23,6 +23,7 @@ Visitor::~Visitor()
 // PROG
 antlrcpp::Any Visitor::visitProg(GrammarParser::ProgContext* ctx)
 {
+
     Program* prog = new Program();
     for(auto i: ctx->func()){
         prog->addFunction(visit(i));
@@ -33,6 +34,7 @@ antlrcpp::Any Visitor::visitProg(GrammarParser::ProgContext* ctx)
 // FUNC
 antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
 {
+
     string name = ctx->ID(0)->getText();
     Block* block = visit(ctx->block());
     Type type = visit(ctx->type(0));
@@ -51,6 +53,7 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
 //BLOCK
 antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 {
+
     Block* block = new Block();
 
     for (unsigned int i = 0; i < ctx->declvar().size(); i++) {
@@ -72,6 +75,7 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 // STATEMENT
 antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 {
+
     Expression * expr = visit(ctx->ret()->expr());
     Return* ret = new Return(expr);
     
@@ -97,6 +101,7 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
         return -1;
     }
     else {
+
         
         Expression* expr = visit(ctx->defvar()->expr());
         it->second->setInitialized();
@@ -122,6 +127,7 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
 //EXPR
 antlrcpp::Any Visitor::visitConst(GrammarParser::ConstContext* ctx)
 {
+
     Expression* exprC = new ExpressionConst();
     exprC->setValeur((int)stoi(ctx->INT()->getText()));
     return exprC;
@@ -214,6 +220,7 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
 //TYPE
 antlrcpp::Any Visitor::visitTypeint(GrammarParser::TypeintContext* ctx)
 {
+
     
     return INT;
 }
