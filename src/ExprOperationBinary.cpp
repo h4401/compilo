@@ -49,3 +49,7 @@ void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
     output << "movl (%eax)"
            << ", " << std::to_string(offset) << "(%rbp)" << std::endl;
 }
+
+std::string ExprOperationBinary::generateIR(){
+    return "";
+}

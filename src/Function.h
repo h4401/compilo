@@ -5,8 +5,8 @@
 #include "Block.h"
 #include "Type.h"
 #include "Variable.h"
-#include "./IR/CFG.h"
 
+class CFG;
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
 
@@ -31,6 +31,9 @@ class Function
         Type getReturnType ();
     
         string generateIR(CFG* cfg);
+    
+        SymbolTable* getSymbolTable();
+
 
 	//virtual void generateAssembly(ofstream& f, unordered_map<string, Variable*>& addressTable);
 

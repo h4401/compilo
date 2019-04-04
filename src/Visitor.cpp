@@ -20,9 +20,6 @@ Visitor::~Visitor()
     output.close();
 }
 
-SymbolTable* Visitor::getSymbolTable(){
-    return this->table;
-}
 
 // PROG
 antlrcpp::Any Visitor::visitProg(GrammarParser::ProgContext* ctx)

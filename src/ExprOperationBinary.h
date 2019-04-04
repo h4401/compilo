@@ -12,6 +12,8 @@ public:
     void generateAsm(std::ofstream& o, int offset);
 
     char getOperateur();
+    
+    std::string generateIR();
 
 private:
     Expression* expressionL;

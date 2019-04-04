@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 #include "../Type.h"
+#include "../Variable.h"
+#include "../Function.h"
 
 
 
@@ -23,7 +25,6 @@
  (again it could be identified in a more explicit way)
  
  */
-class Function;
 class BasicBlock;
 
 class CFG {

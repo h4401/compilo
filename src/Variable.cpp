@@ -31,3 +31,11 @@ void Variable::setValeur(string val)
 {
     this->valeur = val;
 }
+
+void Variable::setType(Type t){
+    this->type = t;
+}
+
+Type Variable::getType(){
+    return this->type;
+}

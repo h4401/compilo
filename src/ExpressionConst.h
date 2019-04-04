@@ -9,11 +9,13 @@
 #define ExpressionConst_h
 #include "Expression.h"
 
+class CFG;
+
 class ExpressionConst: public Expression{
 public:
     ExpressionConst();
     virtual ~ExpressionConst();
-    
+    std::string generateIR(CFG* cfg);
 protected:
     
 };

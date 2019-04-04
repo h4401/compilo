@@ -42,4 +42,8 @@ string Function::generateIR(CFG* cfg){
     return "";
 }
 
+SymbolTable* Function::getSymbolTable(){
+    return this->table;
+}
+
 

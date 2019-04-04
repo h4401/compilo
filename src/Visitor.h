@@ -25,7 +25,6 @@ public:
     Visitor();
     virtual ~Visitor();
     
-    SymbolTable* getSymbolTable();
 
     // PROG
     antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;

@@ -8,7 +8,8 @@ class Return : public Statement
         Return(Expression* expression);
 
         virtual ~Return();
-
+    
+        std::string generateIR();
     private:
         Expression* expression;
 };

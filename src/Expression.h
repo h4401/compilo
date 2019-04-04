@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <fstream>
 #include "Statement.h"
-
-
+//#include "./IR/CFG.h"
+class CFG;
 enum TypeExpr {
     CONST = 0,
     VAR = 1,
@@ -23,6 +23,7 @@ public:
     int getValeur();
     void setValeur(int valeur);
     virtual void generateAsm(std::ofstream& o, int offset);
+    virtual std::string generateIR(CFG* cfg);
 
 protected:
     bool isSimple;

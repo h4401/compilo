@@ -37,4 +37,10 @@ void Expression::setType(TypeExpr type)
     this->type = type;
 }
 
-void Expression::generateAsm(std::ofstream& o, int offset){}
+void Expression::generateAsm(std::ofstream& o, int offset){
+    
+}
+
+string Expression::generateIR(CFG* cfg){
+    return "";
+}
