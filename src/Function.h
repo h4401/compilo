@@ -1,9 +1,14 @@
 #pragma once
 
+#include <unordered_map>
 #include <string>
 #include "Block.h"
 #include "Type.h"
+#include "Variable.h"
 #include "./IR/CFG.h"
+
+typedef std::unordered_map<std::string, Variable*> SymbolTable;
+
 
 using namespace std;
 
@@ -11,7 +16,7 @@ using namespace std;
 class Function
 {
     public:
-	Function(string name, Block * block, Type returnType);
+	Function(SymbolTable* table, string name, Block * block, Type returnType);
 
         virtual ~Function();
         
@@ -30,6 +35,7 @@ class Function
 	//virtual void generateAssembly(ofstream& f, unordered_map<string, Variable*>& addressTable);
 
     private:
+	SymbolTable* table;
         std::string name;
         Block* block;
         std::vector<DeclVar*> parameters;

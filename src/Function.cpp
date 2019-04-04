@@ -1,6 +1,7 @@
 #include "Function.h"
 
-Function::Function(string name, Block * block, Type returnType){
+Function::Function(SymbolTable* table, string name, Block * block, Type returnType){
+	this->table = table;	
 	this->name = name;
 	this->block = block;
 	this->returnType = returnType;

@@ -1,19 +1,12 @@
-//
-//  DeclVar.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
 #include "DeclVar.h"
 using namespace std;
 
-DeclVar::DeclVar(){
-    
+DeclVar::DeclVar(string name, Type type){
+    this->name = name;
+    this->type = type;
 }
-
 DeclVar::~DeclVar(){
-    
+
 }
 
 string DeclVar::generateIR(){
