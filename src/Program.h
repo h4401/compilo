@@ -4,7 +4,6 @@
 #include "./IR/CFG.h"
 #include <vector>
 
-using namespace std;
 
 class Program
 {
@@ -15,10 +14,11 @@ class Program
        
         void addFunction(Function * function);
 
-        vector <Function*> getFunctions();
+        std::vector <Function*> getFunctions();
 
-        string generateIR();    
+        std::string generateIR();
     private:
-        vector <Function*> functions;
-        vector <CFG*> cfgs;
+        std::vector <Function*> functions;
+        std::vector <CFG*> cfgs;
+
 };

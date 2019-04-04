@@ -21,6 +21,8 @@ class Visitor : public GrammarBaseVisitor {
 public:
     Visitor();
     virtual ~Visitor();
+    
+    std::unordered_map<std::string,Variable*> getSymbolTable();
 
     // PROG
     antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;
@@ -61,6 +63,8 @@ public:
 
     //OPTINIT
     antlrcpp::Any visitInitvide(GrammarParser::InitvideContext* ctx) override;
+    
+    
 
 private:
     std::ofstream output;
