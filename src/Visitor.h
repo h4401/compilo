@@ -16,6 +16,7 @@
 #include "ExpressionConst.h"
 #include "DefVar.h"
 #include "ExprPar.h"
+#include "ExecFunc.h"
 
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
@@ -24,7 +25,7 @@ public:
     Visitor();
     virtual ~Visitor();
     
-    std::unordered_map<std::string,Variable*> getSymbolTable();
+    SymbolTable* getSymbolTable();
 
     // PROG
     antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;

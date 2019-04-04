@@ -20,7 +20,7 @@ Visitor::~Visitor()
     output.close();
 }
 
-unordered_map<string,Variable*> Visitor::getSymbolTable(){
+SymbolTable* Visitor::getSymbolTable(){
     return this->table;
 }
 
