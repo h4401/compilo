@@ -41,6 +41,7 @@ int main(int argc, char* argv[])
     tree::ParseTree* tree = parser.prog();
     Visitor visitor;
     Program* prog = visitor.visit(tree);
+    cout<<*prog<<endl;
     cout << "Abstract Syntaxic Tree generated" << endl;
     cout << "Assembly generated to ./asm.s" << endl;
 

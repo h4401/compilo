@@ -1,6 +1,6 @@
-#ifndef Block_h
-#define Block_h
+#pragma once
 #include <vector>
+#include <iostream>
 #include "Statement.h"
 #include "DeclVar.h"
 
@@ -12,7 +12,7 @@ public:
 
 	virtual ~Block();
   
-  friend ostream &operator<<(ostream & os, const Block& block);
+  	friend std::ostream& operator<< (std::ostream& stream, const Block& block);
 	
 	std::vector<DeclVar*> getDeclarations();
 
@@ -24,11 +24,10 @@ public:
  	
 	void generateAsm(std::ofstream& o);
 
-    std::string generateIR();
+    	std::string generateIR();
 protected:
 	std::vector<Statement*> statements;
 
 	std::vector<DeclVar*> declarations;
 };
 
-#endif /* Block_h */

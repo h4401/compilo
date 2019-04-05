@@ -10,6 +10,8 @@ public:
     void generateAsm(std::ofstream& o, int offset);
     char getOperateur(); 
     std::string generateIR();
+    Expression* getExpressionL();
+    Expression* getExpressionR();
 
 
 private:

@@ -21,6 +21,8 @@ class Function
 
         virtual ~Function();
         
+	friend ostream & operator<<(ostream & stream, const Function & function);
+
 	std::vector<DeclVar*> getParameters();
 
 	void setParameters(vector <DeclVar*> parameters);

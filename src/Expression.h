@@ -1,8 +1,7 @@
-#ifndef Expression_h
-#define Expression_h
-
+#pragma once
 #include <stdio.h>
 #include <fstream>
+#include <iostream>
 #include "Statement.h"
 //#include "./IR/CFG.h"
 class CFG;
@@ -13,7 +12,7 @@ enum TypeExpr {
     EXPRBINAIRE = 2
 };
 
-class Expression : public Statement{
+class Expression {
 public:
     Expression();
     virtual ~Expression();
@@ -24,10 +23,10 @@ public:
     int getValeur();
     void setValeur(int valeur);
     virtual void generateAsm(std::ofstream& o, int offset);
-    std::ostream &operator<<(std::ostream &os);
+    friend std::ostream &operator<<(std::ostream &os, const Expression& e);
+    virtual void print(std::ostream& stream) const = 0;
     virtual std::string generateIR(CFG* cfg);
-
-
+    
 protected:
     bool isSimple;
     int offset;
@@ -37,4 +36,3 @@ protected:
 
 
 
-#endif /* Expression_h */

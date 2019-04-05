@@ -1,6 +1,19 @@
-
 #include "Program.h"
 using namespace std;
+
+ostream & operator<<(ostream & stream, const Program & programme)
+{
+    stream << "Programme:" << endl;
+
+    for (auto function :  programme.functions)
+    {
+        stream << *function;
+    }
+
+    stream << endl;
+
+    return stream;
+}
 
 
 void Program::addFunction(Function *function)

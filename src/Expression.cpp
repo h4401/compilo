@@ -37,8 +37,9 @@ void Expression::setType(TypeExpr type)
     this->type = type;
 }
 
-std::ostream &operator<<(std::ostream &os, Expression e){
-    os << "Expression: " << e.getValeur() << "," << e.getType() << "," << e.getOffset() << endl;
+std::ostream &operator<<(std::ostream &os, const Expression& e){
+    os << "Expression:";
+    e.print(stream);
     return os;
 } 
 

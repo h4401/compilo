@@ -1,5 +1,4 @@
-#ifndef ExprPar_h
-#define ExprPar_h
+#pragma once
 #include "Expression.h"
 
 class ExprPar: public Expression{
@@ -10,4 +9,4 @@ public:
 protected:
     Expression* expr;    
 };
-#endif /* ExprPar_h */
+

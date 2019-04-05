@@ -1,12 +1,10 @@
+#pragma once
 //
 //  DeclVar.h
 //  
 //
 //  Created by yanghua on 2019/3/29.
 //
-
-#ifndef DeclVar_h
-#define DeclVar_h
 #include <string>
 #include <iostream>
 #include "Type.h"
@@ -28,4 +26,3 @@ protected:
     std::string name;
 };
 
-#endif /* DeclVar_h */

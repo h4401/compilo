@@ -10,6 +10,25 @@ Function::Function(SymbolTable* table, string name, Block * block, Type returnTy
 Function::~Function(){
 }
 
+ostream & operator<<(ostream & stream, const Function & function)
+{
+    stream << " Fonction: Name=" << function.name << " TypeRetour=" << function.returnType << endl;
+
+    if(function.parameters.size()!= 0)
+    {
+        stream << "     Param:" << endl;
+
+        for (auto it : function.parameters)
+        {
+            stream << *it;
+        }
+    }
+
+    stream << *function.block;
+
+    return stream;
+}
+
 std::vector<DeclVar*> Function::getParameters()
 {
     return this->parameters;

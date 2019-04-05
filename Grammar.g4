@@ -33,31 +33,9 @@ statement : ret			#return
 	| defvar		#defvariable
 	;
 
-forblock : 'for' '(' defvar test ';' ID '=' expr ')' block
-	;
-
-whileblock : 'while' '(' tests ')' block	#whiletestbefore
-	| 'do '	block 'while' '(' tests ')' ';'	#whiletestafter
-	;
-
-ifblock : 'if' '(' tests ')' block ('else' block)?;
-
 ret : 'return' expr ';';
 
-tests : test (andor test)*;
-test : expr comparator expr;
 
-andor :   '||'			#or
-	| '&&'			#and
-	;
-	
-comparator: '=='		#equal
-	| '!='			#nonequal
-	| '>'			#strictlygreaterthan
-	| '<'			#strictlylesserthan
-	| '>='			#greaterthan
-	| '<='			#lesserthan
-	;
 param :  expr (',' expr)*;
 
 type: 'int' 		#typeint
@@ -68,5 +46,3 @@ type: 'int' 		#typeint
 INT : [0-9]+ ;
 ID : [a-zA-Z][a-zA-Z0-9]*;
 WS : [\t\r\n ] -> skip;
-
-

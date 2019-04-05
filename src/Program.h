@@ -3,6 +3,7 @@
 #include "Function.h"
 #include "./IR/CFG.h"
 #include <vector>
+#include <iostream>
 
 
 class Program
@@ -11,6 +12,8 @@ class Program
         Program();
 
         virtual ~Program();
+
+	friend ostream & operator<<(ostream & stream, const Program & Program);
        
         void addFunction(Function * function);
 
