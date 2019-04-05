@@ -14,6 +14,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Variable& v);
     Type getType();
     void setType(Type t);
+    std::string generateIR(CFG* cfg);
 
 private:
     std::string name;

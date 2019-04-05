@@ -15,6 +15,6 @@ DeclVar::~DeclVar(){
 
 }
 
-string DeclVar::generateIR(){
+string DeclVar::generateIR(CFG* cfg){
     return "";
 }

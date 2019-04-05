@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Type.h"
 
+class CFG;
 class DeclVar
 {
 public:
@@ -19,7 +20,8 @@ public:
     void setName();
     friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
     std::string getName();
-    std::string generateIR();
+    std::string generateIR(CFG* cfg);
+  
 
 protected:
     Type type;

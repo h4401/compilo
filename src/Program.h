@@ -20,6 +20,8 @@ class Program
         std::vector <Function*> getFunctions();
 
         std::string generateIR();
+    
+        void gen_asm(ostream & o);
     private:
         std::vector <Function*> functions;
         std::vector <CFG*> cfgs;

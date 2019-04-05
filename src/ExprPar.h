@@ -5,7 +5,7 @@ class ExprPar: public Expression{
 public:
     ExprPar(Expression* expr);
     virtual ~ExprPar();
-    std::string generateIR();
+    std::string generateIR(CFG* cfg);
 protected:
     Expression* expr;    
 };

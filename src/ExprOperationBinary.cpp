@@ -51,6 +51,7 @@ void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
            << ", " << std::to_string(offset) << "(%rbp)" << std::endl;
 }
 
+
 Expression* ExprOperationBinary::getExpressionL(){
     return expressionL;
 }
@@ -65,6 +66,7 @@ std::ostream &operator<<(std::ostream &os, ExprOperationBinary eob){
     return os;
 }
 
-std::string ExprOperationBinary::generateIR(){
+std::string ExprOperationBinary::generateIR(CFG* cfg){
+
     return "";
 }

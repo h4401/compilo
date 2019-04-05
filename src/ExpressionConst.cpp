@@ -23,6 +23,7 @@ string ExpressionConst::generateIR(CFG* cfg){
     params.push_back(var);
     params.push_back(to_string(this->getValeur()));
     cfg->current_bb->add_IRInstr(AddInstr::ldconst,INT,params);
+    cout<<"add"<<endl;
     return var;
     
 }

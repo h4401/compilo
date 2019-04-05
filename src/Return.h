@@ -14,7 +14,7 @@ class Return : public Statement
 
         virtual ~Return();
     
-        std::string generateIR();
+        std::string generateIR(CFG* cfg);
     private:
         Expression* expression;
 };

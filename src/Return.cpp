@@ -1,6 +1,7 @@
 #include "Return.h"
 using namespace std;
 
+class CFG;
 Return::Return(Expression* expression){
 	this->expression = expression;
 }
@@ -9,7 +10,8 @@ Return::~Return(){
 
 }
 
-string Return::generateIR(){
+string Return::generateIR(CFG* cfg){
+    this->expression->generateIR(cfg);
     return "";
 }
 

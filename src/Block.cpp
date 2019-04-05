@@ -49,12 +49,12 @@ ostream & operator<<(ostream & os, const Block &block){
     return os;
 }
 
-string Block::generateIR(){
+string Block::generateIR(CFG* cfg){
     for(DeclVar* declvar: declarations){
-        declvar->generateIR();
+        declvar->generateIR(cfg);
     }
     for(Statement* statement: statements){
-        statement->generateIR();
+        statement->generateIR(cfg);
     }
     return "";
 }

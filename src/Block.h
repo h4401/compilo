@@ -4,7 +4,7 @@
 #include "Statement.h"
 #include "DeclVar.h"
 
-
+class CFG;
 class Block{
 public:
 
@@ -24,7 +24,8 @@ public:
  	
 	void generateAsm(std::ofstream& o);
 
-    	std::string generateIR();
+    std::string generateIR(CFG* cfg);
+
 protected:
 	std::vector<Statement*> statements;
 

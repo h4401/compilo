@@ -57,7 +57,7 @@ Type Function::getReturnType ()
 
 string Function::generateIR(CFG* cfg){
     
-    this->block->generateIR();
+    this->block->generateIR(cfg);
     return "";
 }
 

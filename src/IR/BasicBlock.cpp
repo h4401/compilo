@@ -34,6 +34,15 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
         case IRInstr::ldconst:
             string destination = params[0];
             string constant = params[1];
-            instrs.push_back(new LdconstInstr(this,t,destination, constant));
+            LdconstInstr* ld = new LdconstInstr(this,t,destination, constant);
+            instrs.push_back(ld);
+    }
+}
+
+void BasicBlock::gen_asm(ostream& o){
+    cout<<instrs.size()<<endl;
+    for(auto irinstr : instrs){
+        cout<<"lol"<<endl;
+        irinstr->gen_asm(o);
     }
 }

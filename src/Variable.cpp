@@ -46,3 +46,7 @@ void Variable::setType(Type t){
 Type Variable::getType(){
     return this->type;
 }
+
+string Variable::generateIR(CFG* cfg){
+    return "";
+}

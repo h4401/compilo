@@ -5,16 +5,21 @@
 #include "Expression.h"
 #include "Statement.h"
 
+class CFG;
 class DefVar : public Statement
 {
     public:
         DefVar(Variable* variable, Expression* expression);
 
         virtual ~DefVar();
+    
 	
 	friend std::ostream& operator<< (std::ostream& stream, const DefVar& definition);
 	
 	void print(std::ostream& stream) const;
+    
+    std::string generateIR(CFG* cfg);
+
     private:
         Variable* variable;
 

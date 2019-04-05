@@ -8,6 +8,6 @@ ExprPar::~ExprPar(){
     
 }
 
-string ExprPar::generateIR(){
+string ExprPar::generateIR(CFG* cfg){
     return "";
 }
