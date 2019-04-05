@@ -1,4 +1,6 @@
 #include "Expression.h"
+#include "Type.h"
+
 using namespace std;
 
 Expression::Expression(){}
@@ -35,9 +37,15 @@ void Expression::setType(TypeExpr type)
     this->type = type;
 }
 
-void Expression::generateAsm(std::ofstream& o, int offset){}
-
 std::ostream &operator<<(std::ostream &os, Expression e){
     os << "Expression: " << e.getValeur() << "," << e.getType() << "," << e.getOffset() << endl;
     return os;
 } 
+
+void Expression::generateAsm(std::ofstream& o, int offset){
+    
+}
+
+string Expression::generateIR(CFG* cfg){
+    return "";
+}

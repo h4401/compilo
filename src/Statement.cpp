@@ -1,19 +1,18 @@
-using namespace std;
 #include "Statement.h"
 #include <iostream>
+using namespace std;
 
 Statement::Statement()
 {
-    #ifdef MAP
-        cout << "Appel au constructeur de <Statement>" << endl;
-    #endif
+
 }
 
 Statement::~Statement()
 {
-    #ifdef MAP
-        cout << "Appel au destructeur de <Statement>" << endl;
-    #endif
+
+}
+string Statement::generateIR(){
+    return "";
 }
 
 ostream &operator<<(ostream &os, const Statement  &s){

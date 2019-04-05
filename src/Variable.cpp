@@ -37,4 +37,12 @@ ostream &operator<<(ostream &os, const Variable& v){
     os << "Variable" << endl;
     os << "Value: " << v.valeur << "," << v.memOffset << endl;
     return os;
+}   
+ 
+void Variable::setType(Type t){
+    this->type = t;
+}
+
+Type Variable::getType(){
+    return this->type;
 }

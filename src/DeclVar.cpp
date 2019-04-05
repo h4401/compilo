@@ -1,10 +1,3 @@
-//
-//  DeclVar.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
 #include "DeclVar.h"
 #include <iostream>
 using namespace std;
@@ -14,3 +7,14 @@ ostream &operator<<(ostream &os, const DeclVar& dv){
     return os;
 }
 
+DeclVar::DeclVar(string name, Type type){
+    this->name = name;
+    this->type = type;
+}
+DeclVar::~DeclVar(){
+
+}
+
+string DeclVar::generateIR(){
+    return "";
+}

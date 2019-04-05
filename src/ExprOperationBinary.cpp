@@ -64,3 +64,7 @@ std::ostream &operator<<(std::ostream &os, ExprOperationBinary eob){
     os << eob.getExpressionL() << eob.getExpressionR() << std::endl;
     return os;
 }
+
+std::string ExprOperationBinary::generateIR(){
+    return "";
+}

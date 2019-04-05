@@ -31,10 +31,6 @@ block : '{' declvar* statement* '}';
 
 statement : ret			#return	
 	| defvar		#defvariable
-	| expr			#expression
-	| ifblock		#ifelseblock
-	| whileblock		#whileloopblock
-	| forblock		#forloopblock
 	;
 
 forblock : 'for' '(' defvar test ';' ID '=' expr ')' block

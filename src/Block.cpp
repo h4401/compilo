@@ -1,24 +1,32 @@
-//
-//  Block.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
 #include "Block.h"
 #include <iostream>
+
 using namespace std;
 
 Block::Block(){
-    
+
 }
 
 Block::~Block(){
-    
+
 }
 
-void Block::addStatement(Statement* stat){
-    statements.push_back(stat);
+std::vector<Statement*> Block::getStatements()
+{
+    return this->statements;
+}
+
+void Block::addStatement(Statement* statement){
+    statements.push_back(statement);
+}
+
+std::vector<DeclVar*> Block::getDeclarations()
+{
+    return this->declarations;
+}
+
+void Block::addDeclaration(DeclVar* declaration){
+    declarations.push_back(declaration);
 }
 
 void Block::generateAsm(ofstream& o){
@@ -29,6 +37,7 @@ void Block::generateAsm(ofstream& o){
 //        declVars[i]->generateAsm(o);
 //    }
 }
+
 
 std::vector<Statement*> Block::getStatements(){
     return statements;
@@ -47,3 +56,14 @@ ostream & operator<<(ostream & os, const Block &block){
     }
     return os;
 }
+
+string Block::generateIR(){
+    for(DeclVar* declvar: declarations){
+        declvar->generateIR();
+    }
+    for(Statement* statement: statements){
+        statement->generateIR();
+    }
+    return "";
+}
+

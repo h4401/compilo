@@ -3,8 +3,16 @@
 
 #include <stdio.h>
 #include <fstream>
-#include "Type.h"
 #include "Statement.h"
+//#include "./IR/CFG.h"
+class CFG;
+
+enum TypeExpr {
+    CONST = 0,
+    VAR = 1,
+    EXPRBINAIRE = 2
+};
+
 class Expression : public Statement{
 public:
     Expression();
@@ -17,6 +25,8 @@ public:
     void setValeur(int valeur);
     virtual void generateAsm(std::ofstream& o, int offset);
     std::ostream &operator<<(std::ostream &os);
+    virtual std::string generateIR(CFG* cfg);
+
 
 protected:
     bool isSimple;
@@ -24,5 +34,7 @@ protected:
     int valeur;
     TypeExpr type;
 };
+
+
 
 #endif /* Expression_h */

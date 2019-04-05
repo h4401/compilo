@@ -5,11 +5,26 @@
 #include "Expression.h"
 #include "ExprOperationBinary.h"
 #include <unordered_map>
+#include "Variable.h"
+#include "Type.h"
+#include "Program.h"
+#include "Function.h"
+#include "Block.h"
+#include "DeclVar.h"
+#include "Statement.h"
+#include "Return.h"
+#include "ExpressionConst.h"
+#include "DefVar.h"
+#include "ExprPar.h"
+#include "ExecFunc.h"
+
+typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
 class Visitor : public GrammarBaseVisitor {
 public:
     Visitor();
     virtual ~Visitor();
+    
 
     // PROG
     antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;
@@ -42,6 +57,9 @@ public:
 
     antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;
 
+    //param
+    antlrcpp::Any visitParam(GrammarParser::ParamContext* ctx) override;
+
     //TYPE
     antlrcpp::Any visitTypeint(GrammarParser::TypeintContext* ctx) override;
 
@@ -50,10 +68,14 @@ public:
 
     //OPTINIT
     antlrcpp::Any visitInitvide(GrammarParser::InitvideContext* ctx) override;
+    
+    
+
+    antlrcpp::Any visitInit(GrammarParser::InitContext* ctx) override;
 
 private:
     std::ofstream output;
-    std::unordered_map<std::string, Variable*> table;
+    SymbolTable * table;
     int offset;
     bool error;
     bool firstMult;

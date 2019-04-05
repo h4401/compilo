@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-class Variable {
+#include "Type.h"
+#include "Expression.h"
+class Variable : public Expression{
 
 public:
     Variable(std::string name, int offset, bool initialized);
@@ -10,10 +12,13 @@ public:
     std::string getValeur();
     void setValeur(std::string val);
     friend std::ostream &operator<<(std::ostream &os, const Variable& v);
+    Type getType();
+    void setType(Type t);
 
 private:
     std::string name;
     int memOffset;
     bool initialized;
     std::string valeur;
+    Type type;
 };

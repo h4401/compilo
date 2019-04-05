@@ -8,9 +8,9 @@ public:
     ExprOperationBinary(Expression* expressionL, Expression* expressionR, char operateur);
     virtual ~ExprOperationBinary();
     void generateAsm(std::ofstream& o, int offset);
-    char getOperateur();
-    Expression* getExpressionL();
-    Expression* getExpressionR();
+    char getOperateur(); 
+    std::string generateIR();
+
 
 private:
     Expression* expressionL;
