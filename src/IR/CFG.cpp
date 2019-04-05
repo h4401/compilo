@@ -16,3 +16,6 @@ CFG::CFG(Function* ast){
     }
 }
 
+CFG::~CFG(){
+}
+

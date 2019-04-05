@@ -4,6 +4,7 @@
 #include "src/GrammarParser.h"
 #include "src/GrammarBaseVisitor.h"
 #include "src/Visitor.h"
+#include "src/Program.h"
 
 using namespace antlr4;
 using namespace std;
@@ -39,10 +40,9 @@ int main(int argc, char* argv[])
     GrammarParser parser(&tokens);
     tree::ParseTree* tree = parser.prog();
     Visitor visitor;
-    int result = (int)visitor.visit(tree);
-
+    Program* prog = visitor.visit(tree);
     cout << "Abstract Syntaxic Tree generated" << endl;
     cout << "Assembly generated to ./asm.s" << endl;
 
-    return result;
+    return 1;
 }

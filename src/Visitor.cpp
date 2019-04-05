@@ -58,7 +58,10 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
     Block* block = new Block();
 
     for (unsigned int i = 0; i < ctx->declvar().size(); i++) {
-        block->addDeclaration(visit(ctx->declvar()[i]));
+	std::vector<DeclVar*> declarations = visit(ctx->declvar()[i]);
+	for(auto d : declarations){
+        	block->addDeclaration(d);
+	}
     }
     for (unsigned int i = 0; i < ctx->statement().size(); i++) {
         //if (GrammarParser::ReturnContext* ret = dynamic_cast<GrammarParser::ReturnContext*>(ctx->statement()[i])) {
@@ -66,7 +69,6 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
           //  return (block);
         //}
         //else {
-            
             block->addStatement(visit(ctx->statement()[i]));
         //}
     }
@@ -87,7 +89,7 @@ antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 //
 //    output << "popq %rbp" << endl;
 //    output << "ret" << endl;
-    return ret;
+    return dynamic_cast<Statement *>(ret);
 }
 
 //DefVar
@@ -121,7 +123,7 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
 //            output << "movl " << to_string(expr->getOffset()) << "(%rbp), (%eax)" << endl;
 //            output << "movl (%eax), " << to_string(it->second->getOffset()) << "(%rbp)" << endl;
 //        }
-        return defvar;
+        return dynamic_cast<Statement *>(defvar);
     }
 }
 
@@ -131,7 +133,7 @@ antlrcpp::Any Visitor::visitConst(GrammarParser::ConstContext* ctx)
 
     Expression* exprC = new ExpressionConst();
     exprC->setValeur((int)stoi(ctx->INT()->getText()));
-    return exprC;
+    return dynamic_cast<Expression *>(exprC);
 }
 
 antlrcpp::Any Visitor::visitVar(GrammarParser::VarContext* ctx)
@@ -152,7 +154,7 @@ antlrcpp::Any Visitor::visitVar(GrammarParser::VarContext* ctx)
     Variable * var = it->second;
     //expr->setOffset(it->second->getOffset());
     //expr->setType(VAR);
-    return var;
+    return dynamic_cast<Expression *>(var);
 }
 
 antlrcpp::Any Visitor::visitPlus(GrammarParser::PlusContext* ctx)
@@ -165,8 +167,7 @@ antlrcpp::Any Visitor::visitPlus(GrammarParser::PlusContext* ctx)
     ePlus->generateAsm(output, offset);
     ePlus->setType(EXPRBINAIRE);
     ePlus->setOffset(offset);
-    return ePlus;
-    //return dynamic_cast<Expression*>(ePlus);
+    return dynamic_cast<Expression*>(ePlus);
 }
 
 antlrcpp::Any Visitor::visitMinus(GrammarParser::MinusContext* ctx)
@@ -178,8 +179,7 @@ antlrcpp::Any Visitor::visitMinus(GrammarParser::MinusContext* ctx)
     //eMinus->generateAsm(output, offset);
     eMinus->setType(EXPRBINAIRE);
     eMinus->setOffset(offset);
-    return eMinus;
-    //return dynamic_cast<Expression*>(eMinus);
+    return dynamic_cast<Expression*>(eMinus);
 }
 
 antlrcpp::Any Visitor::visitMult(GrammarParser::MultContext* ctx)
@@ -192,8 +192,7 @@ antlrcpp::Any Visitor::visitMult(GrammarParser::MultContext* ctx)
     //eMult->generateAsm(output, offset);
     eMult->setType(EXPRBINAIRE);
     eMult->setOffset(offset);
-    return eMult;
-    //return dynamic_cast<Expression*>(eMult);
+    return dynamic_cast<Expression*>(eMult);
 }
 
 antlrcpp::Any Visitor::visitDiv(GrammarParser::DivContext* ctx)
@@ -205,15 +204,14 @@ antlrcpp::Any Visitor::visitDiv(GrammarParser::DivContext* ctx)
     //eDiv->generateAsm(output, offset);
     eDiv->setType(EXPRBINAIRE);
     eDiv->setOffset(offset);
-    return eDiv;
-    //return dynamic_cast<Expression*>(eDiv);
+   return dynamic_cast<Expression*>(eDiv);
 }
 
 antlrcpp::Any Visitor::visitPar(GrammarParser::ParContext* ctx)
 {
     Expression* expr = visit(ctx->expr());
     ExprPar* exprPar = new ExprPar(expr);
-    return exprPar;
+    return dynamic_cast<Expression *>(exprPar);
 }
 
 antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
@@ -221,7 +219,7 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
     string name = ctx->execfunc()->ID()->getText();
     vector<Expression *> params = visit(ctx->execfunc()->param());
     ExecFunc* exe = new ExecFunc(name, params);
-    return exe;
+    return dynamic_cast<Expression *>(exe);
 }
 
 //params
@@ -257,8 +255,10 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
         else {
             offset -= 4;
             Variable* v = new Variable(name, offset, false);
-	    if ( ExpressionConst * exprC = visit(ctx->optinit(i)))
+	    
+	    if ( GrammarParser::InitContext * init = dynamic_cast<GrammarParser::InitContext*>(ctx->optinit(i)))
 	    {
+		ExpressionConst * exprC = visit(ctx->optinit(i));
 		v->setValeur(to_string(exprC->getValeur()));
 	    }
             table->insert(std::make_pair(name, v));

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include "Type.h"
-class Variable {
+#include "Expression.h"
+class Variable : public Expression{
 
 public:
     Variable(std::string name, int offset, bool initialized);

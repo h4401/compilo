@@ -31,7 +31,6 @@ block : '{' declvar* statement* '}';
 
 statement : ret			#return	
 	| defvar		#defvariable
-	| expr			#expression
 	;
 
 ret : 'return' expr ';';
