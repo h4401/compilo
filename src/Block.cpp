@@ -1,4 +1,5 @@
 #include "Block.h"
+#include <iostream>
 
 using namespace std;
 
@@ -37,6 +38,25 @@ void Block::generateAsm(ofstream& o){
 //    }
 }
 
+
+std::vector<Statement*> Block::getStatements(){
+    return statements;
+}
+
+std::vector<DeclVar*> Block::getDeclVars(){
+    return declVars;
+}
+
+ostream & operator<<(ostream & os, const Block &block){
+    for(Statement* st : block.statements){
+        os << st << endl;
+    }
+    for (DeclVar* dv : block.declVars){
+        os << dv << endl;
+    }
+    return os;
+}
+
 string Block::generateIR(){
     for(DeclVar* declvar: declarations){
         declvar->generateIR();
@@ -46,3 +66,4 @@ string Block::generateIR(){
     }
     return "";
 }
+

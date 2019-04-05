@@ -11,6 +11,7 @@ public:
     void setInitialized();
     std::string getValeur();
     void setValeur(std::string val);
+    friend std::ostream &operator<<(std::ostream &os, const Variable& v);
     Type getType();
     void setType(Type t);
 

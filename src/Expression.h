@@ -24,7 +24,9 @@ public:
     int getValeur();
     void setValeur(int valeur);
     virtual void generateAsm(std::ofstream& o, int offset);
+    std::ostream &operator<<(std::ostream &os);
     virtual std::string generateIR(CFG* cfg);
+
 
 protected:
     bool isSimple;

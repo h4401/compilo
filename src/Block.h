@@ -7,9 +7,12 @@
 
 class Block{
 public:
+
 	Block();
 
 	virtual ~Block();
+  
+  friend ostream &operator<<(ostream & os, const Block& block);
 	
 	std::vector<DeclVar*> getDeclarations();
 

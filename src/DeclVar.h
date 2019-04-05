@@ -19,13 +19,13 @@ public:
 
     void generateAsm(std::ostream& o);
     void setName();
+    friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
     std::string getName();
     std::string generateIR();
-  
+
 protected:
     Type type;
     std::string name;
-    
 };
 
 #endif /* DeclVar_h */

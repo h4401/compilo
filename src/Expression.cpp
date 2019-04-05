@@ -37,6 +37,11 @@ void Expression::setType(TypeExpr type)
     this->type = type;
 }
 
+std::ostream &operator<<(std::ostream &os, Expression e){
+    os << "Expression: " << e.getValeur() << "," << e.getType() << "," << e.getOffset() << endl;
+    return os;
+} 
+
 void Expression::generateAsm(std::ofstream& o, int offset){
     
 }
@@ -44,5 +49,3 @@ void Expression::generateAsm(std::ofstream& o, int offset){
 string Expression::generateIR(CFG* cfg){
     return "";
 }
-
-
