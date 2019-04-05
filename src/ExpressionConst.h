@@ -8,9 +8,7 @@
 #ifndef ExpressionConst_h
 #define ExpressionConst_h
 #include "Expression.h"
-
-class CFG;
-
+#include "./IR/CFG.h"
 class ExpressionConst: public Expression{
 public:
     ExpressionConst();

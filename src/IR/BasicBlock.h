@@ -23,7 +23,10 @@ public:
     void gen_asm(std::ostream &o); /**< x86 assembly code generation for this basic block (very simple) */
     
     void add_IRInstr(IRInstr::Operation op, Type t, std::vector<std::string> params);
-    
+    void set_exit_true(BasicBlock* BasicBlock);
+    void set_exit_false(BasicBlock* BasicBlock);
+    BasicBlock* get_exit_true();
+    BasicBlock* get_exit_false();
     
 protected:
     BasicBlock* exit_true;  /**< pointer to the next basic block, true branch. If nullptr, return from procedure */

@@ -6,6 +6,7 @@
 #include "Statement.h"
 //#include "./IR/CFG.h"
 class CFG;
+
 enum TypeExpr {
     CONST = 0,
     VAR = 1,

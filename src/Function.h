@@ -4,9 +4,10 @@
 #include <string>
 #include "Block.h"
 #include "Type.h"
-#include "Variable.h"
+//#include "Variable.h"
 
 class CFG;
+class Variable;
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
 

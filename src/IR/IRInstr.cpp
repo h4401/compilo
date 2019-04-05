@@ -6,3 +6,11 @@
 //
 
 #include "IRInstr.h"
+
+IRInstr::IRInstr(BasicBlock* bb_, Operation op, Type t){
+    
+}
+
+IRInstr::~IRInstr(){
+    
+}
