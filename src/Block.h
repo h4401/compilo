@@ -18,9 +18,12 @@ public:
     virtual ~Block();
     void addStatement(Statement* stat);
     void generateAsm(std::ofstream& o);
+    friend ostream &operator<<(ostream & os, const Block& block);
+    std::vector<Statement*> getStatements();
+    std::vector<DeclVar*> getDeclVars();
 protected:
-    std::vector<Statement*>statements;
-    std::vector<DeclVar*>declVars;
+    std::vector<Statement*> statements;
+    std::vector<DeclVar*> declVars;
 };
 
 #endif /* Block_h */

@@ -36,3 +36,8 @@ void Expression::setType(TypeExpr type)
 }
 
 void Expression::generateAsm(std::ofstream& o, int offset){}
+
+std::ostream &operator<<(std::ostream &os, Expression e){
+    os << "Expression: " << e.getValeur() << "," << e.getType() << "," << e.getOffset() << endl;
+    return os;
+} 

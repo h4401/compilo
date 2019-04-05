@@ -1,4 +1,5 @@
 #include "Variable.h"
+#include <iostream>
 using namespace std;
 Variable::Variable(std::string name, int memOffset, bool initialized)
 {
@@ -30,4 +31,10 @@ string Variable::getValeur()
 void Variable::setValeur(string val)
 {
     this->valeur = val;
+}
+
+ostream &operator<<(ostream &os, const Variable& v){
+    os << "Variable" << endl;
+    os << "Value: " << v.valeur << "," << v.memOffset << endl;
+    return os;
 }

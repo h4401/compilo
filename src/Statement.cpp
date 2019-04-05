@@ -15,3 +15,8 @@ Statement::~Statement()
         cout << "Appel au destructeur de <Statement>" << endl;
     #endif
 }
+
+ostream &operator<<(ostream &os, const Statement  &s){
+    os << "Statement" <<endl;
+    return os;
+}

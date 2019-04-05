@@ -7,6 +7,7 @@ ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* ex
     this->operateur = operateur;
 }
 
+
 ExprOperationBinary::~ExprOperationBinary()
 {
 }
@@ -48,4 +49,18 @@ void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
     }
     output << "movl (%eax)"
            << ", " << std::to_string(offset) << "(%rbp)" << std::endl;
+}
+
+Expression* ExprOperationBinary::getExpressionL(){
+    return expressionL;
+}
+
+Expression* ExprOperationBinary::getExpressionR(){
+    return expressionR;
+}
+
+std::ostream &operator<<(std::ostream &os, ExprOperationBinary eob){
+    os << "Binary Expression : " << std::endl;
+    os << eob.getExpressionL() << eob.getExpressionR() << std::endl;
+    return os;
 }

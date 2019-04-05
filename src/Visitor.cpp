@@ -37,6 +37,7 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
     output << "main:" << endl;
     output << "pushq  %rbp" << endl;
     output << "movq %rsp, %rbp" << endl;
+    cout << ctx->block;
     return visit(ctx->block());
 }
 

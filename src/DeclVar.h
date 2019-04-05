@@ -16,11 +16,9 @@ public:
     
     void generateAsm(std::ostream& o);
     void setName();
-    std::string getName();
-  
+    friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
 protected:
     std::string name;
-    
 };
 
 #endif /* DeclVar_h */
