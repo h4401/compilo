@@ -2,6 +2,8 @@
 
 #include "Expression.h"
 #include <fstream>
+#include "./IR/CFG.h"
+
 
 class ExprOperationBinary : public Expression {
 public:

@@ -10,7 +10,9 @@
 using namespace std;
 
 IRInstr::IRInstr(BasicBlock* bb_, Operation op, Type t){
-    
+    this->bb = bb_;
+    this->op = op;
+    this->t = t;
 }
 
 IRInstr::~IRInstr(){
@@ -54,3 +56,16 @@ void WmemInstr::gen_asm(ostream &o){
 void LdconstInstr::gen_asm(ostream &o){
     o << "movl $" << this->c << ", " << this->d << "(%rbp)" << endl;    
 }
+
+void IRInstr::toString(){
+    
+}
+
+void LdconstInstr::toString(){
+    std::cout<<"Ldconst: "<<op<<" d:"<<d<<" "<<"c:"<<c<<" "<<std::endl;
+}
+
+void AddInstr::toString(){
+    std::cout<<"Add: "<<op<<" d:"<<d<<" "<<"x:"<<x<<" "<<"y:"<<y<<" "<<std::endl;
+}
+

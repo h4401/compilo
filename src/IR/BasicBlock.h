@@ -27,6 +27,8 @@ public:
     void set_exit_false(BasicBlock* BasicBlock);
     BasicBlock* get_exit_true();
     BasicBlock* get_exit_false();
+    std::string getLabel();
+    void printInstrs();
     
 protected:
     BasicBlock* exit_true;  /**< pointer to the next basic block, true branch. If nullptr, return from procedure */

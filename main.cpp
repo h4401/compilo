@@ -41,7 +41,9 @@ int main(int argc, char* argv[])
     tree::ParseTree* tree = parser.prog();
     Visitor visitor;
     Program* prog = visitor.visit(tree);
+//    visitor.printTable();       //test for symboltable
     prog->generateIR();
+    
     ofstream o;
     o.open("asm.s");
     prog->gen_asm(o);

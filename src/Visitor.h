@@ -72,6 +72,8 @@ public:
     
 
     antlrcpp::Any visitInit(GrammarParser::InitContext* ctx) override;
+    
+    void printTable();
 
 private:
     std::ofstream output;

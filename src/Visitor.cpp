@@ -39,13 +39,6 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
     string name = ctx->ID(0)->getText();
     Block* block = visit(ctx->block());
     Type type = visit(ctx->type(0));
-    //    output << ".file \"2.c\"" << endl;
-//    output << ".text" << endl;
-//    output << ".global main" << endl;
-//    output << ".type main, @function" << endl;
-//    output << "main:" << endl;
-//    output << "pushq  %rbp" << endl;
-//    output << "movq %rsp, %rbp" << endl;"
     Function* func = new Function(table, name,block,type);
 
     return func;
@@ -87,8 +80,7 @@ antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 //    else if(expr->getType() == CONST)
 //    output << "movl $" << to_string(expr->getValeur()) << ", (%eax)" << endl;
 //
-//    output << "popq %rbp" << endl;
-//    output << "ret" << endl;
+
     return dynamic_cast<Statement *>(ret);
 }
 
@@ -279,4 +271,11 @@ antlrcpp::Any Visitor::visitInit(GrammarParser::InitContext* ctx)
     ExpressionConst* exprC = new ExpressionConst();
     exprC->setValeur((int)stoi(ctx->INT()->getText()));
     return exprC;
+}
+
+void Visitor::printTable(){
+    for (auto it : *table){
+        cout<<"table: "<<endl;
+        std::cout << " " << it.first << ":" << it.second << std::endl;
+    }
 }

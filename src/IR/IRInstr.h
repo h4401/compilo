@@ -33,17 +33,19 @@ public:
         call,
         cmp_eq,
         cmp_lt,
-        cmp_le
+        cmp_le,
+        ret
     } Operation;
     
     
     /**  constructor */
     IRInstr(BasicBlock* bb_, Operation op, Type t);
     ~IRInstr();
+    virtual void toString();
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o)=0; /**< x86 assembly code generation for this IR instruction */
     
-private:
+protected:
     BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
     Operation op;
     Type t;
@@ -55,6 +57,7 @@ class LdconstInstr : public IRInstr {
 public:
     LdconstInstr(BasicBlock* bb_, Type t, std::string destination, std::string constant) : IRInstr(bb_, ldconst, t), d(destination), c(constant) {}
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
 private:
     std::string d;
     std::string c;
@@ -65,6 +68,7 @@ public:
     AddInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string d;
     std::string x;
@@ -151,3 +155,10 @@ public:
     std::string dest;
     std::string val;
 };
+
+//class RetInstr : public IRInstr {
+//public:
+//    RetInstr(BasicBlock* bb_, Type t) : IRInstr(bb_, ret, t) {}
+//    /** Actual code generation */
+//    virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+//};

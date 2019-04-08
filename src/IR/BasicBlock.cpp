@@ -32,17 +32,36 @@ BasicBlock* BasicBlock::get_exit_true(){
 void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
     switch(op){
         case IRInstr::ldconst:
-            string destination = params[0];
-            string constant = params[1];
-            LdconstInstr* ld = new LdconstInstr(this,t,destination, constant);
-            instrs.push_back(ld);
+            instrs.push_back(new LdconstInstr(this,t,params[0], params[1]));
+            break;
+        case IRInstr::add:
+            instrs.push_back(new AddInstr(this, t, params[0], params[1], params[2]));
+            break;
+        case IRInstr::sub:
+            instrs.push_back(new SubInstr(this, t, params[0], params[1], params[2]));
+            break;
+        case IRInstr::mul:
+            instrs.push_back(new MulInstr(this, t, params[0], params[1], params[2]));
+            break;
+        case IRInstr::div:
+            instrs.push_back(new DivInstr(this, t, params[0], params[1], params[2]));
+            break;
     }
 }
 
 void BasicBlock::gen_asm(ostream& o){
-    cout<<instrs.size()<<endl;
+    cout<<"instrs size: "<<instrs.size()<<endl;
     for(auto irinstr : instrs){
-        cout<<"lol"<<endl;
         irinstr->gen_asm(o);
+    }
+}
+
+string BasicBlock::getLabel(){
+    return this->label;
+}
+
+void BasicBlock::printInstrs(){
+    for(int i = 0;i<instrs.size();i++){
+        instrs[i]->toString();
     }
 }

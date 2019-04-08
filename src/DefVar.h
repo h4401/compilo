@@ -4,8 +4,9 @@
 #include "Variable.h"
 #include "Expression.h"
 #include "Statement.h"
+#include "./IR/CFG.h"
 
-class CFG;
+//class CFG;
 class DefVar : public Statement
 {
     public:

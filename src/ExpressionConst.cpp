@@ -18,12 +18,11 @@ ExpressionConst::~ExpressionConst(){
 
 string ExpressionConst::generateIR(CFG* cfg){
     //a changer
-    string var = cfg->create_new_tempvar(INT);
+    string var = cfg->create_new_tempvar(INT);//creer et inserer la nouv var ds table symbol
     vector<string> params;
     params.push_back(var);
     params.push_back(to_string(this->getValeur()));
-    cfg->current_bb->add_IRInstr(AddInstr::ldconst,INT,params);
-    cout<<"add"<<endl;
+    cfg->current_bb->add_IRInstr(IRInstr::ldconst,INT,params);
     return var;
     
 }

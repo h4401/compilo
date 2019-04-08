@@ -11,8 +11,8 @@ Return::~Return(){
 }
 
 string Return::generateIR(CFG* cfg){
-    this->expression->generateIR(cfg);
-    return "";
+    string var = this->expression->generateIR(cfg);
+    return var;
 }
 
 void Return::print(std::ostream& stream) const{

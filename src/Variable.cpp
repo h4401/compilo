@@ -48,5 +48,6 @@ Type Variable::getType(){
 }
 
 string Variable::generateIR(CFG* cfg){
+    return this->name;
     return "";
 }

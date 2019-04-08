@@ -67,6 +67,32 @@ std::ostream &operator<<(std::ostream &os, ExprOperationBinary eob){
 }
 
 std::string ExprOperationBinary::generateIR(CFG* cfg){
+    string var = cfg->create_new_tempvar(INT);
+    string var1 = expressionR->generateIR(cfg);
+    string var2 = expressionL->generateIR(cfg);
+    char op = this->operateur;
+    vector<string> params;
+    params.push_back(var);
+    params.push_back(var1);
+    params.push_back(var2);
 
-    return "";
+    switch (op) {
+        case '+':
+            cfg->current_bb->add_IRInstr(IRInstr::add,INT,params);
+            break;
+        case '-':
+            cfg->current_bb->add_IRInstr(IRInstr::sub,INT,params);
+            break;
+        case '*':
+            cfg->current_bb->add_IRInstr(IRInstr::mul,INT,params);
+            break;
+        case '/':
+            cfg->current_bb->add_IRInstr(IRInstr::div,INT,params);
+            break;
+
+            
+        default:
+            break;
+    }
+    return var;
 }
