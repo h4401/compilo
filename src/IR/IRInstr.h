@@ -80,6 +80,7 @@ public:
     SubInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string d;
     std::string x;
@@ -91,6 +92,7 @@ public:
     MulInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string d;
     std::string x;
@@ -102,6 +104,7 @@ public:
     DivInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string d;
     std::string x;
@@ -151,14 +154,18 @@ public:
     WmemInstr(BasicBlock* bb_, Type t, std::string destination, std::string valeur) : IRInstr(bb_, wmem, t), dest(destination), val(valeur) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string dest;
     std::string val;
 };
 
-//class RetInstr : public IRInstr {
-//public:
-//    RetInstr(BasicBlock* bb_, Type t) : IRInstr(bb_, ret, t) {}
-//    /** Actual code generation */
-//    virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
-//};
+class RetInstr : public IRInstr {
+public:
+    RetInstr(BasicBlock* bb_, Type t, std::string destination) : IRInstr(bb_, ret, t), d(destination) {}
+    /** Actual code generation */
+    virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
+    private:
+    std::string d;
+};

@@ -21,7 +21,7 @@ string ExpressionConst::generateIR(CFG* cfg){
     string var = cfg->create_new_tempvar(INT);//creer et inserer la nouv var ds table symbol
     vector<string> params;
     params.push_back(var);
-    params.push_back(to_string(this->getValeur()));
+    params.push_back(to_string(this->valeur));
     cfg->current_bb->add_IRInstr(IRInstr::ldconst,INT,params);
     return var;
     

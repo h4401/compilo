@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     o.open("asm.s");
     prog->gen_asm(o);
     o.close();
-    cout<<*prog<<endl;
+    //cout<<*prog<<endl;
     cout << "Abstract Syntaxic Tree generated" << endl;
     cout << "Assembly generated to ./asm.s" << endl;
 

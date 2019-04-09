@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <string>
 #include "Expression.h"
 #include "Statement.h"
+#include "./IR/CFG.h"
 
 class Return : public Statement
 {

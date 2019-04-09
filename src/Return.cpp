@@ -1,7 +1,6 @@
 #include "Return.h"
 using namespace std;
 
-class CFG;
 Return::Return(Expression* expression){
 	this->expression = expression;
 }
@@ -12,6 +11,9 @@ Return::~Return(){
 
 string Return::generateIR(CFG* cfg){
     string var = this->expression->generateIR(cfg);
+    vector<string> params;
+    params.push_back(var);
+    cfg->current_bb->add_IRInstr(IRInstr::ret,INT,params);
     return var;
 }
 
