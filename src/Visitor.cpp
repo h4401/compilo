@@ -35,8 +35,16 @@ antlrcpp::Any Visitor::visitProg(GrammarParser::ProgContext* ctx)
 // FUNC
 antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
 {
+    this->offset = 0;
     table = new SymbolTable();
     string name = ctx->ID(0)->getText();
+    for(int i = 1;i<ctx->ID().size();i++){
+        offset-=4;
+        string nameVar = ctx->ID(i)->getText();
+        Variable* var = new Variable(nameVar,offset,false);
+        var->setType(INT);
+        table->insert(make_pair(nameVar,var));
+    }
     Block* block = visit(ctx->block());
     Type type = visit(ctx->type(0));
     Function* func = new Function(table, name,block,type);
@@ -217,11 +225,12 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
 //params
 antlrcpp::Any Visitor::visitParam(GrammarParser::ParamContext* ctx)
 {
-    vector<Expression *> params;
+    vector<Expression*> params;
     for(auto i : ctx->expr()){
 	params.push_back(visit(i));
     }
-    return params;
+    Param* param = new Param(params);
+    return param;
 }
 
 //TYPE
@@ -247,7 +256,7 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
         else {
             offset -= 4;
             Variable* v = new Variable(name, offset, false);
-	    
+            v->setType(type);
 	    if ( GrammarParser::InitContext * init = dynamic_cast<GrammarParser::InitContext*>(ctx->optinit(i)))
 	    {
 		ExpressionConst * exprC = visit(ctx->optinit(i));
@@ -255,9 +264,12 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 	    }
             table->insert(std::make_pair(name, v));
 	    declarations.push_back(new DeclVar(name, type));
+//            cout<<name<<to_string(offset)<<endl;
+
         }
     }
     return declarations;
+    
 }
 
 //OPTINIT
@@ -273,9 +285,11 @@ antlrcpp::Any Visitor::visitInit(GrammarParser::InitContext* ctx)
     return exprC;
 }
 
+
+
 void Visitor::printTable(){
     for (auto it : *table){
         cout<<"table: "<<endl;
-        std::cout << " " << it.first << ":" << it.second << std::endl;
+        std::cout << "first: " << it.first << "; second: " << it.second->toString() << std::endl;
     }
 }

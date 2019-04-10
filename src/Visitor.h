@@ -17,6 +17,7 @@
 #include "DefVar.h"
 #include "ExprPar.h"
 #include "ExecFunc.h"
+#include "Param.h"
 
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 

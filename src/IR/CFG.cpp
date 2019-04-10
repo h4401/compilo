@@ -16,6 +16,7 @@ CFG::CFG(Function* ast){
         SymbolType.insert(pair<string,Type>(element.first,element.second->getType()));
         SymbolIndex.insert(pair<string,int>(element.first,element.second->getOffset()));
         nextFreeSymbolIndex -= 4;
+        
     }
     BasicBlock* bb = new BasicBlock(this,".PROLOGUE"+ast->getName());
     bbs.push_back(bb);
@@ -37,11 +38,12 @@ CFG::~CFG(){
 void CFG::add_to_symbol_table(string name,Type t){
     SymbolType.insert(make_pair(name,t));
     SymbolIndex.insert(make_pair(name,nextFreeSymbolIndex));
-    nextFreeSymbolIndex -= 4;
+    
 }
 
 string CFG::create_new_tempvar(Type t){
     string name;
+    nextFreeSymbolIndex -= 4;
     name = "!tmp" + to_string(nextFreeSymbolIndex);
     add_to_symbol_table(name,t);
     return name;
