@@ -10,6 +10,8 @@ public:
     ExprOperationBinary(Expression* expressionL, Expression* expressionR, char operateur);
     virtual ~ExprOperationBinary();
     void generateAsm(std::ofstream& o, int offset);
+    friend std::ostream &operator<<(std::ostream &os,const ExprOperationBinary& eob);
+    void print(std::ostream &os);
 
     char getOperateur(); 
     std::string generateIR();

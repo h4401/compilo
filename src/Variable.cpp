@@ -39,6 +39,11 @@ ostream &operator<<(ostream &os, const Variable& v){
     return os;
 }   
  
+void Variable::print(ostream &os){
+    os << "Variable" << endl;
+    os << "name: " << name <<" offset: "<<to_string(memOffset)<<" valeur: "<<valeur<<" Type: "<<to_string(type);
+}
+
 void Variable::setType(Type t){
     this->type = t;
 }
@@ -55,3 +60,5 @@ string Variable::generateIR(CFG* cfg){
 string Variable::toString(){
     return "name: "+name+" offset: "+to_string(memOffset)+" valeur: "+valeur+" Type: "+to_string(type);
 }
+
+

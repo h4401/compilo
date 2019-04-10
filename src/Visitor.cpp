@@ -65,18 +65,21 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 	}
     }
     for (unsigned int i = 0; i < ctx->statement().size(); i++) {
+         Statement * s = visit(ctx->statement()[i]);
         //if (GrammarParser::ReturnContext* ret = dynamic_cast<GrammarParser::ReturnContext*>(ctx->statement()[i])) {
             //block->addStatement(visit(ctx->statement()[i]));
           //  return (block);
         //}
         //else {
-            block->addStatement(visit(ctx->statement()[i]));
+            block->addStatement(s);
         //}
     }
     return block;
 }
 
 // STATEMENT
+
+//Return
 antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 {
 
@@ -125,6 +128,24 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
 //        }
         return dynamic_cast<Statement *>(defvar);
     }
+}
+
+//ExecFunc
+antlrcpp::Any Visitor::visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx)
+{
+    string name = ctx->execfunc()->ID()->getText();
+    vector<Expression*> params = visit(ctx->execfunc()->param());
+    ExecFunc* exe = new ExecFunc(name, params);
+    return dynamic_cast<Statement *>(exe);   
+}
+
+
+//ExprStatement
+antlrcpp::Any Visitor::visitExprStatement(GrammarParser::ExprStatementContext* ctx)
+{
+    Expression * expr = visit(ctx->expr());
+    cout << *expr << endl;
+    return dynamic_cast<Statement *>(expr);
 }
 
 //EXPR
@@ -219,19 +240,25 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
     string name = ctx->execfunc()->ID()->getText();
     vector<Expression *> params = visit(ctx->execfunc()->param());
     ExecFunc* exe = new ExecFunc(name, params);
+    cout << *exe << endl;
     return dynamic_cast<Expression *>(exe);
 }
 
 //params
-antlrcpp::Any Visitor::visitParam(GrammarParser::ParamContext* ctx)
+antlrcpp::Any Visitor::visitParamFonction(GrammarParser::ParamFonctionContext* ctx)
 {
     vector<Expression*> params;
     for(auto i : ctx->expr()){
 	params.push_back(visit(i));
     }
-    Param* param = new Param(params);
-    return param;
+    return params;
 }
+
+antlrcpp::Any Visitor::visitParamVide(GrammarParser::ParamVideContext *ctx) {
+    std::vector<Expression*> params;
+    return params;
+}
+
 
 //TYPE
 antlrcpp::Any Visitor::visitTypeint(GrammarParser::TypeintContext* ctx)

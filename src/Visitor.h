@@ -41,6 +41,10 @@ public:
 
     antlrcpp::Any visitDefvariable(GrammarParser::DefvariableContext* ctx) override;
 
+    antlrcpp::Any visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx) override;
+
+    antlrcpp::Any visitExprStatement(GrammarParser::ExprStatementContext* ctx) override;
+
     //EXPR
     antlrcpp::Any visitConst(GrammarParser::ConstContext* ctx) override;
 
@@ -59,7 +63,9 @@ public:
     antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;
 
     //param
-    antlrcpp::Any visitParam(GrammarParser::ParamContext* ctx) override;
+    antlrcpp::Any visitParamFonction(GrammarParser::ParamFonctionContext* ctx) override;
+
+    antlrcpp::Any visitParamVide(GrammarParser::ParamVideContext* ctx) override;
 
     //TYPE
     antlrcpp::Any visitTypeint(GrammarParser::TypeintContext* ctx) override;

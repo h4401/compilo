@@ -40,11 +40,11 @@ void Block::generateAsm(ofstream& o){
 
 
 ostream & operator<<(ostream & os, const Block &block){
-    for(Statement* st : block.statements){
-        os << *st << endl;
-    }
     for (DeclVar* dv : block.declarations){
         os << *dv << endl;
+    }
+    for(Statement* st : block.statements){
+        os << *st << endl;
     }
     return os;
 }

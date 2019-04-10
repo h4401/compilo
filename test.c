@@ -3,5 +3,10 @@ int main(int x,int y){
     a=3;
     b=5;
     c=a+1*b;
+    test();
     return a;
+}
+
+int test(){
+    return 0;
 }

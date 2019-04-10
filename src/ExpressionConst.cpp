@@ -20,3 +20,15 @@ string ExpressionConst::generateIR(CFG* cfg){
     return var;
     
 }
+
+ostream &operator<<(ostream &os, const ExpressionConst& eob){
+    os << "Binary Expression : " << endl;
+    os << "valeur :" << eob.valeur << endl;
+    return os;
+}
+
+
+void ExpressionConst::print(std::ostream &os){
+    os << "Binary Expression : " << endl;
+    os << "valeur :" << valeur << endl;
+}

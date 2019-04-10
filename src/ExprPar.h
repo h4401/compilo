@@ -6,6 +6,7 @@ public:
     ExprPar(Expression* expr);
     virtual ~ExprPar();
     std::string generateIR(CFG* cfg);
+    void print(std::ostream &os);
 protected:
     Expression* expr;    
 };

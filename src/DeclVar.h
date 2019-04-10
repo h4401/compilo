@@ -19,6 +19,7 @@ public:
     void generateAsm(std::ostream& o);
     void setName();
     friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
+    void print(std::ostream &os);
     std::string getName();
     std::string generateIR(CFG* cfg);
   

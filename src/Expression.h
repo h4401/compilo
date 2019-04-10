@@ -3,7 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include "Statement.h"
-//#include "./IR/CFG.h"
 class CFG;
 
 enum TypeExpr {
@@ -12,7 +11,7 @@ enum TypeExpr {
     EXPRBINAIRE = 2
 };
 
-class Expression {
+class Expression : public Statement {
 public:
     Expression();
     virtual ~Expression();
@@ -25,7 +24,7 @@ public:
     virtual void generateAsm(std::ofstream& o, int offset);
 
     friend std::ostream &operator<<(std::ostream &os, const Expression& e);
-    //virtual void print(std::ostream& stream) const ;
+    virtual void print(std::ostream& stream) const ;
     virtual std::string generateIR(CFG* cfg)=0;
     
 protected:

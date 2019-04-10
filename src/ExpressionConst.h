@@ -12,6 +12,8 @@ public:
     ExpressionConst();
     virtual ~ExpressionConst();
     std::string generateIR(CFG* cfg);
+    friend std::ostream &operator<<(std::ostream &os,const ExpressionConst& expr);
+    void print(std::ostream &os);
 protected:
     
 };

@@ -12,6 +12,7 @@ public:
     std::string getValeur();
     void setValeur(std::string val);
     friend std::ostream &operator<<(std::ostream &os, const Variable& v);
+    void print(std::ostream &os);
     Type getType();
     void setType(Type t);
     std::string generateIR(CFG* cfg);

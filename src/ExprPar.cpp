@@ -11,3 +11,7 @@ ExprPar::~ExprPar(){
 string ExprPar::generateIR(CFG* cfg){
     return "";
 }
+
+void ExprPar::print(std::ostream &os){
+
+}

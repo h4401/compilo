@@ -25,18 +25,22 @@ optinit : '=' INT   #init
 defvar : ID '=' expr ';'
 	;
 
-execfunc : ID '(' param? ')';
+execfunc : ID '(' param ')' ;
 
 block : '{' declvar* statement* '}';
 
 statement : ret			#return	
 	| defvar		#defvariable
+	| execfunc ';'		#exfuncStatement
+	| expr ';'		#exprStatement
 	;
 
 ret : 'return' expr ';';
 
 
-param :  expr (',' expr)*;
+param :  expr (',' expr)*	#paramFonction
+	|			#paramVide
+	;			
 
 type: 'int' 		#typeint
 	| 'char'	#typechar

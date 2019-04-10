@@ -1,6 +1,8 @@
 #include "ExprOperationBinary.h"
 #include "./IR/BasicBlock.h"
 
+using namespace std;
+
 ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* expressionR, char operateur)
 {
     this->expressionL = expressionL;
@@ -18,38 +20,38 @@ char ExprOperationBinary::getOperateur()
     return this->operateur;
 }
 
-void ExprOperationBinary::generateAsm(std::ofstream& output, int offset)
+void ExprOperationBinary::generateAsm(ofstream& output, int offset)
 {
-    output << "movl " << std::to_string(this->expressionL->getOffset()) << "(%rbp), (%eax)" << std::endl;
-    std::string val = "";
+    output << "movl " << to_string(this->expressionL->getOffset()) << "(%rbp), (%eax)" << endl;
+    string val = "";
     if (this->expressionR->getType() == CONST) {
-        val = "$" + std::to_string(this->expressionR->getValeur());
+        val = "$" + to_string(this->expressionR->getValeur());
     }
     else {
-        val = std::to_string(this->expressionR->getOffset()) + "(%rbp)";
+        val = to_string(this->expressionR->getOffset()) + "(%rbp)";
     }
     switch (this->operateur) {
     case '+':
-        output << "addl " << val << ", (%eax)" << std::endl;
+        output << "addl " << val << ", (%eax)" << endl;
         break;
 
     case '-':
-        output << "subl " << val << ", (%eax)" << std::endl;
+        output << "subl " << val << ", (%eax)" << endl;
         break;
 
     case '*':
-        output << "imull " << val << ", (%eax)" << std::endl;
+        output << "imull " << val << ", (%eax)" << endl;
         break;
 
     case '/':
-        output << "idivl " << val << ", (%eax)" << std::endl;
+        output << "idivl " << val << ", (%eax)" << endl;
         break;
 
     default:
         break;
     }
     output << "movl (%eax)"
-           << ", " << std::to_string(offset) << "(%rbp)" << std::endl;
+           << ", " << to_string(offset) << "(%rbp)" << endl;
 }
 
 
@@ -61,13 +63,19 @@ Expression* ExprOperationBinary::getExpressionR(){
     return expressionR;
 }
 
-std::ostream &operator<<(std::ostream &os, ExprOperationBinary eob){
-    os << "Binary Expression : " << std::endl;
-    os << eob.getExpressionL() << eob.getExpressionR() << std::endl;
+ostream &operator<<(ostream &os, const ExprOperationBinary& eob){
+    os << "Binary Expression : " << endl;
+    os << *eob.expressionL << *eob.expressionL << endl;
     return os;
 }
 
-std::string ExprOperationBinary::generateIR(CFG* cfg){
+void ExprOperationBinary::print(ostream &os)
+{
+    os << "Binary Expression : " << endl;
+    os << *expressionL << *expressionL << endl;
+}
+
+string ExprOperationBinary::generateIR(CFG* cfg){
     string var = cfg->create_new_tempvar(INT);
     string var1 = expressionR->generateIR(cfg);
     string var2 = expressionL->generateIR(cfg);
