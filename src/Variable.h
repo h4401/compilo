@@ -15,6 +15,7 @@ public:
     Type getType();
     void setType(Type t);
     std::string generateIR(CFG* cfg);
+    std::string toString();
 
 private:
     std::string name;

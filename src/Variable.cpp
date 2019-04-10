@@ -51,3 +51,7 @@ string Variable::generateIR(CFG* cfg){
     return this->name;
     return "";
 }
+
+string Variable::toString(){
+    return "name: "+name+" offset: "+to_string(memOffset)+" valeur: "+valeur+" Type: "+to_string(type);
+}
