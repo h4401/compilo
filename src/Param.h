@@ -16,7 +16,8 @@ class Param
 public:
     Param(vector<Expression*> vecExpr);
     ~Param();
+    std::vector<string> generateIR(CFG* cfg);
   
 private:
-    vector<Expression*> vecExpr;
+    std::vector<Expression*> vecExpr;
 };

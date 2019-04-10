@@ -140,8 +140,8 @@ antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
 antlrcpp::Any Visitor::visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx)
 {
     string name = ctx->execfunc()->ID()->getText();
-    vector<Expression*> params = visit(ctx->execfunc()->param());
-    ExecFunc* exe = new ExecFunc(name, params);
+    Param * param = visit(ctx->execfunc()->param());
+    ExecFunc* exe = new ExecFunc(name, param);
     return dynamic_cast<Statement *>(exe);   
 }
 
@@ -218,7 +218,7 @@ antlrcpp::Any Visitor::visitPlus(GrammarParser::PlusContext* ctx)
     Expression* el = visit(ctx->expr(0));
     Expression* er = visit(ctx->expr(1));
     offset -= 4;
-    ExprOperationBinary* ePlus = new ExprOperationBinary(el, er, '+');
+    ExprOperationBinary* ePlus = new ExprOperationBinary(el, er, "+");
     ePlus->generateAsm(output, offset);
     ePlus->setType(EXPRBINAIRE);
     ePlus->setOffset(offset);
@@ -230,7 +230,7 @@ antlrcpp::Any Visitor::visitMinus(GrammarParser::MinusContext* ctx)
     Expression* el = visit(ctx->expr(0));
     Expression* er = visit(ctx->expr(1));
     offset -= 4;
-    ExprOperationBinary* eMinus = new ExprOperationBinary(el, er, '-');
+    ExprOperationBinary* eMinus = new ExprOperationBinary(el, er, "-");
     //eMinus->generateAsm(output, offset);
     eMinus->setType(EXPRBINAIRE);
     eMinus->setOffset(offset);
@@ -243,7 +243,7 @@ antlrcpp::Any Visitor::visitMult(GrammarParser::MultContext* ctx)
     Expression* el = visit(ctx->expr(0));
     Expression* er = visit(ctx->expr(1));
     offset -= 4;
-    ExprOperationBinary* eMult = new ExprOperationBinary(el, er, '*');
+    ExprOperationBinary* eMult = new ExprOperationBinary(el, er, "*");
     //eMult->generateAsm(output, offset);
     eMult->setType(EXPRBINAIRE);
     eMult->setOffset(offset);
@@ -255,12 +255,80 @@ antlrcpp::Any Visitor::visitDiv(GrammarParser::DivContext* ctx)
     Expression* el = visit(ctx->expr(0));
     Expression* er = visit(ctx->expr(1));
     offset -= 4;
-    ExprOperationBinary* eDiv = new ExprOperationBinary(el, er, '/');
+    ExprOperationBinary* eDiv = new ExprOperationBinary(el, er, "/");
     //eDiv->generateAsm(output, offset);
     eDiv->setType(EXPRBINAIRE);
     eDiv->setOffset(offset);
    return dynamic_cast<Expression*>(eDiv);
 }
+
+antlrcpp::Any Visitor::visitEq(GrammarParser::EqContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eEq = new ExprOperationBinary(el, er, "==");
+    eEq->setType(EXPRBINAIRE);
+    eEq->setOffset(offset);
+    return dynamic_cast<Expression*>(eEq);
+
+}
+
+antlrcpp::Any Visitor::visitGt(GrammarParser::GtContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eGt = new ExprOperationBinary(el, er, ">");
+    eGt->setType(EXPRBINAIRE);
+    eGt->setOffset(offset);
+    return dynamic_cast<Expression*>(eGt);
+    
+}
+
+antlrcpp::Any Visitor::visitLt(GrammarParser::LtContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eLt = new ExprOperationBinary(el, er, "<");
+    eLt->setType(EXPRBINAIRE);
+    eLt->setOffset(offset);
+    return dynamic_cast<Expression*>(eLt);
+    
+}
+
+antlrcpp::Any Visitor::visitLte(GrammarParser::LteContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eLte = new ExprOperationBinary(el, er, "<=");
+    eLte->setType(EXPRBINAIRE);
+    eLte->setOffset(offset);
+    return dynamic_cast<Expression*>(eLte);
+    
+}
+
+antlrcpp::Any Visitor::visitGte(GrammarParser::GteContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eGte = new ExprOperationBinary(el, er, ">=");
+    eGte->setType(EXPRBINAIRE);
+    eGte->setOffset(offset);
+    return dynamic_cast<Expression*>(eGte);
+    
+}
+
+antlrcpp::Any Visitor::visitNeq(GrammarParser::NeqContext* ctx){
+    Expression* el = visit(ctx->expr(0));
+    Expression* er = visit(ctx->expr(1));
+    offset -= 4;
+    ExprOperationBinary* eNeq = new ExprOperationBinary(el, er, "!=");
+    eNeq->setType(EXPRBINAIRE);
+    eNeq->setOffset(offset);
+    return dynamic_cast<Expression*>(eNeq);
+    
+}
+
+
 
 antlrcpp::Any Visitor::visitPar(GrammarParser::ParContext* ctx)
 {
@@ -272,8 +340,9 @@ antlrcpp::Any Visitor::visitPar(GrammarParser::ParContext* ctx)
 antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
 {
     string name = ctx->execfunc()->ID()->getText();
-    vector<Expression *> params = visit(ctx->execfunc()->param());
-    ExecFunc* exe = new ExecFunc(name, params);
+
+    Param* p = visit(ctx->execfunc()->param());
+    ExecFunc* exe = new ExecFunc(name, p);
     return dynamic_cast<Expression *>(exe);
 }
 
@@ -284,12 +353,17 @@ antlrcpp::Any Visitor::visitParamFonction(GrammarParser::ParamFonctionContext* c
     for(auto i : ctx->expr()){
 	params.push_back(visit(i));
     }
-    return params;
+    Param *p = new Param(params);
+
+    return p;
 }
 
 antlrcpp::Any Visitor::visitParamVide(GrammarParser::ParamVideContext *ctx) {
-    std::vector<Expression*> params;
-    return params;
+    
+    vector<Expression*> params;
+    Param *p = new Param(params);
+    
+    return p;
 }
 
 

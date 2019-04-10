@@ -71,6 +71,26 @@ public:
     antlrcpp::Any visitExfunc(GrammarParser::ExfuncContext* ctx) override;
 
     antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;
+    
+    antlrcpp::Any visitNeq(GrammarParser::NeqContext* ctx) override;
+    
+    antlrcpp::Any visitEq(GrammarParser::EqContext* ctx) override;
+    
+    antlrcpp::Any visitGt(GrammarParser::GtContext* ctx) override;
+    
+    antlrcpp::Any visitGte(GrammarParser::GteContext* ctx) override;
+    
+    antlrcpp::Any visitLte(GrammarParser::LteContext* ctx) override;
+    
+    antlrcpp::Any visitLt(GrammarParser::LtContext* ctx) override;
+
+    
+
+
+
+
+    
+
 
     //param
     antlrcpp::Any visitParamFonction(GrammarParser::ParamFonctionContext* ctx) override;

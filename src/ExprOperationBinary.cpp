@@ -3,7 +3,7 @@
 
 using namespace std;
 
-ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* expressionR, char operateur)
+ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur)
 {
     this->expressionL = expressionL;
     this->expressionR = expressionR;
@@ -15,7 +15,7 @@ ExprOperationBinary::~ExprOperationBinary()
 {
 }
 
-char ExprOperationBinary::getOperateur()
+string ExprOperationBinary::getOperateur()
 {
     return this->operateur;
 }
@@ -30,26 +30,35 @@ void ExprOperationBinary::generateAsm(ofstream& output, int offset)
     else {
         val = to_string(this->expressionR->getOffset()) + "(%rbp)";
     }
-    switch (this->operateur) {
-    case '+':
+//    switch (this->operateur) {
+    if(this->operateur=="+")
         output << "addl " << val << ", (%eax)" << endl;
-        break;
 
-    case '-':
+    else if(this->operateur=="-")
         output << "subl " << val << ", (%eax)" << endl;
-        break;
 
-    case '*':
+    else if(this->operateur=="*")
         output << "imull " << val << ", (%eax)" << endl;
-        break;
 
-    case '/':
+    else if(this->operateur=="/")
         output << "idivl " << val << ", (%eax)" << endl;
-        break;
+    
+//    else if(this->operateur=="==")
+//        output << "addl " << val << ", (%eax)" << endl;
+//
+//    else if(this->operateur=="!=")
+//        output << "subl " << val << ", (%eax)" << endl;
+//
+//
+//    else if(this->operateur=="<=")
+//        output << "imull " << val << ", (%eax)" << endl;
+//
+//
+//    else if(this->operateur==">=")
+//        output << "idivl " << val << ", (%eax)" << endl;
+//
 
-    default:
-        break;
-    }
+    
     output << "movl (%eax)"
            << ", " << to_string(offset) << "(%rbp)" << endl;
 }
@@ -79,29 +88,38 @@ string ExprOperationBinary::generateIR(CFG* cfg){
     string var = cfg->create_new_tempvar(INT);
     string var1 = expressionR->generateIR(cfg);
     string var2 = expressionL->generateIR(cfg);
-    char op = this->operateur;
+    string op = this->operateur;
     vector<string> params;
     params.push_back(var);
     params.push_back(var1);
     params.push_back(var2);
 
-    switch (op) {
-        case '+':
-            cfg->current_bb->add_IRInstr(IRInstr::add,INT,params);
-            break;
-        case '-':
-            cfg->current_bb->add_IRInstr(IRInstr::sub,INT,params);
-            break;
-        case '*':
-            cfg->current_bb->add_IRInstr(IRInstr::mul,INT,params);
-            break;
-        case '/':
-            cfg->current_bb->add_IRInstr(IRInstr::div,INT,params);
-            break;
-
-            
-        default:
-            break;
-    }
+    if(this->operateur=="+")
+        cfg->current_bb->add_IRInstr(IRInstr::add,INT,params);
+    
+    else if(this->operateur=="-")
+        cfg->current_bb->add_IRInstr(IRInstr::sub,INT,params);
+    
+    else if(this->operateur=="*")
+        cfg->current_bb->add_IRInstr(IRInstr::mul,INT,params);
+    
+    else if(this->operateur=="/")
+        cfg->current_bb->add_IRInstr(IRInstr::div,INT,params);
+    
+    else if(this->operateur=="==")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_eq,INT,params);
+    
+    else if(this->operateur=="!=")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_neq,INT,params);
+    
+    else if(this->operateur==">=")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_gte,INT,params);
+    
+    else if(this->operateur=="<=")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_lte,INT,params);
+    
+    
+    
+    
     return var;
 }

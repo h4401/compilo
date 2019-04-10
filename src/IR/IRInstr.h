@@ -22,8 +22,12 @@ public:
         call,
         cmp_eq,
         cmp_lt,
-        cmp_le,
-        ret
+        cmp_lte,
+        ret,
+        cmp_neq,
+        cmp_gt,
+        cmp_gte
+        
     } Operation;
     
     
@@ -105,6 +109,7 @@ public:
     CmpInstr(BasicBlock* bb_, Operation op, Type t, std::string operand1, std::string operand2) : IRInstr(bb_, op, t), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    void toString();
     private :
     std::string x;
     std::string y;

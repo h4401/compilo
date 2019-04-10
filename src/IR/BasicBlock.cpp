@@ -35,7 +35,7 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
         case IRInstr::ldconst:
             instrs.push_back(new LdconstInstr(this,t,params[0], params[1]));
             break;
-	case IRInstr::wmem:
+        case IRInstr::wmem:
             instrs.push_back(new WmemInstr(this,t,params[0], params[1]));
             break;
         case IRInstr::add:
@@ -50,8 +50,29 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
         case IRInstr::div:
             instrs.push_back(new DivInstr(this, t, params[0], params[1], params[2]));
             break;
- 	case IRInstr::ret:
+        case IRInstr::ret:
             instrs.push_back(new RetInstr(this, t, params[0]));
+            break;
+        case IRInstr::call:
+            instrs.push_back(new CallInstr(this,t,params));
+            break;
+        case IRInstr::cmp_gt:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            break;
+        case IRInstr::cmp_gte:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            break;
+        case IRInstr::cmp_lt:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            break;
+        case IRInstr::cmp_lte:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            break;
+        case IRInstr::cmp_eq:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            break;
+        case IRInstr::cmp_neq:
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
             break;
     }
 }

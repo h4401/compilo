@@ -2,18 +2,19 @@
 
 #include "Expression.h"
 #include <fstream>
+#include <string>
 #include "./IR/CFG.h"
 
 
 class ExprOperationBinary : public Expression {
 public:
-    ExprOperationBinary(Expression* expressionL, Expression* expressionR, char operateur);
+    ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur);
     virtual ~ExprOperationBinary();
     void generateAsm(std::ofstream& o, int offset);
     friend std::ostream &operator<<(std::ostream &os,const ExprOperationBinary& eob);
     void print(std::ostream &os);
 
-    char getOperateur(); 
+    std::string getOperateur(); 
     std::string generateIR();
     Expression* getExpressionL();
     Expression* getExpressionR();
@@ -24,5 +25,5 @@ public:
 private:
     Expression* expressionL;
     Expression* expressionR;
-    char operateur;
+    string operateur;
 };

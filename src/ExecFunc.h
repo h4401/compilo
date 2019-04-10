@@ -3,9 +3,11 @@
 #include <string>
 #include <vector>
 
+class CFG;
+class Param;
 class ExecFunc: public Expression{
 public:
-    ExecFunc(std::string name, std::vector<Expression *> expressions);
+    ExecFunc(std::string name, Param* p);
     virtual ~ExecFunc();
     std::string generateIR(CFG* cfg);
     friend std::ostream &operator<<(std::ostream &os,const ExecFunc& eob);
@@ -13,5 +15,5 @@ public:
     
 protected:
     std::string name;  
-    std::vector<Expression *> expressions;
+    Param* params;
 };

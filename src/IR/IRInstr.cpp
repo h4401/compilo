@@ -54,7 +54,7 @@ void CmpInstr::gen_asm(ostream &o){
 }
 
 void CallInstr::gen_asm(ostream &o){
-    
+    //todo
 }
 
 void RmemInstr::gen_asm(ostream &o){
@@ -104,4 +104,8 @@ void DivInstr::toString(){
 
 void RetInstr::toString(){
     std::cout<<"Ret: "<<op<<" d:"<<d<<" "<<std::endl;
+}
+
+void CmpInstr::toString(){
+     std::cout<<"Cmp: "<<op<<" "<<"x:"<<x<<" "<<"y:"<<y<<" "<<std::endl;
 }

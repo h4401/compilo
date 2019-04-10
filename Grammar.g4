@@ -13,6 +13,12 @@ expr: expr '*' expr 		# mult
 	| ID			# var
 	| '(' expr ')'  	# par
 	| execfunc		# exfunc
+	| expr '==' expr.       # eq
+	| expr '>' expr 	# gt
+	| expr '<' expr 	# lt
+	| expr '!=' expr 	# neq
+	| expr '>=' expr 	# gte
+	| expr '<=' expr 	# lte
 	;
 
 declvar: type  ID optinit (',' ID optinit )* ';'  
