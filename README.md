@@ -11,3 +11,8 @@ Pour Linux / Unix
 4. Modifier le makefile : modifier ANTLRRUNTIMEDIR et ANTLR et COMP pour correspondre respectivement au répertoire des runtimes, à la commande de lancement de antlr, et au compilateur C++  de votre machine
 5. `make`
 6. `./exe` suivi du nom du fichier `.c` que vous souhaitez compiler. Le code assembleur sera obtenu dans le fichier `asm.s`
+
+Pour exécuter les tests
+
+1. S'assurer que les fichiers `doTest.sh` et `allTests.sh` ont les permissions d'exécution
+2. Exécuter la commande `./allTests.sh`
