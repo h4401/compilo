@@ -28,11 +28,23 @@ CFG::CFG(Function* ast){
     bbs.push_back(bbExit);
     current_bb->set_exit_true(bbExit);
     bbExit->set_exit_true(nullptr);
-//    nextBBnumber = 1;
+    nextBBnumber = 0;
     //todo
 }
 
 CFG::~CFG(){
+}
+
+void CFG::createBB(){
+    BasicBlock* bb = new BasicBlock(this, to_string(nextBBnumber++));
+    bbs.push_back(bb);
+}
+
+void CFG::addBB(BasicBlock * bb){
+    bbs.push_back(bb);
+}
+int CFG::next_BB_number(){
+    return ++nextBBnumber;
 }
 
 void CFG::add_to_symbol_table(string name,Type t){
@@ -50,7 +62,7 @@ string CFG::create_new_tempvar(Type t){
 }
 
 void CFG::gen_asm(ostream &o){
-    current_bb->printInstrs();
+    //current_bb->printInstrs();
     for(auto bb : bbs){
         if(bb->getLabel()==".PROLOGUE"+ast->getName()){
             gen_asm_prologue(o);

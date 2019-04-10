@@ -48,7 +48,12 @@ public:
     Type get_var_type(std::string name);
     
     // basic block management
-    std::string new_BB_name();
+    int next_BB_number();
+    
+    void createBB();
+    
+    void addBB(BasicBlock* bb);
+
     BasicBlock* current_bb;
     
     const string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};

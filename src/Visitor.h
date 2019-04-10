@@ -18,6 +18,8 @@
 #include "ExprPar.h"
 #include "ExecFunc.h"
 #include "Param.h"
+#include "If.h"
+#include "Else.h"
 
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
@@ -44,6 +46,14 @@ public:
     antlrcpp::Any visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx) override;
 
     antlrcpp::Any visitExprStatement(GrammarParser::ExprStatementContext* ctx) override;
+
+    antlrcpp::Any visitIfStatement(GrammarParser::IfStatementContext* ctx) override;
+    
+    //IF
+    antlrcpp::Any visitInsif(GrammarParser::InsifContext* ctx) override;
+    
+    //ELSE
+    antlrcpp::Any visitInselse(GrammarParser::InselseContext* ctx) override;
 
     //EXPR
     antlrcpp::Any visitConst(GrammarParser::ConstContext* ctx) override;

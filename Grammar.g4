@@ -33,7 +33,12 @@ statement : ret			#return
 	| defvar		#defvariable
 	| execfunc ';'		#exfuncStatement
 	| expr ';'		#exprStatement
+	| insif			#ifStatement
 	;
+
+insif: 'if' '(' expr ')' block inselse ;
+
+inselse: 'else' block ;
 
 ret : 'return' expr ';';
 

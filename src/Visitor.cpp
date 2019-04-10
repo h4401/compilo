@@ -154,6 +154,34 @@ antlrcpp::Any Visitor::visitExprStatement(GrammarParser::ExprStatementContext* c
     return dynamic_cast<Statement *>(expr);
 }
 
+//ifStatement
+antlrcpp::Any Visitor::visitIfStatement(GrammarParser::IfStatementContext* ctx)
+{
+    If* anIf = visit(ctx->insif());
+    return dynamic_cast<Statement*>(anIf);
+}
+
+//if
+antlrcpp::Any Visitor::visitInsif(GrammarParser::InsifContext* ctx)
+{
+    Expression* condition = visit(ctx->expr());
+    Block* block = visit(ctx->block());
+    If* anIf = new If(condition, block);
+    if(ctx->inselse() != nullptr){
+        anIf->setElse(visit(ctx->inselse()));
+    }
+    return anIf;
+}
+
+//else 
+antlrcpp::Any Visitor::visitInselse(GrammarParser::InselseContext* ctx)
+{
+    Block * block = visit(ctx->block());
+    Else* anElse = new Else (block);
+    return anElse;
+}
+
+
 //EXPR
 antlrcpp::Any Visitor::visitConst(GrammarParser::ConstContext* ctx)
 {
@@ -246,7 +274,6 @@ antlrcpp::Any Visitor::visitExfunc(GrammarParser::ExfuncContext* ctx)
     string name = ctx->execfunc()->ID()->getText();
     vector<Expression *> params = visit(ctx->execfunc()->param());
     ExecFunc* exe = new ExecFunc(name, params);
-    cout << *exe << endl;
     return dynamic_cast<Expression *>(exe);
 }
 

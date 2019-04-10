@@ -11,6 +11,7 @@ using namespace std;
 BasicBlock::BasicBlock(CFG* cfg,string entry_lable){
     this->cfg = cfg;
     this->label = entry_lable;
+    this->exit_false = nullptr;
 }
 
 void BasicBlock::set_exit_true(BasicBlock* bb){
@@ -56,10 +57,17 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
 }
 
 void BasicBlock::gen_asm(ostream& o){
+/*
     cout<<"instrs size: "<<instrs.size()<<endl;
-    for(auto irinstr : instrs){
+    o << "." << label << "_BB_" << label << ":" << endl;
+*/  
+  for(auto irinstr : instrs){
         irinstr->gen_asm(o);
     }
+	/*
+    if (exit_true != nullptr && exit_false == nullptr) {
+        o << "jmp ." << cfg->cfgName << "_BB_" << exit_true -> label << endl;
+    }*/
 }
 
 string BasicBlock::getLabel(){

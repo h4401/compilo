@@ -41,7 +41,8 @@ int main(int argc, char* argv[])
     tree::ParseTree* tree = parser.prog();
     Visitor visitor;
     Program* prog = visitor.visit(tree);
-    visitor.printTable();       //test for symboltable
+    //visitor.printTable();       //test for symboltable
+    cout << *prog <<endl ;
     prog->generateIR();
     
     ofstream o;
