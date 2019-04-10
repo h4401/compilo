@@ -43,8 +43,8 @@ echo -n "Compilation... "
 ./exe $1 &> /dev/null
 as -o pld_exe.o asm.s &> /dev/null
 gcc pld_exe.o -o pld_exe &> /dev/null
-rm pld_exe.o &> /dev/null
 pld_comp_code=$?
+rm pld_exe.o &> /dev/null
 pld_comp=0
 
 pld_prog_output="nothing1"
