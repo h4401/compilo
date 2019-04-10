@@ -62,11 +62,12 @@ void RmemInstr::gen_asm(ostream &o){
 }
 
 void WmemInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(val) << "(%rbp), (%eax)" << endl;
+    o << "movl (%eax), " << varToIndex(dest) << "(%rbp)" << endl;
 }
 
 void RetInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(d) << "(%rbp), (%eax)" << endl;
 }
 
 void LdconstInstr::gen_asm(ostream &o){
