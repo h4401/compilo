@@ -71,3 +71,7 @@ void BasicBlock::printInstrs(){
         instrs[i]->toString();
     }
 }
+
+CFG* BasicBlock::getCfg(){
+	return this->cfg;
+}

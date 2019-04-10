@@ -13,9 +13,8 @@
 #include "../Type.h"
 #include "../Variable.h"
 #include "../Function.h"
-#include "BasicBlock.h"
 
-
+class BasicBlock;
 /** The class for the control flow graph, also includes the symbol table */
 
 /* A few important comments:

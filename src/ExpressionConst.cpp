@@ -1,11 +1,5 @@
-//
-//  ExpressionConst.cpp
-//  
-//
-//  Created by yanghua on 2019/4/2.
-//
-
 #include "ExpressionConst.h"
+#include "./IR/BasicBlock.h"
 using namespace std;
 
 ExpressionConst::ExpressionConst(){

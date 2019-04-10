@@ -7,6 +7,8 @@
 #include <iostream>
 
 #include "IRInstr.h"
+#include "CFG.h"
+#include "BasicBlock.h"
 using namespace std;
 
 IRInstr::IRInstr(BasicBlock* bb_, Operation op, Type t){
@@ -19,20 +21,32 @@ IRInstr::~IRInstr(){
     
 }
 
+std::string IRInstr::varToIndex(string name){
+    return to_string(this->bb->getCfg()->get_var_index(name));
+}
 
 void AddInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "addl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void SubInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "subl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "movl (%eax)" << ", " << d << "(%rbp)" << std::endl;
 }
 
 void MulInstr::gen_asm(ostream &o){
+    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "imull " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void DivInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "idivl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void CmpInstr::gen_asm(ostream &o){
@@ -56,7 +70,7 @@ void RetInstr::gen_asm(ostream &o){
 }
 
 void LdconstInstr::gen_asm(ostream &o){
-    o << "movl $" << this->c << ", " << this->d << "(%rbp)" << endl;    
+    o << "movl $" << c << ", " << varToIndex(d) << "(%rbp)" << endl;    
 }
 
 void IRInstr::toString(){

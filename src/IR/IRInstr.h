@@ -1,23 +1,12 @@
-//
-//  IRInstr.h
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
-
-#ifndef IRInstr_h
-#define IRInstr_h
-
+#pragma once
 #include <vector>
 #include <string>
 #include <iostream>
 #include <initializer_list>
-
 #include "../Type.h"
-class BasicBlock;
 class CFG;
 class DefFonction;
-
+class BasicBlock;
 class IRInstr {
     
 public:
@@ -42,6 +31,7 @@ public:
     IRInstr(BasicBlock* bb_, Operation op, Type t);
     ~IRInstr();
     virtual void toString();
+    std::string varToIndex(std::string var);
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o)=0; /**< x86 assembly code generation for this IR instruction */
     
@@ -51,7 +41,6 @@ protected:
     Type t;
     
 };
-#endif /* IRInstr_h */
 
 class LdconstInstr : public IRInstr {
 public:

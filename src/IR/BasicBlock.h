@@ -14,7 +14,6 @@
 #include <string>
 #include <iostream>
 
-
 class CFG;
 
 class BasicBlock {
@@ -28,6 +27,7 @@ public:
     BasicBlock* get_exit_true();
     BasicBlock* get_exit_false();
     std::string getLabel();
+    CFG* getCfg();
     void printInstrs();
     
 protected:

@@ -6,6 +6,7 @@
 //
 #include <iostream>
 #include "CFG.h"
+#include "BasicBlock.h"
 using namespace std;
 
 CFG::CFG(Function* ast){
@@ -14,7 +15,7 @@ CFG::CFG(Function* ast){
     for(pair<string,Variable*> element : *(ast->getSymbolTable())){
         SymbolType.insert(pair<string,Type>(element.first,element.second->getType()));
         SymbolIndex.insert(pair<string,int>(element.first,element.second->getOffset()));
-        nextFreeSymbolIndex += 4;
+        nextFreeSymbolIndex -= 4;
     }
     BasicBlock* bb = new BasicBlock(this,".PROLOGUE"+ast->getName());
     bbs.push_back(bb);
@@ -35,8 +36,8 @@ CFG::~CFG(){
 
 void CFG::add_to_symbol_table(string name,Type t){
     SymbolType.insert(make_pair(name,t));
-    nextFreeSymbolIndex += 4;
     SymbolIndex.insert(make_pair(name,nextFreeSymbolIndex));
+    nextFreeSymbolIndex -= 4;
 }
 
 string CFG::create_new_tempvar(Type t){
@@ -80,11 +81,12 @@ void CFG::gen_asm_epilogue(ostream& o){
 
 }
 
+
 int CFG::get_var_index(string name){
     auto it = SymbolIndex.find(name);
     if(it != SymbolIndex.end()){
-        return (-1*it->second);
+        return (it->second);
     }else{
-        return -99;
+        return 999;
     }
 }
