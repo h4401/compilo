@@ -43,20 +43,20 @@ void ExprOperationBinary::generateAsm(ofstream& output, int offset)
     else if(this->operateur=="/")
         output << "idivl " << val << ", (%eax)" << endl;
     
-//    else if(this->operateur=="==")
-//        output << "addl " << val << ", (%eax)" << endl;
-//
-//    else if(this->operateur=="!=")
-//        output << "subl " << val << ", (%eax)" << endl;
-//
-//
-//    else if(this->operateur=="<=")
-//        output << "imull " << val << ", (%eax)" << endl;
-//
-//
-//    else if(this->operateur==">=")
-//        output << "idivl " << val << ", (%eax)" << endl;
-//
+    else if(this->operateur=="==")
+        output << "addl " << val << ", (%eax)" << endl;
+
+    else if(this->operateur=="!=")
+        output << "subl " << val << ", (%eax)" << endl;
+
+
+    else if(this->operateur=="<=")
+        output << "imull " << val << ", (%eax)" << endl;
+
+
+    else if(this->operateur==">=")
+        output << "idivl " << val << ", (%eax)" << endl;
+
 
     
     output << "movl (%eax)"

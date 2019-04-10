@@ -1,18 +1,12 @@
 int main(){
-    int a,b,c;
+    int a;
     a=3;
-    b=5;
-    test(a,b);
-    if ( a/5 ) 
+    if ( a==5 ) 
     {
 	a = 1;
     }else{
-	b = 1;
+	a = 2;
     }
-    c=a+1*b;
-    return a;
-}
 
-int test(int a, int b){
-    return 0;
+    return a;
 }

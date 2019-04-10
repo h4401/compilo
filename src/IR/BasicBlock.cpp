@@ -57,38 +57,36 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
             instrs.push_back(new CallInstr(this,t,params));
             break;
         case IRInstr::cmp_gt:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
         case IRInstr::cmp_gte:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
         case IRInstr::cmp_lt:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
         case IRInstr::cmp_lte:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
         case IRInstr::cmp_eq:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
         case IRInstr::cmp_neq:
-            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1]));
+            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
             break;
     }
 }
 
 void BasicBlock::gen_asm(ostream& o){
-/*
+
     cout<<"instrs size: "<<instrs.size()<<endl;
-    o << "." << label << "_BB_" << label << ":" << endl;
-*/  
+    o << "." << label << "_BB:" << endl;
   for(auto irinstr : instrs){
         irinstr->gen_asm(o);
     }
-	/*
     if (exit_true != nullptr && exit_false == nullptr) {
-        o << "jmp ." << cfg->cfgName << "_BB_" << exit_true -> label << endl;
-    }*/
+        o << "jmp ." << exit_true->getLabel() << "_BB" << endl;
+    }
 }
 
 string BasicBlock::getLabel(){

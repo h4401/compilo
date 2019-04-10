@@ -50,7 +50,36 @@ void DivInstr::gen_asm(ostream &o){
 }
 
 void CmpInstr::gen_asm(ostream &o){
-    
+    o << "movl " << varToIndex(x) << "(%rbp),  %eax" << endl;
+    o << "cmpl " <<   varToIndex(y) << "(%rbp),  %eax" << endl;
+    switch(op){
+	case cmp_eq:
+	    o << "jne ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break;
+
+	case cmp_neq:
+	    o << "je ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break;
+
+	case cmp_lt:
+	    o << "jge ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break; 
+
+	case cmp_lte:
+	    o << "jg ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break;
+
+	case cmp_gt:
+	    o << "jle ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break;
+
+	case cmp_gte:
+	    o << "jl ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    break;
+
+	default:
+	break;
+    }
 }
 
 void CallInstr::gen_asm(ostream &o){

@@ -150,7 +150,6 @@ antlrcpp::Any Visitor::visitExfuncStatement(GrammarParser::ExfuncStatementContex
 antlrcpp::Any Visitor::visitExprStatement(GrammarParser::ExprStatementContext* ctx)
 {
     Expression * expr = visit(ctx->expr());
-    cout << *expr << endl;
     return dynamic_cast<Statement *>(expr);
 }
 

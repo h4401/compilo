@@ -9,17 +9,19 @@ using namespace std;
 string If::generateIR(CFG * cfg)
 {
     cout << "If::generateIR" << endl;
+    // condition IR generation
     string conditionRes = condition->generateIR(cfg);
 
-    BasicBlock* afterBB = new BasicBlock(cfg, to_string(cfg -> next_BB_number()));
-    BasicBlock* thenBB = new BasicBlock(cfg, to_string(cfg -> next_BB_number()));
+    // BasicBlocks creation and linking
     
+    BasicBlock* thenBB = new BasicBlock(cfg, to_string(cfg -> next_BB_number()));
     BasicBlock* elseBB;
     if (hasElse){
     	elseBB = new BasicBlock(cfg, to_string(cfg -> next_BB_number()));
     }
-    string blockRes = block->generateIR(cfg);
-    
+    BasicBlock* afterBB = new BasicBlock(cfg, to_string(cfg -> next_BB_number()));
+
+    // afterBB
     afterBB -> set_exit_true( cfg-> current_bb -> get_exit_true());
     afterBB -> set_exit_false ( cfg-> current_bb -> get_exit_false());
     
@@ -29,18 +31,28 @@ string If::generateIR(CFG * cfg)
     }else{
     	cfg -> current_bb -> set_exit_false(afterBB);
     }
+    
+    //thenBB
     thenBB -> set_exit_true(afterBB);
- 
+     
+    //elseBB
     elseBB -> set_exit_true(afterBB);
     
-    cfg -> current_bb = afterBB;
+    //add BBs in the table
+    cfg -> addBB(thenBB);    
+    
+    // IR Generation and currentBB update
+    cfg -> current_bb = thenBB;
+    string blockRes = block->generateIR(cfg);
 
-    cfg -> addBB(afterBB);
-    cfg -> addBB(thenBB);
     if (hasElse){
         cfg -> addBB(elseBB);
+        cfg -> current_bb = elseBB;
 	string elseRes = anElse->generateIR(cfg);
     }
+
+    cfg -> addBB(afterBB);
+    cfg -> current_bb = afterBB;
 	
     
 	/*

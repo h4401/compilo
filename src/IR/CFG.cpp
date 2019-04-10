@@ -18,13 +18,13 @@ CFG::CFG(Function* ast){
         nextFreeSymbolIndex = (ast->getSymbolTable()->size()-ast->getParameters().size())*(-4);
         
     }
-    BasicBlock* bb = new BasicBlock(this,".PROLOGUE"+ast->getName());
+    BasicBlock* bb = new BasicBlock(this,"PROLOGUE");
     bbs.push_back(bb);
     BasicBlock* bbFunct = new BasicBlock(this, ast->getName());
     bb->set_exit_true(bbFunct);
     current_bb = bbFunct;
     bbs.push_back(bbFunct);
-    BasicBlock* bbExit = new BasicBlock(this,".EPILOGUE"+ast->getName());
+    BasicBlock* bbExit = new BasicBlock(this,"EPILOGUE");
     bbs.push_back(bbExit);
     current_bb->set_exit_true(bbExit);
     bbExit->set_exit_true(nullptr);
@@ -62,16 +62,14 @@ string CFG::create_new_tempvar(Type t){
 }
 
 void CFG::gen_asm(ostream &o){
-    //current_bb->printInstrs();
-    for(auto bb : bbs){
-        if(bb->getLabel()==".PROLOGUE"+ast->getName()){
-            gen_asm_prologue(o);
-        }else if(bb->getLabel()==".EPILOGUE"+ast->getName()){
-            gen_asm_epilogue(o);
-        }else{
-            bb->gen_asm(o);
+    gen_asm_prologue(o);
+    for(int i=0; i<bbs.size(); i++){
+	if(i!=0 && i!=2){
+	bbs[i]->printInstrs();
+        bbs[i]->gen_asm(o);
         }
     }
+    gen_asm_epilogue(o);
 }
 
 void CFG::gen_asm_prologue(ostream& o){
