@@ -17,7 +17,7 @@ using namespace std;
 class Function
 {
     public:
-	Function(SymbolTable* table, string name, Block * block, Type returnType);
+	Function(SymbolTable* table, string name, Block * block, Type returnType,vector<DeclVar*> vecDecl);
 
         virtual ~Function();
         
@@ -26,6 +26,7 @@ class Function
 	std::vector<DeclVar*> getParameters();
 
 	void setParameters(vector <DeclVar*> parameters);
+    
 
         string getName();
 

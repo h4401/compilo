@@ -1,10 +1,11 @@
 #include "Function.h"
 
-Function::Function(SymbolTable* table, string name, Block * block, Type returnType){
+Function::Function(SymbolTable* table, string name, Block * block, Type returnType,vector<DeclVar*> vecDecl){
 	this->table = table;	
 	this->name = name;
 	this->block = block;
 	this->returnType = returnType;
+    this->parameters = vecDecl;
 }
 
 Function::~Function(){
@@ -63,5 +64,6 @@ string Function::generateIR(CFG* cfg){
 SymbolTable* Function::getSymbolTable(){
     return this->table;
 }
+
 
 

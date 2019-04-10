@@ -15,7 +15,7 @@ CFG::CFG(Function* ast){
     for(pair<string,Variable*> element : *(ast->getSymbolTable())){
         SymbolType.insert(pair<string,Type>(element.first,element.second->getType()));
         SymbolIndex.insert(pair<string,int>(element.first,element.second->getOffset()));
-        nextFreeSymbolIndex -= 4;
+        nextFreeSymbolIndex = (ast->getSymbolTable()->size()-ast->getParameters().size())*(-4);
         
     }
     BasicBlock* bb = new BasicBlock(this,".PROLOGUE"+ast->getName());
@@ -63,7 +63,6 @@ void CFG::gen_asm(ostream &o){
 }
 
 void CFG::gen_asm_prologue(ostream& o){
-    //a corriger
         o << ".file \"test.c\"" << endl;
         o << ".text" << endl;
         o << ".global main" << endl;
@@ -71,6 +70,11 @@ void CFG::gen_asm_prologue(ostream& o){
         o << "main:" << endl;
         o << "pushq  %rbp" << endl;
         o << "movq %rsp, %rbp" << endl;
+        o << "subq $"<< to_string(nextFreeSymbolIndex+4)<<", %rsp"<<endl;
+        for(int i = 0 ; i < ast->getParameters().size(); i++){
+            int offset = get_var_index(ast->getParameters()[i]->getName());
+            o<< "movq %" << param_register[i]<<", "<<to_string(offset)<<"%(rbp)"<<endl;
+        }
         o << "   " << endl;
 
 }

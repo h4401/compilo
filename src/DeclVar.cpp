@@ -23,3 +23,7 @@ DeclVar::~DeclVar(){
 string DeclVar::generateIR(CFG* cfg){
     return "";
 }
+
+string DeclVar::getName(){
+    return this->name;
+}

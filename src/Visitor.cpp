@@ -38,16 +38,22 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
     this->offset = 0;
     table = new SymbolTable();
     string name = ctx->ID(0)->getText();
-    for(int i = 1;i<ctx->ID().size();i++){
-        offset-=4;
+    vector <DeclVar*> vecDecl;
+    int offsetParam = 4;
+
+    for(int i = ctx->ID().size()-1;i>0;i--){
+//        offset-=4;
+        offsetParam += 4;
         string nameVar = ctx->ID(i)->getText();
-        Variable* var = new Variable(nameVar,offset,false);
+        Variable* var = new Variable(nameVar,offsetParam,false);
         var->setType(INT);
         table->insert(make_pair(nameVar,var));
+        DeclVar * declvar = new DeclVar(nameVar,var->getType());
+        vecDecl.push_back(declvar);
     }
     Block* block = visit(ctx->block());
     Type type = visit(ctx->type(0));
-    Function* func = new Function(table, name,block,type);
+    Function* func = new Function(table, name,block,type,vecDecl);
 
     return func;
 }

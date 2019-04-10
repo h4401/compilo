@@ -51,6 +51,8 @@ public:
     std::string new_BB_name();
     BasicBlock* current_bb;
     
+    const string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
+    
 protected:
     std::map <std::string, Type> SymbolType; /**< part of the symbol table  */
     std::map <std::string, int> SymbolIndex; /**< part of the symbol table  */

@@ -6,7 +6,11 @@
 main:
 pushq  %rbp
 movq %rsp, %rbp
+subq $-28, %rsp
+movq %rdi, 8%(rbp)
+movq %rsi, 12%(rbp)
    
+<<<<<<< Updated upstream
 movl $3, -24(%rbp)
 movl -24(%rbp), (%eax)
 movl (%eax), -12(%rbp)
@@ -36,6 +40,17 @@ movq %rsp, %rbp
    
 movl $0, -4(%rbp)
 movl -4(%rbp), (%eax)
+=======
+movl $3, -16(%rbp)
+movl $5, -20(%rbp)
+movl $1, -32(%rbp)
+movl -32(%rbp), (%eax)
+imull -8, (%eax)
+movl (%eax), -28(%rbp)
+movl -4(%rbp), (%eax)
+addl -28, (%eax)
+movl (%eax), -24(%rbp)
+>>>>>>> Stashed changes
 popq %rbp
 ret
    
