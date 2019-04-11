@@ -39,7 +39,6 @@ string Program::generateIR(){
 
 
 void Program::gen_asm(ostream & o){
-    o << "   .text " << endl;
     for(CFG* cfg : cfgs){
         cfg->gen_asm(o);
     }

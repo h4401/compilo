@@ -39,12 +39,11 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
     table = new SymbolTable();
     string name = ctx->ID(0)->getText();
     vector <DeclVar*> vecDecl;
-    int offsetParam = 4;
 
     for(int i = ctx->ID().size()-1;i>0;i--){
-        offsetParam += 4;
+        offset -= 4;
         string nameVar = ctx->ID(i)->getText();
-        Variable* var = new Variable(nameVar,offsetParam,false);
+        Variable* var = new Variable(nameVar,offset,false);
         var->setType(INT);
         table->insert(make_pair(nameVar,var));
         DeclVar * declvar = new DeclVar(nameVar,var->getType());

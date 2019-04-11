@@ -15,9 +15,8 @@ CFG::CFG(Function* ast){
     for(pair<string,Variable*> element : *(ast->getSymbolTable())){
         SymbolType.insert(pair<string,Type>(element.first,element.second->getType()));
         SymbolIndex.insert(pair<string,int>(element.first,element.second->getOffset()));
-        
+        nextFreeSymbolIndex-=4;
     }
-    nextFreeSymbolIndex = (ast->getSymbolTable()->size()-ast->getParameters().size())*(-4);
 
     BasicBlock* bb = new BasicBlock(this,"PROLOGUE");
     bbs.push_back(bb);
@@ -79,6 +78,7 @@ void CFG::gen_asm(ostream &o){
 
 void CFG::gen_asm_prologue(ostream& o){
     (-nextFreeSymbolIndex+4) % 16==0 ? arrondi = -nextFreeSymbolIndex+4 : arrondi = ((-nextFreeSymbolIndex+4)/16+1)*16;
+	o << ast->getName()<<":"<<endl;
         o << "\tpushq  %rbp" << endl;
         o << "\tmovq %rsp, %rbp" << endl;
         o << "\tsubq $"<< to_string(arrondi)<<", %rsp"<<endl;
