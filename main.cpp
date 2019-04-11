@@ -31,17 +31,23 @@ int main(int argc, char* argv[])
 
     /*** Parsing the tree and Generating Assebly ***/
 
+
     cout << "Generating Abstract Syntaxic Tree" << endl;
     ANTLRInputStream input(file);
     GrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     GrammarParser parser(&tokens);
+
+    /******* Detecting syntax errors ******/
     tree::ParseTree* tree = parser.prog();
+    if(parser.getNumberOfSyntaxErrors()!=0){
+        cout<<"Syntax Error"<<endl;
+        return 0;
+    }
     Visitor visitor;
     Program* prog = visitor.visit(tree);
-    cout << "Abstract Syntaxic Tree generated" << endl;
+    cout << "Abstract Syntaxic Tree generated" << endl <<endl;
     
-
     /*************  IR ********************/
     cout << "Generating IR" << endl;
     prog->generateIR();
