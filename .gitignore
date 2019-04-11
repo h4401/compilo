@@ -17,3 +17,9 @@ exe.dSYM
 .DS_Store
 makefile
 test.c
+asm.o
+doTest.sh
+allTests.sh
+a.out
+
+

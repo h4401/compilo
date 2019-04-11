@@ -1,4 +1,4 @@
-void main(){
+int main(){
 	int a;
 	a=4;
 	if(a==2){

@@ -1,10 +1,15 @@
+
 int main(){
-    int a;
-    if(1<2){
-        a = 0;
-    }else{
-        a= 1;
+    if(1<2)  {
+        int a = 0;
+        toto(a);
     }
-    return 0;
+    else   {
+        toto(a);
+    }
+    toto(a);
 }
 
+int toto(a){
+    return a;
+}
