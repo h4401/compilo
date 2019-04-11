@@ -85,9 +85,9 @@ void ExprOperationBinary::print(ostream &os)
 }
 
 string ExprOperationBinary::generateIR(CFG* cfg){
-    string var = cfg->create_new_tempvar(INT);
     string var1 = expressionR->generateIR(cfg);
     string var2 = expressionL->generateIR(cfg);
+    string var = cfg->create_new_tempvar(INT);
     string op = this->operateur;
     vector<string> params;
     params.push_back(var);

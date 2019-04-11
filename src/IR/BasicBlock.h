@@ -27,6 +27,7 @@ public:
     BasicBlock* get_exit_true();
     BasicBlock* get_exit_false();
     std::string getLabel();
+    void setLastVar(std::string var);
     CFG* getCfg();
     void printInstrs();
     
@@ -36,5 +37,5 @@ protected:
     std::string label; /**< label of the BB, also will be the label in the generated code */
     CFG* cfg; /** < the CFG where this block belongs */
     std::vector<IRInstr*> instrs; /** < the instructions themselves. */
-    
+    std::string lastVar;
 };

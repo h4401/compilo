@@ -106,11 +106,12 @@ public:
 
 class CmpInstr : public IRInstr {
 public:
-    CmpInstr(BasicBlock* bb_, Operation op, Type t, std::string operand1, std::string operand2) : IRInstr(bb_, op, t), x(operand1), y(operand2) {}
+    CmpInstr(BasicBlock* bb_, Operation op, Type t, std::string destination,std::string operand1, std::string operand2) : IRInstr(bb_, op, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
     void toString();
     private :
+    std::string d;
     std::string x;
     std::string y;
 };

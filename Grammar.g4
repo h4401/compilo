@@ -42,7 +42,7 @@ statement : ret			#return
 	| insif			#ifStatement
 	;
 
-insif: 'if' '(' expr ')' block inselse ;
+insif: 'if' '(' expr ')' block inselse? ;
 
 inselse: 'else' block ;
 

@@ -23,6 +23,9 @@ CFG::CFG(Function* ast){
     BasicBlock* bbFunct = new BasicBlock(this, ast->getName());
     bb->set_exit_true(bbFunct);
     current_bb = bbFunct;
+    if (nextFreeSymbolIndex !=0){
+        current_bb -> setLastVar((--SymbolIndex.end())->first);
+    }
     bbs.push_back(bbFunct);
     BasicBlock* bbExit = new BasicBlock(this,"EPILOGUE");
     bbs.push_back(bbExit);
@@ -58,6 +61,7 @@ string CFG::create_new_tempvar(Type t){
     nextFreeSymbolIndex -= 4;
     name = "!tmp" + to_string(nextFreeSymbolIndex);
     add_to_symbol_table(name,t);
+    current_bb -> setLastVar(name);
     return name;
 }
 
@@ -78,12 +82,12 @@ void CFG::gen_asm_prologue(ostream& o){
         o << ".global main" << endl;
         o << ".type main, @function" << endl;
         o << "main:" << endl;
-        o << "pushq  %rbp" << endl;
-        o << "movq %rsp, %rbp" << endl;
-        o << "subq $"<< to_string(nextFreeSymbolIndex+4)<<", %rsp"<<endl;
+        o << "\tpushq  %rbp" << endl;
+        o << "\tmovq %rsp, %rbp" << endl;
+        o << "\tsubq $"<< to_string(nextFreeSymbolIndex+4)<<", %rsp"<<endl;
         for(int i = 0 ; i < ast->getParameters().size(); i++){
             int offset = get_var_index(ast->getParameters()[i]->getName());
-            o<< "movq %" << param_register[i]<<", "<<to_string(offset)<<"%(rbp)"<<endl;
+            o<< "\tmovq %" << param_register[i]<<", "<<to_string(offset)<<"%(rbp)"<<endl;
         }
         o << "   " << endl;
 
@@ -91,8 +95,9 @@ void CFG::gen_asm_prologue(ostream& o){
 
 void CFG::gen_asm_epilogue(ostream& o){
     //a verifier
-        o << "popq %rbp" << endl;
-        o << "ret" << endl;
+        o << endl << "."<< ast->getName() <<"_BB_EPILOGUE:" << endl;
+        o << "\tpopq %rbp" << endl;
+        o << "\tret" << endl;
         o << "   " << endl;
 
 }

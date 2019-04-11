@@ -1,12 +1,22 @@
 int main(){
     int a;
     a=3;
-    if ( a==5 ) 
-    {
-	a = 1;
-    }else{
-	a = 2;
-    }
-
+    if(a==3)
+	{	
+		a = 2;
+	} 
+else{
+	
+}
     return a;
+}
+
+int x(){
+	int a;
+a=3;
+	if (a==2){
+
+}
+	
+return 2;
 }

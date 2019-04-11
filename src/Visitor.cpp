@@ -394,6 +394,7 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 	    {
 		ExpressionConst * exprC = visit(ctx->optinit(i));
 		v->setValeur(to_string(exprC->getValeur()));
+		v->setInitialized();
 	    }
             table->insert(std::make_pair(name, v));
 	    declarations.push_back(new DeclVar(name, type));

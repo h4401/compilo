@@ -26,60 +26,72 @@ std::string IRInstr::varToIndex(string name){
 }
 
 void AddInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
-    o << "addl " << varToIndex(x) << ", (%eax)" << std::endl;
-    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
+    o << "\tmovl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "\taddl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "\tmovl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void SubInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
-    o << "subl " << varToIndex(x) << ", (%eax)" << std::endl;
-    o << "movl (%eax)" << ", " << d << "(%rbp)" << std::endl;
+    o << "\tmovl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "\tsubl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "\tmovl (%eax)" << ", " << d << "(%rbp)" << std::endl;
 }
 
 void MulInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
-    o << "imull " << varToIndex(x) << ", (%eax)" << std::endl;
-    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
+    o << "\tmovl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "\timull " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "\tmovl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void DivInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
-    o << "idivl " << varToIndex(x) << ", (%eax)" << std::endl;
-    o << "movl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
+    o << "\tmovl " << varToIndex(y) << "(%rbp), (%eax)" << std::endl;
+    o << "\tidivl " << varToIndex(x) << ", (%eax)" << std::endl;
+    o << "\tmovl (%eax)" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void CmpInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(x) << "(%rbp),  %eax" << endl;
-    o << "cmpl " <<   varToIndex(y) << "(%rbp),  %eax" << endl;
+    o << "\tmovl " << varToIndex(x) << "(%rbp),  %(eax)" << endl;
+    o << "\tcmpl " <<   varToIndex(y) << "(%rbp),  %(eax)" << endl;
+
+    string set = "";
+
     switch(op){
 	case cmp_eq:
-	    o << "jne ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    set = "sete";
+	    //o << "jne ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_neq:
-	    o << "je ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+            set = "setne";
+	    //o << "je ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_lt:
-	    o << "jge ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+            set = "setl";
+	    //o << "jge ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break; 
 
 	case cmp_lte:
-	    o << "jg ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+            set = "setle";
+	    //o << "jg ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_gt:
-	    o << "jle ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+            set = "setg";
+	    //o << "jle ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_gte:
-	    o << "jl ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
+	    set = "setge";
+	    //o << "jl ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	default:
 	break;
     }
+    o <<"\t"<< set << " %al" << endl;
+    o << "\tmovzbl %al, %eax" << endl;
+    o << "\tmovl %(eax), " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void CallInstr::gen_asm(ostream &o){
@@ -91,16 +103,16 @@ void RmemInstr::gen_asm(ostream &o){
 }
 
 void WmemInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(val) << "(%rbp), (%eax)" << endl;
-    o << "movl (%eax), " << varToIndex(dest) << "(%rbp)" << endl;
+    o << "\tmovl " << varToIndex(val) << "(%rbp), (%eax)" << endl;
+    o << "\tmovl (%eax), " << varToIndex(dest) << "(%rbp)" << endl;
 }
 
 void RetInstr::gen_asm(ostream &o){
-    o << "movl " << varToIndex(d) << "(%rbp), (%eax)" << endl;
+    o << "\tmovl " << varToIndex(d) << "(%rbp), (%eax)" << endl;
 }
 
 void LdconstInstr::gen_asm(ostream &o){
-    o << "movl $" << c << ", " << varToIndex(d) << "(%rbp)" << endl;    
+    o << "\tmovl $" << c << ", " << varToIndex(d) << "(%rbp)" << endl;    
 }
 
 void IRInstr::toString(){

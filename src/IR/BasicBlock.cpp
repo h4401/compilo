@@ -6,6 +6,7 @@
 //
 
 #include "BasicBlock.h"
+#include "CFG.h"
 using namespace std;
 
 BasicBlock::BasicBlock(CFG* cfg,string entry_lable){
@@ -57,22 +58,22 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
             instrs.push_back(new CallInstr(this,t,params));
             break;
         case IRInstr::cmp_gt:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
         case IRInstr::cmp_gte:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
         case IRInstr::cmp_lt:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
         case IRInstr::cmp_lte:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
         case IRInstr::cmp_eq:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
         case IRInstr::cmp_neq:
-            instrs.push_back(new CmpInstr(this,op, t, params[1], params[2]));
+            instrs.push_back(new CmpInstr(this,op, t, params[0], params[1], params[2]));
             break;
     }
 }
@@ -80,12 +81,16 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
 void BasicBlock::gen_asm(ostream& o){
 
     cout<<"instrs size: "<<instrs.size()<<endl;
-    o << "." << label << "_BB:" << endl;
-  for(auto irinstr : instrs){
+    o << "."<< cfg->ast->getName() <<"_BB_" << label << ":" << endl;
+    for(auto irinstr : instrs){
         irinstr->gen_asm(o);
     }
     if (exit_true != nullptr && exit_false == nullptr) {
-        o << "jmp ." << exit_true->getLabel() << "_BB" << endl;
+        o << "\tjmp ."<< cfg->ast->getName()<<"_BB_" << exit_true->getLabel() << endl;
+    }else{
+	o << "\tcmpl $0, " << to_string(cfg->get_var_index(lastVar)) << "(%rbp)" << endl;
+	o << "\tje ." << cfg->ast->getName() << "_BB_" << exit_false->getLabel() << endl;
+	o << "\tjne ." << cfg->ast->getName() << "_BB_" << exit_true->getLabel() << endl;
     }
 }
 
@@ -101,4 +106,9 @@ void BasicBlock::printInstrs(){
 
 CFG* BasicBlock::getCfg(){
 	return this->cfg;
+}
+
+void BasicBlock::setLastVar(string var)
+{
+	lastVar = var;
 }
