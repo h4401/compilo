@@ -1,30 +1,42 @@
 #include "DeclVar.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 ostream &operator<<(ostream &os, const DeclVar& dv){
-    os << "Variable declaration: " << dv.type << " " << dv.name << endl;
+    os << "Variable declarations: " << dv.type << " " ;
+    for(auto it: dv.names)
+    {
+	os<< it << " ";
+    }
+    os << endl;
     return os;
 }
 
-void DeclVar::print(ostream &os){
-    os << "Variable declaration: " << this->type << " " << this->name << endl;
+void DeclVar::print(ostream &os) const{
+    os << "Variable declarations: " << this->type << " " ;
+    for(auto it: this->names)
+    {
+	os<< it << " ";
+    }
+    os << endl;
 }
 
-DeclVar::DeclVar(string name, Type type){
-    this->name = name;
-    this->type = type;
-}
-
-DeclVar::~DeclVar(){
-
+void DeclVar::addName(string name){
+	this->names.push_back(name);
 }
 
 string DeclVar::generateIR(CFG* cfg){
     return "";
 }
 
-string DeclVar::getName(){
-    return this->name;
+vector<string> DeclVar::getNames(){
+    return this->names;
 }
 
+
+DeclVar::DeclVar(Type type){
+    this->type = type;
+}
+
+DeclVar::~DeclVar(){}

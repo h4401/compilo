@@ -21,7 +21,7 @@ ostream &operator<<(ostream &os, const ExprOperationBinary& eob){
     return os;
 }
 
-void ExprOperationBinary::print(ostream &os)
+void ExprOperationBinary::print(ostream &os) const
 {
     os << "Binary Expression : "<< *expressionL << " "<< operateur << "" << *expressionL << " ";
 }

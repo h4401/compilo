@@ -12,7 +12,7 @@ ostream &operator<<(ostream &os, const ExprPar& expression){
 }
 
 
-void ExprPar::print(std::ostream &os){
+void ExprPar::print(std::ostream &os) const{
     os << "Parantheses : " << *expr << " ";
 }
 

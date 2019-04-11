@@ -3,7 +3,6 @@
 #include <fstream>
 #include <string>
 
-
 using namespace std;
 
 
@@ -44,9 +43,11 @@ antlrcpp::Any Visitor::visitFunc(GrammarParser::FuncContext* ctx)
         offset -= 4;
         string nameVar = ctx->ID(i)->getText();
         Variable* var = new Variable(nameVar,offset,false);
+	var->setInitialized();
         var->setType(INT);
         table->insert(make_pair(nameVar,var));
-        DeclVar * declvar = new DeclVar(nameVar,var->getType());
+        DeclVar * declvar = new DeclVar(var->getType());
+        declvar->addName(nameVar);
         vecDecl.push_back(declvar);
     }
     Block* block = visit(ctx->block());
@@ -62,12 +63,12 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 
     Block* block = new Block();
 
-    for (unsigned int i = 0; i < ctx->declvar().size(); i++) {
-	std::vector<DeclVar*> declarations = visit(ctx->declvar()[i]);
-	for(auto d : declarations){
-        	block->addDeclaration(d);
-	}
-    }
+    //for (unsigned int i = 0; i < ctx->declvar().size(); i++) {
+	//std::vector<DeclVar*> declarations = visit(ctx->declvar()[i]);
+	//for(auto d : declarations){
+        //	block->addDeclaration(d);
+	//}
+    //}
     for (unsigned int i = 0; i < ctx->statement().size(); i++) {
          	Statement * s = visit(ctx->statement()[i]);
             	block->addStatement(s);
@@ -78,7 +79,7 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 //--------------------- Visiteur Instructions --------------------------//
 
 // Retour fonction
-antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
+antlrcpp::Any Visitor::visitReturnStatement(GrammarParser::ReturnStatementContext* ctx)
 {
 
     Expression * expr = visit(ctx->ret()->expr());
@@ -87,7 +88,7 @@ antlrcpp::Any Visitor::visitReturn(GrammarParser::ReturnContext* ctx)
 }
 
 //Definition Variable
-antlrcpp::Any Visitor::visitDefvariable(GrammarParser::DefvariableContext* ctx)
+antlrcpp::Any Visitor::visitDefvarStatement(GrammarParser::DefvarStatementContext* ctx)
 {
     string name = ctx->defvar()->ID()->getText();
     std::unordered_map<std::string, Variable*>::const_iterator it = table->find(name);
@@ -129,6 +130,14 @@ antlrcpp::Any Visitor::visitIfStatement(GrammarParser::IfStatementContext* ctx)
 {
     If* anIf = visit(ctx->insif());
     return dynamic_cast<Statement*>(anIf);
+}
+
+//Declaration de variable
+antlrcpp::Any Visitor::visitDeclvarStatement(GrammarParser::DeclvarStatementContext* ctx)
+{
+    DeclVar* declaration = visit(ctx->declvar());
+    
+    return dynamic_cast<Statement*>(declaration);
 }
 
 //--------------------- Visiteur If --------------------------//
@@ -352,8 +361,8 @@ antlrcpp::Any Visitor::visitTypeint(GrammarParser::TypeintContext* ctx)
 //--------------------- Visiteur Declaration de variable --------------------------//
 antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 {
-    std::vector<DeclVar*> declarations;
     Type type = visit(ctx->type());
+    DeclVar* declarations = new DeclVar(type);
     for (unsigned int i = 0; i < ctx->ID().size(); i++) {
         string name = ctx->ID(i)->getText();
         std::unordered_map<std::string, Variable*>::const_iterator it = table->find(name);
@@ -374,7 +383,7 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 		v->setInitialized();
 	    }
             table->insert(std::make_pair(name, v));
-	    declarations.push_back(new DeclVar(name, type));
+	    declarations->addName(name);
         }
     }
     return declarations;

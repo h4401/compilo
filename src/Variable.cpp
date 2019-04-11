@@ -32,7 +32,7 @@ ostream &operator<<(ostream &os, const Variable& v){
     return os;
 }   
  
-void Variable::print(ostream &os){
+void Variable::print(ostream &os) const{
     os << "Variable: " << "name: " << name <<" offset: "<<to_string(memOffset)<<" valeur: "<<valeur<<" Type: "<< to_string(type)<< " ";
 }
 

@@ -9,7 +9,7 @@ class ExprPar: public Expression{
 
 	    std::string generateIR(CFG* cfg);
 
-	    void print(std::ostream &os);
+	    void print(std::ostream &os) const;
 
 	protected:
 	    Expression* expr;    

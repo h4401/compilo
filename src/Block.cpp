@@ -12,20 +12,20 @@ void Block::addStatement(Statement* statement){
     statements.push_back(statement);
 }
 
-std::vector<DeclVar*> Block::getDeclarations()
-{
-    return this->declarations;
-}
+//std::vector<DeclVar*> Block::getDeclarations()
+//{
+  //  return this->declarations;
+//}
 
-void Block::addDeclaration(DeclVar* declaration){
-    declarations.push_back(declaration);
-}
+//void Block::addDeclaration(DeclVar* declaration){
+  //  declarations.push_back(declaration);
+//}
 
 
 ostream & operator<<(ostream & os, const Block &block){
-    for (DeclVar* dv : block.declarations){
-        os << *dv << endl;
-    }
+    //for (DeclVar* dv : block.declarations){
+      //  os << *dv << endl;
+    //}
     for(Statement* st : block.statements){
         os << *st << endl;
     }
@@ -33,9 +33,9 @@ ostream & operator<<(ostream & os, const Block &block){
 }
 
 string Block::generateIR(CFG* cfg){
-    for(DeclVar* declvar: declarations){
-        declvar->generateIR(cfg);
-    }
+    //for(DeclVar* declvar: declarations){
+      //  declvar->generateIR(cfg);
+    //}
     for(Statement* statement: statements){
         statement->generateIR(cfg);
     }

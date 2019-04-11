@@ -36,7 +36,7 @@ ostream &operator<<(ostream &os, const ExecFunc& exec){
 }
 
 
-void ExecFunc::print(std::ostream &os)
+void ExecFunc::print(std::ostream &os) const
 {
      os << " AppelFonction: Name=" << name << " "; 
      os << *params<< endl;

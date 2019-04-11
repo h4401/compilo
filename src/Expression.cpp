@@ -38,10 +38,6 @@ std::ostream &operator<<(std::ostream &os, const Expression& e){
     return os;
 } 
 
-void Expression::print(std::ostream& stream) const{
-
-}
-
 Expression::Expression(){}
 
 Expression::~Expression(){}
