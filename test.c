@@ -1,9 +1,10 @@
 int main(){
-    int  x = 1;
-    x= test(x);
+    int a;
+    if(1<2){
+        a = 0;
+    }else{
+        a= 1;
+    }
     return 0;
 }
 
-int test(int a){
-    return a;
-}
