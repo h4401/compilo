@@ -15,7 +15,7 @@ class ExecFunc: public Expression{
 
 	    friend std::ostream &operator<<(std::ostream &os,const ExecFunc& eob);
 
-	    void print(std::ostream &os);
+	    void print(std::ostream &os) const;
 	    
 	protected:
 	    std::string name;  

@@ -1,23 +1,16 @@
 main:
 	pushq  %rbp
 	movq %rsp, %rbp
-	subq $48, %rsp
+	subq $32, %rsp
 	movq %rdi, -4%(rbp)
 	movq %rsi, -8%(rbp)
 	movq %rdx, -12%(rbp)
-	movq %rcx, -16%(rbp)
    
 .main_BB_main:
-	movl $1, -24(%rbp)
-	movl -24(%rbp), (%eax)
-	movl (%eax), -20(%rbp)
-	movl $1, -32(%rbp)
-	movq -32(%rbp), %rdi
-	callq test
-	movl %eax, (%rbp)-28
-	movl -20(%rbp), (%eax)
+	movl $0, -16(%rbp)
+	movl -16(%rbp), (%eax)
 	jmp .main_BB_EPILOGUE
-	addq $48, %rsp
+	addq $32, %rsp
 	popq %rbp
 	ret
    

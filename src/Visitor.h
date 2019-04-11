@@ -39,15 +39,17 @@ class Visitor : public GrammarBaseVisitor {
 	    antlrcpp::Any visitBlock(GrammarParser::BlockContext* ctx) override;
 
 	    //--------------------- Visiteur Instruction --------------------------//
-	    antlrcpp::Any visitReturn(GrammarParser::ReturnContext* ctx) override;
+	    antlrcpp::Any visitReturnStatement(GrammarParser::ReturnStatementContext* ctx) override;
 
-	    antlrcpp::Any visitDefvariable(GrammarParser::DefvariableContext* ctx) override;
+	    antlrcpp::Any visitDefvarStatement(GrammarParser::DefvarStatementContext* ctx) override;
 
 	    antlrcpp::Any visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx) override;
 
 	    antlrcpp::Any visitExprStatement(GrammarParser::ExprStatementContext* ctx) override;
 
 	    antlrcpp::Any visitIfStatement(GrammarParser::IfStatementContext* ctx) override;
+
+            antlrcpp::Any visitDeclvarStatement(GrammarParser::DeclvarStatementContext* ctx) override;
 	    
 	    //--------------------- Visiteur if --------------------------//
 	    antlrcpp::Any visitInsif(GrammarParser::InsifContext* ctx) override;

@@ -14,9 +14,9 @@ public:
   
   	friend std::ostream& operator<< (std::ostream& stream, const Block& block);
 	
-	std::vector<DeclVar*> getDeclarations();
+	//std::vector<DeclVar*> getDeclarations();
 
-	void addDeclaration(DeclVar* declaration);
+	//void addDeclaration(DeclVar* declaration);
    
 	std::vector<Statement*> getStatements();
 
@@ -27,6 +27,6 @@ public:
 protected:
 	std::vector<Statement*> statements;
 
-	std::vector<DeclVar*> declarations;
+	//std::vector<DeclVar*> declarations;
 };
 

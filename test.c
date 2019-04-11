@@ -1,10 +1,7 @@
-int main(int b, int c, int d, int e){
-    int a;
-    a=1;
-    test(1);
-    return a;
+int main(int a, int b, int c){
+    return 0;
 }
 
 int test(int a){
-	return a;
+    return a;
 }

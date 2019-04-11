@@ -33,13 +33,14 @@ defvar : ID '=' expr ';'
 
 execfunc : ID '(' param ')' ;
 
-block : '{' declvar* statement* '}';
+block : '{' statement* '}';
 
-statement : ret			#return	
-	| defvar		#defvariable
+statement : ret			#returnStatement
+	| defvar		#defvarStatement
 	| execfunc ';'		#exfuncStatement
 	| expr ';'		#exprStatement
 	| insif			#ifStatement
+	| declvar		#declvarStatement
 	;
 
 insif: 'if' '(' expr ')' block inselse? ;

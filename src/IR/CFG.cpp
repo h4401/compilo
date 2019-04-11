@@ -69,7 +69,7 @@ void CFG::gen_asm(ostream &o){
     gen_asm_prologue(o);
     for(int i=0; i<bbs.size(); i++){
 	if(i!=0 && i!=2){
-	bbs[i]->printInstrs();
+	//bbs[i]->printInstrs();
         bbs[i]->gen_asm(o);
         }
     }
@@ -83,7 +83,7 @@ void CFG::gen_asm_prologue(ostream& o){
         o << "\tmovq %rsp, %rbp" << endl;
         o << "\tsubq $"<< to_string(arrondi)<<", %rsp"<<endl;
         for(int i = 0 ; i < ast->getParameters().size(); i++){
-            int offset = get_var_index(ast->getParameters()[i]->getName());
+            int offset = get_var_index(ast->getParameters()[i]->getNames()[0]);
             o<< "\tmovq %" << param_register[i]<<", "<<to_string(offset)<<"%(rbp)"<<endl;
         }
         o << "   " << endl;
@@ -91,7 +91,6 @@ void CFG::gen_asm_prologue(ostream& o){
 }
 
 void CFG::gen_asm_epilogue(ostream& o){
-    //a verifier
         o << "\taddq $"<< arrondi<<", %rsp"<<endl;
         o << "\tpopq %rbp" << endl;
         o << "\tret" << endl;

@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
     Visitor visitor;
     Program* prog = visitor.visit(tree);
     //visitor.printTable();       //test for symboltable
-    //cout << *prog <<endl ;
+    cout << *prog <<endl ;
     prog->generateIR();
     
     ofstream o;

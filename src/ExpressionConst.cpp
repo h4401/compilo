@@ -17,7 +17,7 @@ ostream &operator<<(ostream &os, const ExpressionConst& eob){
 }
 
 
-void ExpressionConst::print(std::ostream &os){
+void ExpressionConst::print(std::ostream &os) const{
     os << "Binary Expression : valeur :" << valeur << " ";
 }
 

@@ -7,31 +7,34 @@
 //
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Type.h"
+#include "Statement.h"
 
 class CFG;
-class DeclVar
+class DeclVar : public Statement
 {
 	public:
-	    DeclVar(std::string name, Type type);
+	    DeclVar(Type type);
 	    
 	    virtual ~DeclVar();
 
  	    void generateAsm(std::ostream& o);
 
-	    void setName();
+	    void addName(std::string name);
 
 	    friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
 
-	    void print(std::ostream &os);
+	    void print(std::ostream &os) const;
 
-	    std::string getName();
+	    std::vector<std::string> getNames();
 
 	    std::string generateIR(CFG* cfg);
 	  
 
 	protected:
 	    Type type;
-	    std::string name;
+
+	    std::vector<std::string> names;
 };
 

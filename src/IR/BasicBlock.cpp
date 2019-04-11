@@ -69,8 +69,6 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op,Type t,vector<string>params){
 }
 
 void BasicBlock::gen_asm(ostream& o){
-
-    cout<<"instrs size: "<<instrs.size()<<endl;
     o << "."<< cfg->ast->getName() <<"_BB_" << label << ":" << endl;
     for(auto irinstr : instrs){
         irinstr->gen_asm(o);
@@ -89,6 +87,7 @@ string BasicBlock::getLabel(){
 }
 
 void BasicBlock::printInstrs(){
+    cout<<"instrs size: "<<instrs.size()<<endl;
     for(int i = 0;i<instrs.size();i++){
         instrs[i]->toString();
     }

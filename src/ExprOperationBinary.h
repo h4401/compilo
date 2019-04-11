@@ -14,7 +14,7 @@ class ExprOperationBinary : public Expression {
 
 	    friend std::ostream &operator<<(std::ostream &os,const ExprOperationBinary& eob);
 
-	    void print(std::ostream &os);
+	    void print(std::ostream &os) const;
 
 	    std::string getOperateur(); 
 

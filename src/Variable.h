@@ -21,7 +21,7 @@ class Variable : public Expression{
 
 	    friend std::ostream &operator<<(std::ostream &os, const Variable& v);
 
-	    void print(std::ostream &os);
+	    void print(std::ostream &os) const;
 
 	    Type getType();
 

@@ -31,7 +31,7 @@ class Expression : public Statement {
 
 	    friend std::ostream &operator<<(std::ostream &os, const Expression& e);
 
-	    virtual void print(std::ostream& stream) const ;
+	    virtual void print(std::ostream& stream) const = 0;
 
 	    virtual std::string generateIR(CFG* cfg)=0;
 	    
