@@ -21,7 +21,7 @@ std::string IRInstr::varToIndex(string name){
 
 void AddInstr::gen_asm(ostream &o){
     o << "\tmovl " << varToIndex(y) << "(%rbp), %eax" << std::endl;
-    o << "\taddl " << varToIndex(x) << ", %eax" << std::endl;
+    o << "\taddl " << varToIndex(x) << "(%rbp), %eax" << std::endl;
     o << "\tmovl %eax" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
