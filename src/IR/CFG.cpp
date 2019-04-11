@@ -1,9 +1,3 @@
-//
-//  CFG.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
 #include <iostream>
 #include "CFG.h"
 #include "BasicBlock.h"
@@ -91,7 +85,8 @@ void CFG::gen_asm_prologue(ostream& o){
 }
 
 void CFG::gen_asm_epilogue(ostream& o){
-        o << "\taddq $"<< arrondi<<", %rsp"<<endl;
+	o <<"."<< ast->getName() << "_BB_EPILOGUE:" << endl;        
+	o << "\taddq $"<< arrondi<<", %rsp"<<endl;
         o << "\tpopq %rbp" << endl;
         o << "\tret" << endl;
         o << "   " << endl;

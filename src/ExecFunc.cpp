@@ -26,7 +26,7 @@ string ExecFunc::generateIR(CFG* cfg){
     }
         cfg->current_bb->add_IRInstr(IRInstr::call,INT,vec);
 
-    return "";
+    return var;
 }
 
 ostream &operator<<(ostream &os, const ExecFunc& exec){

@@ -1,4 +1,6 @@
-int main(int a, int b, int c){
+int main(){
+    int  x = 1;
+    x= test(x);
     return 0;
 }
 

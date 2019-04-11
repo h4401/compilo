@@ -70,8 +70,11 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 	//}
     //}
     for (unsigned int i = 0; i < ctx->statement().size(); i++) {
-         	Statement * s = visit(ctx->statement()[i]);
-            	block->addStatement(s);
+         	vector<Statement *> states = visit(ctx->statement()[i]);
+		for (auto s : states)
+		{ 
+            	    block->addStatement(s);
+		}
     }
     return block;
 }
@@ -81,10 +84,11 @@ antlrcpp::Any Visitor::visitBlock(GrammarParser::BlockContext* ctx)
 // Retour fonction
 antlrcpp::Any Visitor::visitReturnStatement(GrammarParser::ReturnStatementContext* ctx)
 {
-
+    vector<Statement*> states;
     Expression * expr = visit(ctx->ret()->expr());
     Return* ret = new Return(expr);
-    return dynamic_cast<Statement *>(ret);
+    states.push_back(dynamic_cast<Statement*>(ret));
+    return states;
 }
 
 //Definition Variable
@@ -99,45 +103,52 @@ antlrcpp::Any Visitor::visitDefvarStatement(GrammarParser::DefvarStatementContex
         return -1;
     }
     else {
+        vector<Statement*> states;
         Expression* expr = visit(ctx->defvar()->expr());
         it->second->setInitialized();
         it->second->setValeur(to_string(expr->getValeur()));
 
         DefVar* defvar = new DefVar(it->second, expr);
-        return dynamic_cast<Statement *>(defvar);
+        states.push_back(dynamic_cast<Statement*>(defvar));
+        return states;
     }
 }
 
 //Execution de fonction
 antlrcpp::Any Visitor::visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx)
 {
+    vector<Statement*> states; 
     string name = ctx->execfunc()->ID()->getText();
     Param * param = visit(ctx->execfunc()->param());
     ExecFunc* exe = new ExecFunc(name, param);
-    return dynamic_cast<Statement *>(exe);   
+    states.push_back(dynamic_cast<Statement*>(exe));
+    return states;   
 }
 
 
 //Expression 
 antlrcpp::Any Visitor::visitExprStatement(GrammarParser::ExprStatementContext* ctx)
 {
+    vector<Statement*> states; 
     Expression * expr = visit(ctx->expr());
-    return dynamic_cast<Statement *>(expr);
+    states.push_back(dynamic_cast<Statement*>(expr));
+    return states;
 }
 
 //If
 antlrcpp::Any Visitor::visitIfStatement(GrammarParser::IfStatementContext* ctx)
 {
+    vector<Statement*> states; 
     If* anIf = visit(ctx->insif());
-    return dynamic_cast<Statement*>(anIf);
+    states.push_back(dynamic_cast<Statement*>(anIf));
+    return states;
 }
 
 //Declaration de variable
 antlrcpp::Any Visitor::visitDeclvarStatement(GrammarParser::DeclvarStatementContext* ctx)
 {
-    DeclVar* declaration = visit(ctx->declvar());
-    
-    return dynamic_cast<Statement*>(declaration);
+    vector<Statement*> states = visit(ctx->declvar());
+    return states;
 }
 
 //--------------------- Visiteur If --------------------------//
@@ -361,8 +372,9 @@ antlrcpp::Any Visitor::visitTypeint(GrammarParser::TypeintContext* ctx)
 //--------------------- Visiteur Declaration de variable --------------------------//
 antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 {
+    vector<Statement*> definitions;
     Type type = visit(ctx->type());
-    DeclVar* declarations = new DeclVar(type);
+    //DeclVar* declarations = new DeclVar(type);
     for (unsigned int i = 0; i < ctx->ID().size(); i++) {
         string name = ctx->ID(i)->getText();
         std::unordered_map<std::string, Variable*>::const_iterator it = table->find(name);
@@ -381,12 +393,14 @@ antlrcpp::Any Visitor::visitDeclvar(GrammarParser::DeclvarContext* ctx)
 		ExpressionConst * exprC = visit(ctx->optinit(i));
 		v->setValeur(to_string(exprC->getValeur()));
 		v->setInitialized();
+		DefVar * definition = new DefVar(v,exprC);
+		definitions.push_back(dynamic_cast<Statement*>(definition));
 	    }
             table->insert(std::make_pair(name, v));
-	    declarations->addName(name);
+	    //declarations->addName(name);
         }
     }
-    return declarations;
+    return definitions;
     
 }
 
@@ -408,6 +422,6 @@ antlrcpp::Any Visitor::visitInit(GrammarParser::InitContext* ctx)
 void Visitor::printTable(){
     for (auto it : *table){
         cout<<"table: "<<endl;
-        std::cout << "first: " << it.first << "; second: " << it.second << std::endl;
+        std::cout << "first: " << it.first << "; second: " << *it.second << std::endl;
     }
 }
