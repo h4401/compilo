@@ -7,7 +7,7 @@ ostream & operator<<(ostream & stream, const Program & programme)
 
     for (auto function :  programme.functions)
     {
-        stream << *function;
+        stream << *function << endl;
     }
 
     stream << endl;
@@ -21,18 +21,12 @@ void Program::addFunction(Function *function)
     this->functions.push_back(function);
 }
 
+
 vector <Function*> Program::getFunctions()
 {
     return this->functions;
 }
 
-Program::Program()
-{
-}
-
-Program::~Program()
-{
-}
 
 string Program::generateIR(){
     for(Function* func : functions){
@@ -43,9 +37,18 @@ string Program::generateIR(){
     return "";
 }
 
+
 void Program::gen_asm(ostream & o){
     o << "   .text " << endl;
     for(CFG* cfg : cfgs){
         cfg->gen_asm(o);
     }
 }
+
+
+Program::Program(){}
+
+
+Program::~Program(){}
+
+

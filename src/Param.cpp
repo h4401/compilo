@@ -1,16 +1,5 @@
-//
-//  Param.cpp
-//  
-//
-//  Created by yanghua on 2019/4/9.
-//
-
 #include "Param.h"
 using namespace std;
-
-Param::Param(vector<Expression*> vecExpr){
-    this->vecExpr = vecExpr;
-}
 
 vector<string> Param::generateIR(CFG* cfg){
     vector<string> params;
@@ -20,6 +9,26 @@ vector<string> Param::generateIR(CFG* cfg){
     }
     return params;
 
+}
+
+ostream &operator<<(ostream &os, const Param& param){
+    for (auto it : param.vecExpr)
+    {
+	os << *it << " ";
+    }
+    return os;
+}
+
+void Param::print(ostream &os){
+    for (auto it : vecExpr)
+    {
+	os << *it << " ";
+    }
+}
+
+
+Param::Param(vector<Expression*> vecExpr){
+    this->vecExpr = vecExpr;
 }
 
 Param::~Param(){

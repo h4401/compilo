@@ -3,66 +3,10 @@
 
 using namespace std;
 
-ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur)
-{
-    this->expressionL = expressionL;
-    this->expressionR = expressionR;
-    this->operateur = operateur;
-}
-
-
-ExprOperationBinary::~ExprOperationBinary()
-{
-}
-
 string ExprOperationBinary::getOperateur()
 {
     return this->operateur;
 }
-
-void ExprOperationBinary::generateAsm(ofstream& output, int offset)
-{
-    output << "movl " << to_string(this->expressionL->getOffset()) << "(%rbp), (%eax)" << endl;
-    string val = "";
-    if (this->expressionR->getType() == CONST) {
-        val = "$" + to_string(this->expressionR->getValeur());
-    }
-    else {
-        val = to_string(this->expressionR->getOffset()) + "(%rbp)";
-    }
-//    switch (this->operateur) {
-    if(this->operateur=="+")
-        output << "addl " << val << ", (%eax)" << endl;
-
-    else if(this->operateur=="-")
-        output << "subl " << val << ", (%eax)" << endl;
-
-    else if(this->operateur=="*")
-        output << "imull " << val << ", (%eax)" << endl;
-
-    else if(this->operateur=="/")
-        output << "idivl " << val << ", (%eax)" << endl;
-    
-    else if(this->operateur=="==")
-        output << "addl " << val << ", (%eax)" << endl;
-
-    else if(this->operateur=="!=")
-        output << "subl " << val << ", (%eax)" << endl;
-
-
-    else if(this->operateur=="<=")
-        output << "imull " << val << ", (%eax)" << endl;
-
-
-    else if(this->operateur==">=")
-        output << "idivl " << val << ", (%eax)" << endl;
-
-
-    
-    output << "movl (%eax)"
-           << ", " << to_string(offset) << "(%rbp)" << endl;
-}
-
 
 Expression* ExprOperationBinary::getExpressionL(){
     return expressionL;
@@ -73,15 +17,13 @@ Expression* ExprOperationBinary::getExpressionR(){
 }
 
 ostream &operator<<(ostream &os, const ExprOperationBinary& eob){
-    os << "Binary Expression : " << endl;
-    os << *eob.expressionL << *eob.expressionL << endl;
+    os << "Binary Expression : " << *eob.expressionL << " "<< eob.operateur << "" << *eob.expressionL << " ";
     return os;
 }
 
 void ExprOperationBinary::print(ostream &os)
 {
-    os << "Binary Expression : " << endl;
-    os << *expressionL << *expressionL << endl;
+    os << "Binary Expression : "<< *expressionL << " "<< operateur << "" << *expressionL << " ";
 }
 
 string ExprOperationBinary::generateIR(CFG* cfg){
@@ -117,9 +59,16 @@ string ExprOperationBinary::generateIR(CFG* cfg){
     
     else if(this->operateur=="<=")
         cfg->current_bb->add_IRInstr(IRInstr::cmp_lte,INT,params);
-    
-    
-    
-    
+
     return var;
 }
+
+ExprOperationBinary::ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur)
+{
+    this->expressionL = expressionL;
+    this->expressionR = expressionR;
+    this->operateur = operateur;
+}
+
+ExprOperationBinary::~ExprOperationBinary(){}
+

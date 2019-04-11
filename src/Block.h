@@ -21,10 +21,8 @@ public:
 	std::vector<Statement*> getStatements();
 
 	void addStatement(Statement* statement);
- 	
-	void generateAsm(std::ofstream& o);
 
-    std::string generateIR(CFG* cfg);
+    	std::string generateIR(CFG* cfg);
 
 protected:
 	std::vector<Statement*> statements;

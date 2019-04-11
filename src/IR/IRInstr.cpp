@@ -1,9 +1,3 @@
-//
-//  IRInstr.cpp
-//  
-//
-//  Created by yanghua on 2019/3/29.
-//
 #include <iostream>
 
 #include "IRInstr.h"
@@ -58,32 +52,26 @@ void CmpInstr::gen_asm(ostream &o){
     switch(op){
 	case cmp_eq:
 	    set = "sete";
-	    //o << "jne ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_neq:
             set = "setne";
-	    //o << "je ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_lt:
             set = "setl";
-	    //o << "jge ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break; 
 
 	case cmp_lte:
             set = "setle";
-	    //o << "jg ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_gt:
             set = "setg";
-	    //o << "jle ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	case cmp_gte:
 	    set = "setge";
-	    //o << "jl ." << bb->get_exit_false()->getLabel() << "_BB" << endl;
 	    break;
 
 	default:
@@ -115,9 +103,7 @@ void LdconstInstr::gen_asm(ostream &o){
     o << "\tmovl $" << c << ", " << varToIndex(d) << "(%rbp)" << endl;    
 }
 
-void IRInstr::toString(){
-    
-}
+void IRInstr::toString(){}
 
 void LdconstInstr::toString(){
     std::cout<<"Ldconst: "<<op<<" d:"<<d<<" "<<"c:"<<c<<" "<<std::endl;

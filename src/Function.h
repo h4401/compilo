@@ -4,7 +4,6 @@
 #include <string>
 #include "Block.h"
 #include "Type.h"
-//#include "Variable.h"
 
 class CFG;
 class Variable;
@@ -38,13 +37,14 @@ class Function
     
         SymbolTable* getSymbolTable();
 
-
-	//virtual void generateAssembly(ofstream& f, unordered_map<string, Variable*>& addressTable);
-
     private:
 	SymbolTable* table;
+
         std::string name;
+
         Block* block;
+
         std::vector<DeclVar*> parameters;
+
         Type returnType;
 };

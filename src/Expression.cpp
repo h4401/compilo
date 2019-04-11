@@ -3,10 +3,6 @@
 
 using namespace std;
 
-Expression::Expression(){}
-
-Expression::~Expression(){}
-
 int Expression::getOffset()
 {
     return this->offset;
@@ -38,17 +34,14 @@ void Expression::setType(TypeExpr type)
 }
 
 std::ostream &operator<<(std::ostream &os, const Expression& e){
-    os << "Expression:";
     e.print(os);
     return os;
 } 
-
-void Expression::generateAsm(std::ofstream& o, int offset){
-    
-}
 
 void Expression::print(std::ostream& stream) const{
 
 }
 
+Expression::Expression(){}
 
+Expression::~Expression(){}

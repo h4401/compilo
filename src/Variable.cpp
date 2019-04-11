@@ -1,12 +1,6 @@
 #include "Variable.h"
 #include <iostream>
 using namespace std;
-Variable::Variable(std::string name, int memOffset, bool initialized)
-{
-    this->name = name;
-    this->memOffset = memOffset;
-    this->initialized = initialized;
-};
 
 int Variable::getOffset()
 {
@@ -34,14 +28,12 @@ void Variable::setValeur(string val)
 }
 
 ostream &operator<<(ostream &os, const Variable& v){
-    os << "Variable" << endl;
-    os << "Value: " << v.valeur << "," << v.memOffset << endl;
+    os << "Variable: " << "name: " << v.name <<" offset: "<<to_string(v.memOffset)<<" valeur: "<<v.valeur<<" Type: "<<to_string(v.type) << " ";
     return os;
 }   
  
 void Variable::print(ostream &os){
-    os << "Variable" << endl;
-    os << "name: " << name <<" offset: "<<to_string(memOffset)<<" valeur: "<<valeur<<" Type: "<<to_string(type);
+    os << "Variable: " << "name: " << name <<" offset: "<<to_string(memOffset)<<" valeur: "<<valeur<<" Type: "<< to_string(type)<< " ";
 }
 
 void Variable::setType(Type t){
@@ -54,11 +46,13 @@ Type Variable::getType(){
 
 string Variable::generateIR(CFG* cfg){
     return this->name;
-    return "";
 }
 
-string Variable::toString(){
-    return "name: "+name+" offset: "+to_string(memOffset)+" valeur: "+valeur+" Type: "+to_string(type);
-}
+Variable::Variable(std::string name, int memOffset, bool initialized)
+{
+    this->name = name;
+    this->memOffset = memOffset;
+    this->initialized = initialized;
+};
 
-
+Variable::~Variable(){}

@@ -7,23 +7,29 @@
 
 
 class ExprOperationBinary : public Expression {
-public:
-    ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur);
-    virtual ~ExprOperationBinary();
-    void generateAsm(std::ofstream& o, int offset);
-    friend std::ostream &operator<<(std::ostream &os,const ExprOperationBinary& eob);
-    void print(std::ostream &os);
+	public:
+	    ExprOperationBinary(Expression* expressionL, Expression* expressionR, string operateur);
 
-    std::string getOperateur(); 
-    std::string generateIR();
-    Expression* getExpressionL();
-    Expression* getExpressionR();
-    std::string generateIR(CFG* cfg);
+	    virtual ~ExprOperationBinary();
 
+	    friend std::ostream &operator<<(std::ostream &os,const ExprOperationBinary& eob);
 
+	    void print(std::ostream &os);
 
-private:
-    Expression* expressionL;
-    Expression* expressionR;
-    string operateur;
+	    std::string getOperateur(); 
+
+	    std::string generateIR();
+
+	    Expression* getExpressionL();
+
+	    Expression* getExpressionR();
+
+	    std::string generateIR(CFG* cfg);
+
+	private:
+	    Expression* expressionL;
+
+	    Expression* expressionR;
+
+	    string operateur;
 };

@@ -12,20 +12,26 @@
 class CFG;
 class DeclVar
 {
-public:
-    DeclVar(std::string name, Type type);
-    virtual ~DeclVar();
+	public:
+	    DeclVar(std::string name, Type type);
+	    
+	    virtual ~DeclVar();
 
-    void generateAsm(std::ostream& o);
-    void setName();
-    friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
-    void print(std::ostream &os);
-    std::string getName();
-    std::string generateIR(CFG* cfg);
-  
+ 	    void generateAsm(std::ostream& o);
 
-protected:
-    Type type;
-    std::string name;
+	    void setName();
+
+	    friend std::ostream &operator<<(std::ostream &os, const DeclVar& dv);
+
+	    void print(std::ostream &os);
+
+	    std::string getName();
+
+	    std::string generateIR(CFG* cfg);
+	  
+
+	protected:
+	    Type type;
+	    std::string name;
 };
 

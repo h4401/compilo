@@ -16,8 +16,8 @@ ExecFunc::~ExecFunc(){
 string ExecFunc::generateIR(CFG* cfg){
     
     vector<string> funcParams;
-    string var = cfg->create_new_tempvar(INT);//creer et inserer la nouv var ds table symbol
-    funcParams = params->generateIR(cfg); // appel de fct qui generate IRs pour chaque expr dans parametres
+    string var = cfg->create_new_tempvar(INT);
+    funcParams = params->generateIR(cfg); 
     vector <string> vec;
     vec.push_back(var);//dest
     vec.push_back(name);//label
@@ -29,27 +29,15 @@ string ExecFunc::generateIR(CFG* cfg){
     return "";
 }
 
-//ostream &operator<<(ostream &os, const ExecFunc& eob){
-//    os << " AppelFunction: Name=" << eob.name << " ";
-//
-//    for (auto it : eob.expressions)
-//    {
-//        os << *it;
-//    }
-//
-//    os << endl;
-//    return os;
-//}
+ostream &operator<<(ostream &os, const ExecFunc& exec){
+    os << " AppelFonction: Name=" << exec.name << " ";
+    os << *(exec.params)<< endl;
+    return os;
+}
 
 
-//void ExecFunc::print(std::ostream &os)
-//{
-//     os << " AppelFunction: Name=" << name << " ";
-//
-//    for (auto it : expressions)
-//    {
-//        os << *it;
-//    }
-//    
-//    os << endl;
-//}
+void ExecFunc::print(std::ostream &os)
+{
+     os << " AppelFonction: Name=" << name << " "; 
+     os << *params<< endl;
+}

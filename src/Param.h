@@ -1,10 +1,3 @@
-//
-//  Param.h
-//  
-//
-//  Created by yanghua on 2019/4/9.
-//
-
 #pragma once
 #include <vector>
 #include "Expression.h"
@@ -13,11 +6,16 @@ using namespace std;
 
 class Param
 {
-public:
-    Param(vector<Expression*> vecExpr);
-    ~Param();
-    std::vector<string> generateIR(CFG* cfg);
-  
-private:
-    std::vector<Expression*> vecExpr;
+	public:
+	    Param(vector<Expression*> vecExpr);
+
+	    ~Param();
+
+	    std::vector<string> generateIR(CFG* cfg);
+	  
+            void print(ostream &os);
+
+	    friend ostream &operator<<(ostream &os, const Param& param);
+	private:
+	    std::vector<Expression*> vecExpr;
 };

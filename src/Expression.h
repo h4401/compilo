@@ -12,26 +12,35 @@ enum TypeExpr {
 };
 
 class Expression : public Statement {
-public:
-    Expression();
-    virtual ~Expression();
-    int getOffset();
-    void setOffset(int valeur);
-    TypeExpr getType();
-    void setType(TypeExpr type);
-    int getValeur();
-    void setValeur(int valeur);
-    virtual void generateAsm(std::ofstream& o, int offset);
+	public:
+	    Expression();
 
-    friend std::ostream &operator<<(std::ostream &os, const Expression& e);
-    virtual void print(std::ostream& stream) const ;
-    virtual std::string generateIR(CFG* cfg)=0;
-    
-protected:
-    bool isSimple;
-    int offset;
-    int valeur;
-    TypeExpr type;
+	    virtual ~Expression();
+
+	    int getOffset();
+
+	    void setOffset(int valeur);
+
+	    TypeExpr getType();
+
+	    void setType(TypeExpr type);
+
+	    int getValeur();
+
+	    void setValeur(int valeur);
+
+	    friend std::ostream &operator<<(std::ostream &os, const Expression& e);
+
+	    virtual void print(std::ostream& stream) const ;
+
+	    virtual std::string generateIR(CFG* cfg)=0;
+	    
+	protected:
+	    int offset;
+
+	    int valeur;
+
+	    TypeExpr type;
 };
 
 

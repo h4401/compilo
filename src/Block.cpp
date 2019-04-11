@@ -3,14 +3,6 @@
 
 using namespace std;
 
-Block::Block(){
-
-}
-
-Block::~Block(){
-
-}
-
 std::vector<Statement*> Block::getStatements()
 {
     return this->statements;
@@ -27,15 +19,6 @@ std::vector<DeclVar*> Block::getDeclarations()
 
 void Block::addDeclaration(DeclVar* declaration){
     declarations.push_back(declaration);
-}
-
-void Block::generateAsm(ofstream& o){
-//    for(int i = 0;i<statements.size();i++){
-//        statements[i]->generateAsm(o,);
-//    }
-//    for(int i = 0;i<declVars.size();i++){
-//        declVars[i]->generateAsm(o);
-//    }
 }
 
 
@@ -58,4 +41,9 @@ string Block::generateIR(CFG* cfg){
     }
     return "";
 }
+
+
+Block::Block(){}
+
+Block::~Block(){}
 

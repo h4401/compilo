@@ -8,7 +8,6 @@ using namespace std;
 
 string If::generateIR(CFG * cfg)
 {
-    cout << "If::generateIR" << endl;
     // condition IR generation
     string conditionRes = condition->generateIR(cfg);
 
@@ -53,42 +52,7 @@ string If::generateIR(CFG * cfg)
 
     cfg -> addBB(afterBB);
     cfg -> current_bb = afterBB;
-	
-    
-	/*
-    // Add instructions of condition
-    
 
-
-    trueBB -> set_exit_true(continueBB);
-
-
-    // Ad-d jump (jump if condition is false) to the next label (either else or afterif)
-    // ex : .L2
-    cfg->current_bb->addIRInstr(IRInstr(COMPJUMP,{to_string(labelNextBlock),result.substr(4)}));
-    // Add instructions of the then part
-    block->generateIR(cfg);
-
-    // If there is an else, generate basic block for else
-    if(this->hasElse)
-    {
-        // Else is the next block
-        labelNextBlock++; // Increase label
-        // Instruction to jump from the then part to afterif
-        // ex : .L3
-        controlFlowGraph->addIRInstr(IRInstr(RETIF,{to_string(labelNextBlock)}));
-        anElse->generateIR(controlFlowGraph, labelNextBlock-1);
-    }
-
-    // After if
-    controlFlowGraph->newBasicBlock();
-    // ex : .L3 if there is a else, .L2 otherwise
-    controlFlowGraph->addIRInstr(IRInstr(LABEL,{to_string(labelNextBlock)}));
-
-    // Prepare label for next if
-    // ex : .L4
-    controlFlowGraph->setLastLabel(labelNextBlock+1);
-*/
     return "";
 }
 
@@ -98,16 +62,16 @@ void If::print(std::ostream &stream) const
     stream << " If: Condition=" << *condition << *block;
     if(hasElse)
     {
-        stream << *anElse << endl;
+        stream << endl << *anElse << endl;
     }
 }
 
 std::ostream& operator<<(std::ostream& stream, const If& anIf)
 {
-    stream << " If: Condition=" << *anIf.condition << *anIf.block << endl;
+    stream << " If: Condition=" << *anIf.condition << *anIf.block ;
     if(anIf.hasElse)
     {
-        stream << *anIf.anElse << endl;
+        stream << endl << *anIf.anElse << endl;
     }
     
     return stream;
@@ -121,13 +85,10 @@ void If::setElse(Else *anElse)
 }
 
 
-
 If::If(Expression* condition, Block* block)
 {
     this->condition = condition;
     this->block = block;
 }
 
-If::~If()
-{
-}
+If::~If(){}

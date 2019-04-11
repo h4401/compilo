@@ -4,24 +4,39 @@
 #include "Expression.h"
 class Variable : public Expression{
 
-public:
-    Variable(std::string name, int offset, bool initialized);
-    int getOffset();
-    bool isInitialized();
-    void setInitialized();
-    std::string getValeur();
-    void setValeur(std::string val);
-    friend std::ostream &operator<<(std::ostream &os, const Variable& v);
-    void print(std::ostream &os);
-    Type getType();
-    void setType(Type t);
-    std::string generateIR(CFG* cfg);
-    std::string toString();
+	public:
+	    Variable(std::string name, int offset, bool initialized);
 
-private:
-    std::string name;
-    int memOffset;
-    bool initialized;
-    std::string valeur;
-    Type type;
+	    virtual ~Variable();
+
+	    int getOffset();
+
+	    bool isInitialized();
+
+	    void setInitialized();
+
+	    std::string getValeur();
+
+	    void setValeur(std::string val);
+
+	    friend std::ostream &operator<<(std::ostream &os, const Variable& v);
+
+	    void print(std::ostream &os);
+
+	    Type getType();
+
+	    void setType(Type t);
+
+	    std::string generateIR(CFG* cfg);
+
+	private:
+	    std::string name;
+
+	    int memOffset;
+
+	    bool initialized;
+
+	    std::string valeur;
+
+	    Type type;
 };

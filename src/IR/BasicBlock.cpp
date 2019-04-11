@@ -9,16 +9,6 @@
 #include "CFG.h"
 using namespace std;
 
-BasicBlock::BasicBlock(CFG* cfg,string entry_lable){
-    this->cfg = cfg;
-    this->label = entry_lable;
-    this->exit_false = nullptr;
-}
-
-void BasicBlock::set_exit_true(BasicBlock* bb){
-    exit_true = bb;
-}
-
 void BasicBlock::set_exit_false(BasicBlock* bb){
     exit_false = bb;
 }
@@ -111,4 +101,14 @@ CFG* BasicBlock::getCfg(){
 void BasicBlock::setLastVar(string var)
 {
 	lastVar = var;
+}
+
+BasicBlock::BasicBlock(CFG* cfg,string entry_lable){
+    this->cfg = cfg;
+    this->label = entry_lable;
+    this->exit_false = nullptr;
+}
+
+void BasicBlock::set_exit_true(BasicBlock* bb){
+    exit_true = bb;
 }

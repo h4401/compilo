@@ -24,99 +24,93 @@
 typedef std::unordered_map<std::string, Variable*> SymbolTable;
 
 class Visitor : public GrammarBaseVisitor {
-public:
-    Visitor();
-    virtual ~Visitor();
-    
+	public:
+	    Visitor();
+	    virtual ~Visitor();
+	    
 
-    // PROG
-    antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;
+	    //--------------------- Visiteur Programme--------------------------//
+	    antlrcpp::Any visitProg(GrammarParser::ProgContext* ctx) override;
 
-    // FUNC
-    antlrcpp::Any visitFunc(GrammarParser::FuncContext* ctx) override;
+	    //--------------------- Visiteur Fonction--------------------------//
+	    antlrcpp::Any visitFunc(GrammarParser::FuncContext* ctx) override;
 
-    //BLOCK
-    antlrcpp::Any visitBlock(GrammarParser::BlockContext* ctx) override;
+	    //--------------------- Visiteur Block --------------------------//
+	    antlrcpp::Any visitBlock(GrammarParser::BlockContext* ctx) override;
 
-    // STATEMENT
-    antlrcpp::Any visitReturn(GrammarParser::ReturnContext* ctx) override;
+	    //--------------------- Visiteur Instruction --------------------------//
+	    antlrcpp::Any visitReturn(GrammarParser::ReturnContext* ctx) override;
 
-    antlrcpp::Any visitDefvariable(GrammarParser::DefvariableContext* ctx) override;
+	    antlrcpp::Any visitDefvariable(GrammarParser::DefvariableContext* ctx) override;
 
-    antlrcpp::Any visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx) override;
+	    antlrcpp::Any visitExfuncStatement(GrammarParser::ExfuncStatementContext* ctx) override;
 
-    antlrcpp::Any visitExprStatement(GrammarParser::ExprStatementContext* ctx) override;
+	    antlrcpp::Any visitExprStatement(GrammarParser::ExprStatementContext* ctx) override;
 
-    antlrcpp::Any visitIfStatement(GrammarParser::IfStatementContext* ctx) override;
-    
-    //IF
-    antlrcpp::Any visitInsif(GrammarParser::InsifContext* ctx) override;
-    
-    //ELSE
-    antlrcpp::Any visitInselse(GrammarParser::InselseContext* ctx) override;
+	    antlrcpp::Any visitIfStatement(GrammarParser::IfStatementContext* ctx) override;
+	    
+	    //--------------------- Visiteur if --------------------------//
+	    antlrcpp::Any visitInsif(GrammarParser::InsifContext* ctx) override;
+	    
+	    //--------------------- Visiteur else --------------------------//
+	    antlrcpp::Any visitInselse(GrammarParser::InselseContext* ctx) override;
 
-    //EXPR
-    antlrcpp::Any visitConst(GrammarParser::ConstContext* ctx) override;
+	    //--------------------- Visiteur Expression --------------------------//
+	    antlrcpp::Any visitConst(GrammarParser::ConstContext* ctx) override;
 
-    antlrcpp::Any visitVar(GrammarParser::VarContext* ctx) override;
+	    antlrcpp::Any visitVar(GrammarParser::VarContext* ctx) override;
 
-    antlrcpp::Any visitPlus(GrammarParser::PlusContext* ctx) override;
+	    antlrcpp::Any visitPlus(GrammarParser::PlusContext* ctx) override;
 
-    antlrcpp::Any visitMinus(GrammarParser::MinusContext* ctx) override;
+	    antlrcpp::Any visitMinus(GrammarParser::MinusContext* ctx) override;
 
-    antlrcpp::Any visitMult(GrammarParser::MultContext* ctx) override;
+	    antlrcpp::Any visitMult(GrammarParser::MultContext* ctx) override;
 
-    antlrcpp::Any visitDiv(GrammarParser::DivContext* ctx) override;
+	    antlrcpp::Any visitDiv(GrammarParser::DivContext* ctx) override;
 
-    antlrcpp::Any visitExfunc(GrammarParser::ExfuncContext* ctx) override;
+	    antlrcpp::Any visitExfunc(GrammarParser::ExfuncContext* ctx) override;
 
-    antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;
-    
-    antlrcpp::Any visitNeq(GrammarParser::NeqContext* ctx) override;
-    
-    antlrcpp::Any visitEq(GrammarParser::EqContext* ctx) override;
-    
-    antlrcpp::Any visitGt(GrammarParser::GtContext* ctx) override;
-    
-    antlrcpp::Any visitGte(GrammarParser::GteContext* ctx) override;
-    
-    antlrcpp::Any visitLte(GrammarParser::LteContext* ctx) override;
-    
-    antlrcpp::Any visitLt(GrammarParser::LtContext* ctx) override;
+	    antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;
+	    
+	    antlrcpp::Any visitNeq(GrammarParser::NeqContext* ctx) override;
+	    
+	    antlrcpp::Any visitEq(GrammarParser::EqContext* ctx) override;
+	    
+	    antlrcpp::Any visitGt(GrammarParser::GtContext* ctx) override;
+	    
+	    antlrcpp::Any visitGte(GrammarParser::GteContext* ctx) override;
+	    
+	    antlrcpp::Any visitLte(GrammarParser::LteContext* ctx) override;
+	    
+	    antlrcpp::Any visitLt(GrammarParser::LtContext* ctx) override;
 
-    
+	    //--------------------- Visiteur Parametre fonction--------------------------//
+	    antlrcpp::Any visitParamFonction(GrammarParser::ParamFonctionContext* ctx) override;
 
+	    antlrcpp::Any visitParamVide(GrammarParser::ParamVideContext* ctx) override;
 
+	    //--------------------- Visiteur Block --------------------------//
+	    antlrcpp::Any visitTypeint(GrammarParser::TypeintContext* ctx) override;
 
+	    //--------------------- Visiteur Declaration variable --------------------------//
+	    antlrcpp::Any visitDeclvar(GrammarParser::DeclvarContext* ctx) override;
 
-    
+	    //--------------------- Visiteur Initialisation --------------------------//
+	    antlrcpp::Any visitInitvide(GrammarParser::InitvideContext* ctx) override;
+	    
+	    antlrcpp::Any visitInit(GrammarParser::InitContext* ctx) override;
+	    
+	    void printTable();
 
+	private:
+	    std::ofstream output;
 
-    //param
-    antlrcpp::Any visitParamFonction(GrammarParser::ParamFonctionContext* ctx) override;
+	    SymbolTable * table;
 
-    antlrcpp::Any visitParamVide(GrammarParser::ParamVideContext* ctx) override;
+	    int offset;
 
-    //TYPE
-    antlrcpp::Any visitTypeint(GrammarParser::TypeintContext* ctx) override;
+	    bool error;
 
-    //DECLVAR
-    antlrcpp::Any visitDeclvar(GrammarParser::DeclvarContext* ctx) override;
-
-    //OPTINIT
-    antlrcpp::Any visitInitvide(GrammarParser::InitvideContext* ctx) override;
-    
-    
-
-    antlrcpp::Any visitInit(GrammarParser::InitContext* ctx) override;
-    
-    void printTable();
-
-private:
-    std::ofstream output;
-    SymbolTable * table;
-    int offset;
-    bool error;
-    bool firstMult;
+	    bool firstMult;
 };
 

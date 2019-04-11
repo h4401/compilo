@@ -1,23 +1,12 @@
 #include "Function.h"
 
-Function::Function(SymbolTable* table, string name, Block * block, Type returnType,vector<DeclVar*> vecDecl){
-	this->table = table;	
-	this->name = name;
-	this->block = block;
-	this->returnType = returnType;
-    this->parameters = vecDecl;
-}
-
-Function::~Function(){
-}
-
 ostream & operator<<(ostream & stream, const Function & function)
 {
     stream << " Fonction: Name=" << function.name << " TypeRetour=" << function.returnType << endl;
 
     if(function.parameters.size()!= 0)
     {
-        stream << "     Param:" << endl;
+        stream << "Params:" << endl;
 
         for (auto it : function.parameters)
         {
@@ -50,7 +39,6 @@ Block * Function::getBlock()
     return this->block;
 }
 
-
 Type Function::getReturnType ()
 {
     return this->returnType;
@@ -65,5 +53,13 @@ SymbolTable* Function::getSymbolTable(){
     return this->table;
 }
 
+Function::Function(SymbolTable* table, string name, Block * block, Type returnType,vector<DeclVar*> vecDecl){
+	this->table = table;	
+	this->name = name;
+	this->block = block;
+	this->returnType = returnType;
+    	this->parameters = vecDecl;
+}
 
-
+Function::~Function(){
+}

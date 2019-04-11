@@ -2,14 +2,6 @@
 #include "./IR/BasicBlock.h"
 using namespace std;
 
-DefVar::DefVar(Variable* variable, Expression* expression){
-	this->variable = variable;
-	this->expression = expression;
-}
-
-DefVar::~DefVar(){
-}
-
 ostream& operator<<(std::ostream& stream, const DefVar& definition)
 {
     stream << " Affectation: " << *definition.variable << " Operateur: =";
@@ -29,9 +21,14 @@ string DefVar::generateIR(CFG* cfg){
     vector<string> param;
     param.push_back(left);
     param.push_back(right);
-
     cfg->current_bb->add_IRInstr(IRInstr::wmem,INT,param);
-        return left;
+    return left;
 
 }
     
+DefVar::DefVar(Variable* variable, Expression* expression){
+	this->variable = variable;
+	this->expression = expression;
+}
+
+DefVar::~DefVar(){}
