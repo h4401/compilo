@@ -38,6 +38,8 @@ public:
     std::string varToIndex(std::string var);
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o)=0; /**< x86 assembly code generation for this IR instruction */
+    const std::string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
+
     
 protected:
     BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
