@@ -27,19 +27,19 @@ void AddInstr::gen_asm(ostream &o){
 
 void SubInstr::gen_asm(ostream &o){
     o << "\tmovl " << varToIndex(y) << "(%rbp), %eax" << std::endl;
-    o << "\tsubl " << varToIndex(x) << ", %eax" << std::endl;
+    o << "\tsubl " << varToIndex(x) << "(%rbp), %eax" << std::endl;
     o << "\tmovl %eax" << ", " << d << "(%rbp)" << std::endl;
 }
 
 void MulInstr::gen_asm(ostream &o){
     o << "\tmovl " << varToIndex(y) << "(%rbp), %eax" << std::endl;
-    o << "\timull " << varToIndex(x) << ", %eax" << std::endl;
+    o << "\timull " << varToIndex(x) << "(%rbp), %eax" << std::endl;
     o << "\tmovl %eax" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
 void DivInstr::gen_asm(ostream &o){
     o << "\tmovl " << varToIndex(y) << "(%rbp), %eax" << std::endl;
-    o << "\tidivl " << varToIndex(x) << ", %eax" << std::endl;
+    o << "\tidivl " << varToIndex(x) << "(%rbp), %eax" << std::endl;
     o << "\tmovl %eax" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
