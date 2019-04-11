@@ -52,7 +52,7 @@ void CFG::add_to_symbol_table(string name,Type t){
 string CFG::create_new_tempvar(Type t){
     string name;
     nextFreeSymbolIndex -= 4;
-    name = "!tmp" + to_string(nextFreeSymbolIndex);
+    name =to_string(nextFreeSymbolIndex);
     add_to_symbol_table(name,t);
     current_bb -> setLastVar(name);
     return name;
