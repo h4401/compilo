@@ -15,9 +15,10 @@ CFG::CFG(Function* ast){
     for(pair<string,Variable*> element : *(ast->getSymbolTable())){
         SymbolType.insert(pair<string,Type>(element.first,element.second->getType()));
         SymbolIndex.insert(pair<string,int>(element.first,element.second->getOffset()));
-        nextFreeSymbolIndex = (ast->getSymbolTable()->size()-ast->getParameters().size())*(-4);
         
     }
+    nextFreeSymbolIndex = (ast->getSymbolTable()->size()-ast->getParameters().size())*(-4);
+
     BasicBlock* bb = new BasicBlock(this,"PROLOGUE");
     bbs.push_back(bb);
     BasicBlock* bbFunct = new BasicBlock(this, ast->getName());
@@ -77,14 +78,10 @@ void CFG::gen_asm(ostream &o){
 }
 
 void CFG::gen_asm_prologue(ostream& o){
-        o << ".file \"test.c\"" << endl;
-        o << ".text" << endl;
-        o << ".global main" << endl;
-        o << ".type main, @function" << endl;
-        o << "main:" << endl;
+    (-nextFreeSymbolIndex+4) % 16==0 ? arrondi = -nextFreeSymbolIndex+4 : arrondi = ((-nextFreeSymbolIndex+4)/16+1)*16;
         o << "\tpushq  %rbp" << endl;
         o << "\tmovq %rsp, %rbp" << endl;
-        o << "\tsubq $"<< to_string(nextFreeSymbolIndex+4)<<", %rsp"<<endl;
+        o << "\tsubq $"<< to_string(arrondi)<<", %rsp"<<endl;
         for(int i = 0 ; i < ast->getParameters().size(); i++){
             int offset = get_var_index(ast->getParameters()[i]->getName());
             o<< "\tmovq %" << param_register[i]<<", "<<to_string(offset)<<"%(rbp)"<<endl;
@@ -95,7 +92,7 @@ void CFG::gen_asm_prologue(ostream& o){
 
 void CFG::gen_asm_epilogue(ostream& o){
     //a verifier
-        o << endl << "."<< ast->getName() <<"_BB_EPILOGUE:" << endl;
+        o << "\taddq $"<< arrondi<<", %rsp"<<endl;
         o << "\tpopq %rbp" << endl;
         o << "\tret" << endl;
         o << "   " << endl;

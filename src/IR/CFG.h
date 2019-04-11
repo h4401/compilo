@@ -56,7 +56,7 @@ public:
 
     BasicBlock* current_bb;
     
-    const string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
+    const std::string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
     
 protected:
     std::map <std::string, Type> SymbolType; /**< part of the symbol table  */
@@ -68,6 +68,8 @@ protected:
     int nextBBnumber; /**< just for naming */
     
     std::vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
+    int arrondi;
+
 };
 
 

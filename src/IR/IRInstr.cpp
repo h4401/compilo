@@ -83,7 +83,18 @@ void CmpInstr::gen_asm(ostream &o){
 }
 
 void CallInstr::gen_asm(ostream &o){
-    //todo
+    int offset;
+    if(params.size()>6) cout<<"function parameters cannot be more than 6!"<<endl;
+    for(int i =0;i<params.size();i++){
+        offset = bb->getCfg()->get_var_index(params[i]);
+        o<< "\tmovq " <<offset << "(%rbp), "<<"%" << param_register[i]<<endl;
+    }
+    o << "\tcallq " << label << "\n";
+
+    if(dest != ""){
+        offset = bb->getCfg()->get_var_index(dest);
+        o << "\tmovl"<<" %eax, "<<"(%rbp)"<<offset<<endl;
+    }
 }
 
 void RmemInstr::gen_asm(ostream &o){
