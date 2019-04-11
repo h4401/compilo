@@ -26,7 +26,6 @@ CFG::CFG(Function* ast){
     current_bb->set_exit_true(bbExit);
     bbExit->set_exit_true(nullptr);
     nextBBnumber = 0;
-    //todo
 }
 
 CFG::~CFG(){
@@ -63,7 +62,10 @@ void CFG::gen_asm(ostream &o){
     gen_asm_prologue(o);
     for(int i=0; i<bbs.size(); i++){
 	if(i!=0 && i!=2){
+
+	//**********DEBUG ************//
 	//bbs[i]->printInstrs();
+
         bbs[i]->gen_asm(o);
         }
     }

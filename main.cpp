@@ -32,8 +32,6 @@ int main(int argc, char* argv[])
     /*** Parsing the tree and Generating Assebly ***/
 
     cout << "Generating Abstract Syntaxic Tree" << endl;
-    cout << "Generating Assembly" << endl;
-
     ANTLRInputStream input(file);
     GrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
@@ -41,18 +39,26 @@ int main(int argc, char* argv[])
     tree::ParseTree* tree = parser.prog();
     Visitor visitor;
     Program* prog = visitor.visit(tree);
-    visitor.printTable();       //test for symboltable
-    cout << *prog <<endl ;
-    prog->generateIR();
+    cout << "Abstract Syntaxic Tree generated" << endl;
     
+
+    /*************  IR ********************/
+    cout << "Generating IR" << endl;
+    prog->generateIR();
+    cout << "IR Generated" << endl<<endl;
+
+    /********** DEBUG *************/
+    //visitor.printTable();       //test for symboltable
+    //cout << "AST :" << endl << *prog <<endl ;
+    
+   /******* Generating Assembly ********/ 
+    cout << "Generating Assembly" << endl;
     ofstream o;
     o.open("asm.s");
     o << ".file \"asm.c\"" << endl;
     o << ".globl main" << endl;
     prog->gen_asm(o);
     o.close();
-    //cout<<*prog<<endl;
-    cout << "Abstract Syntaxic Tree generated" << endl;
     cout << "Assembly generated to ./asm.s" << endl;
 
     return 1;
