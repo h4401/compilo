@@ -6,7 +6,7 @@ int isPositif(int x){
     else
     {
 
-	return 0;
+	return 5;
     }
 }
 

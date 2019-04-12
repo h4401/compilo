@@ -11,8 +11,8 @@ main:
 	movl %eax, -4(%rbp)
 	movl $2, -12(%rbp)
 	movl $1, -16(%rbp)
-	movl -12(%rbp),  %eax
-	cmpl -16(%rbp),  %eax
+	movl -16(%rbp),  %eax
+	cmpl -12(%rbp),  %eax
 	setl %al
 	movzbl %al, %eax
 	movl %eax, -20(%rbp)
@@ -48,7 +48,7 @@ toto:
 	pushq  %rbp
 	movq %rsp, %rbp
 	subq $16, %rsp
-	movq %edi, -4(%rbp)
+	movl %edi, -4(%rbp)
    
 .toto_BB_toto:
 	movl -4(%rbp), %eax

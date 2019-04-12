@@ -1,33 +1,43 @@
 .file "asm.c"
 .globl main
-isPositif:
+factoriel:
 	pushq  %rbp
 	movq %rsp, %rbp
-	subq $32, %rsp
+	subq $48, %rsp
 	movl %edi, -4(%rbp)
    
-.isPositif_BB_isPositif:
-	movl $0, -8(%rbp)
+.factoriel_BB_factoriel:
+	movl $1, -8(%rbp)
 	movl -4(%rbp),  %eax
 	cmpl -8(%rbp),  %eax
-	setg %al
+	setle %al
 	movzbl %al, %eax
 	movl %eax, -12(%rbp)
 	cmpl $0, -12(%rbp)
-	je .isPositif_BB_2
-	jne .isPositif_BB_1
-.isPositif_BB_1:
+	je .factoriel_BB_2
+	jne .factoriel_BB_1
+.factoriel_BB_1:
 	movl $1, -16(%rbp)
 	movl -16(%rbp), %eax
-	jmp .isPositif_BB_3
-.isPositif_BB_2:
-	movl $5, -20(%rbp)
-	movl -20(%rbp), %eax
-	jmp .isPositif_BB_3
-.isPositif_BB_3:
-	jmp .isPositif_BB_EPILOGUE
-.isPositif_BB_EPILOGUE:
-	addq $32, %rsp
+	jmp .factoriel_BB_3
+.factoriel_BB_2:
+	movl $1, -24(%rbp)
+	movl -4(%rbp), %eax
+	subl -24(%rbp), %eax
+	movl %eax, -28(%rbp)
+	movl -28(%rbp),%eax
+	movl %eax, %edi
+	callq factoriel
+	movl %eax, -20(%rbp)
+	movl -4(%rbp), %eax
+	imull -20(%rbp), %eax
+	movl %eax, -32(%rbp)
+	movl -32(%rbp), %eax
+	jmp .factoriel_BB_3
+.factoriel_BB_3:
+	jmp .factoriel_BB_EPILOGUE
+.factoriel_BB_EPILOGUE:
+	addq $48, %rsp
 	popq %rbp
 	ret
    
@@ -42,7 +52,7 @@ main:
 	movl %eax, -4(%rbp)
 	movl -4(%rbp),%eax
 	movl %eax, %edi
-	callq isPositif
+	callq factoriel
 	movl %eax, -16(%rbp)
 	movl -16(%rbp), %eax
 	movl %eax, -8(%rbp)

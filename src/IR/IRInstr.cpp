@@ -37,15 +37,9 @@ void MulInstr::gen_asm(ostream &o){
     o << "\tmovl %eax" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
 }
 
-void DivInstr::gen_asm(ostream &o){
-    o << "\tmovl " << varToIndex(y) << "(%rbp), %eax" << std::endl;
-    o << "\tidivl " << varToIndex(x) << "(%rbp), %eax" << std::endl;
-    o << "\tmovl %eax" << ", " << varToIndex(d) << "(%rbp)" << std::endl;
-}
-
 void CmpInstr::gen_asm(ostream &o){
-    o << "\tmovl " << varToIndex(x) << "(%rbp),  %eax" << endl;
-    o << "\tcmpl " <<   varToIndex(y) << "(%rbp),  %eax" << endl;
+    o << "\tmovl " << varToIndex(y) << "(%rbp),  %eax" << endl;
+    o << "\tcmpl " <<   varToIndex(x) << "(%rbp),  %eax" << endl;
 
     string set = "";
 
@@ -135,10 +129,6 @@ void SubInstr::toString(){
 
 void MulInstr::toString(){
     std::cout<<"Mult: "<<op<<" d:"<<d<<" "<<"x:"<<x<<" "<<"y:"<<y<<" "<<std::endl;
-}
-
-void DivInstr::toString(){
-    std::cout<<"Div: "<<op<<" d:"<<d<<" "<<"x:"<<x<<" "<<"y:"<<y<<" "<<std::endl;
 }
 
 void RetInstr::toString(){

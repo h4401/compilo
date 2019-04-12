@@ -17,6 +17,7 @@ main:
 	movl %eax, -24(%rbp)
 	movl -24(%rbp), %eax
 	movl %eax, -4(%rbp)
+	movl -4(%rbp), %eax
 	jmp .main_BB_EPILOGUE
 .main_BB_EPILOGUE:
 	addq $32, %rsp

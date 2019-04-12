@@ -8,7 +8,6 @@ output=$output".s"
 
 echo "GCC:"
 
-
 # On compile avec GCC le fichier donné en paramètre
 echo -n " Compilation... "
 gcc $1 -o gcc_exe &> /dev/null
@@ -33,16 +32,14 @@ then
 	
 	rm gcc_exe		     # On supprime le fichier compilé
 	
-	echo " L'exécution a retourné comme sortie standard ["
-	echo $gcc_prog_output
-	echo " ]"
+	
 	echo " RETURN CODE: $gcc_prog_code"
 else
 	echo "NOK"
 fi
 echo "Notre compilateur:"
 echo -n " Compilation... "
-./exe $1 1> $cout 2> $cerr
+./comp $1 1> $cout 2> $cerr
 errorSize=$(wc -c $cerr | awk '{print $1}')
 cat $cerr $cout > $log
 rm $cerr
@@ -54,8 +51,8 @@ if [ -f ./asm.s ] && [ $errorSize -eq 0 ]
 then
 	mv asm.s $output
 	rm $log
-	as -o pld_exe.o $output #&> /dev/null
-	gcc pld_exe.o -o pld_exe #&> /dev/null
+	as -o pld_exe.o $output &> /dev/null
+	gcc pld_exe.o -o pld_exe &> /dev/null
 	rm pld_exe.o &> /dev/null
 	pld_comp_code=$?
 	
@@ -71,9 +68,7 @@ then
 		echo "OK"
 		rm pld_exe		     # On supprime le fichier compilé
 	
-		echo " L'exécution a retourné comme sortie standard ["
-		echo $pld_prog_output
-		echo " ]"
+		
 		echo " RETURN CODE: $pld_prog_code"
 	else
 		pld_comp=0
@@ -102,11 +97,6 @@ then
 	then
 		echo "NOK2"
 		exit 2
-	fi
-	if [ $gcc_prog_output != $pld_prog_output ]
-	then
-		echo "NOK3"
-		exit 3
 	fi
 fi
 echo "OK"

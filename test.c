@@ -1,16 +1,18 @@
-
-int main(){
-    int a = 0;
-    if(1>	2)  {
-        
-        a=5;
+int factoriel(int x){
+    
+    if(x<=1)
+    {
+	return 1;
     }
-    else   {
-        a=6;
+    else
+    {
+	return x*factoriel(x-1);
     }
-    a=7;
 }
 
-int toto(int a){
-    return a;
+int main(){
+    int b = 5;
+    int res;
+    res = factoriel(b);
+    return res;
 }

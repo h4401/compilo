@@ -6,7 +6,6 @@ func : type ID '(' (type ID (',' type ID)*)? ')' block;
 
 	
 expr: expr '*' expr 		# mult
-	| expr '/' expr  	# div
 	| expr '+' expr 	# plus
 	| expr '-' expr		# minus
 	| INT			# const

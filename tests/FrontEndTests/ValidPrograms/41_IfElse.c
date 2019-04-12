@@ -8,4 +8,5 @@ int main() {
    else {
       a = 3;
    }
+   return a;
 }

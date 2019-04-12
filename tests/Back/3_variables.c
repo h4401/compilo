@@ -3,4 +3,5 @@ int main() {
   a=0;
   b=a;
   c=b;
+  return 0;
 }

@@ -4,7 +4,7 @@ function:
 	pushq  %rbp
 	movq %rsp, %rbp
 	subq $16, %rsp
-	movq %edi, -4(%rbp)
+	movl %edi, -4(%rbp)
    
 .function_BB_function:
 	movl $1, -8(%rbp)
@@ -33,6 +33,7 @@ main:
 	movl %eax, -12(%rbp)
 	movl -12(%rbp), %eax
 	movl %eax, -4(%rbp)
+	movl -4(%rbp), %eax
 	jmp .main_BB_EPILOGUE
 .main_BB_EPILOGUE:
 	addq $16, %rsp

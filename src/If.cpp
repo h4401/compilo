@@ -35,8 +35,9 @@ string If::generateIR(CFG * cfg)
     thenBB -> set_exit_true(afterBB);
      
     //elseBB
-    elseBB -> set_exit_true(afterBB);
-    
+    if (hasElse){
+        elseBB -> set_exit_true(afterBB);
+    }
     //add BBs in the table
     cfg -> addBB(thenBB);    
     

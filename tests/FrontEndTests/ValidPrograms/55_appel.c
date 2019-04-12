@@ -7,4 +7,5 @@ int main() {
    int a;
    a = 1;
    a = function(a);
+   return a;   
 }

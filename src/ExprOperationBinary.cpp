@@ -45,9 +45,6 @@ string ExprOperationBinary::generateIR(CFG* cfg){
     else if(this->operateur=="*")
         cfg->current_bb->add_IRInstr(IRInstr::mul,INT,params);
     
-    else if(this->operateur=="/")
-        cfg->current_bb->add_IRInstr(IRInstr::div,INT,params);
-    
     else if(this->operateur=="==")
         cfg->current_bb->add_IRInstr(IRInstr::cmp_eq,INT,params);
     

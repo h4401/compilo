@@ -68,8 +68,6 @@ class Visitor : public GrammarBaseVisitor {
 
 	    antlrcpp::Any visitMult(GrammarParser::MultContext* ctx) override;
 
-	    antlrcpp::Any visitDiv(GrammarParser::DivContext* ctx) override;
-
 	    antlrcpp::Any visitExfunc(GrammarParser::ExfuncContext* ctx) override;
 
 	    antlrcpp::Any visitPar(GrammarParser::ParContext* ctx) override;

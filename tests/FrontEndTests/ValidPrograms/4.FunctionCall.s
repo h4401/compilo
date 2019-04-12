@@ -4,8 +4,8 @@ toto:
 	pushq  %rbp
 	movq %rsp, %rbp
 	subq $32, %rsp
-	movq %edi, -4(%rbp)
-	movq %esi, -8(%rbp)
+	movl %edi, -4(%rbp)
+	movl %esi, -8(%rbp)
    
 .toto_BB_toto:
 	movl -4(%rbp), %eax

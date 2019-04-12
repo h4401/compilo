@@ -10,8 +10,8 @@ main:
 	movl -8(%rbp), %eax
 	movl %eax, -4(%rbp)
 	movl $1, -12(%rbp)
-	movl -12(%rbp),  %eax
-	cmpl -4(%rbp),  %eax
+	movl -4(%rbp),  %eax
+	cmpl -12(%rbp),  %eax
 	sete %al
 	movzbl %al, %eax
 	movl %eax, -16(%rbp)
@@ -29,6 +29,7 @@ main:
 	movl %eax, -4(%rbp)
 	jmp .main_BB_3
 .main_BB_3:
+	movl -4(%rbp), %eax
 	jmp .main_BB_EPILOGUE
 .main_BB_EPILOGUE:
 	addq $32, %rsp

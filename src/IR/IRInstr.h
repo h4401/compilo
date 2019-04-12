@@ -16,7 +16,6 @@ public:
         add,
         sub,
         mul,
-        div,
         rmem,
         wmem,
         call,
@@ -85,18 +84,6 @@ public:
 class MulInstr : public IRInstr {
 public:
     MulInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
-    /** Actual code generation */
-    virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
-    void toString();
-    private :
-    std::string d;
-    std::string x;
-    std::string y;
-};
-
-class DivInstr : public IRInstr {
-public:
-    DivInstr(BasicBlock* bb_, Type t, std::string destination, std::string operand1, std::string operand2) : IRInstr(bb_, add, t), d(destination), x(operand1), y(operand2) {}
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
     void toString();

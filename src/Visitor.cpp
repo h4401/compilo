@@ -240,18 +240,6 @@ antlrcpp::Any Visitor::visitMult(GrammarParser::MultContext* ctx)
     return dynamic_cast<Expression*>(eMult);
 }
 
-//Operation /
-antlrcpp::Any Visitor::visitDiv(GrammarParser::DivContext* ctx)
-{
-    Expression* el = visit(ctx->expr(0));
-    Expression* er = visit(ctx->expr(1));
-    offset -= 4;
-    ExprOperationBinary* eDiv = new ExprOperationBinary(el, er, "/");
-    eDiv->setType(EXPRBINAIRE);
-    eDiv->setOffset(offset);
-   return dynamic_cast<Expression*>(eDiv);
-}
-
 //Operation =
 antlrcpp::Any Visitor::visitEq(GrammarParser::EqContext* ctx){
     Expression* el = visit(ctx->expr(0));
