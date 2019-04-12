@@ -21,5 +21,5 @@ asm.o
 doTest.sh
 allTests.sh
 a.out
-
+.vscode
 
