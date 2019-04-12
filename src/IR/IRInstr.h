@@ -38,7 +38,7 @@ public:
     std::string varToIndex(std::string var);
     /** Actual code generation */
     virtual void gen_asm(std::ostream &o)=0; /**< x86 assembly code generation for this IR instruction */
-    const std::string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
+    const std::string param_register[6] = {"edi","esi","edx","ecx","r8d","r9d"};
 
     
 protected:

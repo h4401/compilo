@@ -60,6 +60,12 @@ string ExprOperationBinary::generateIR(CFG* cfg){
     else if(this->operateur=="<=")
         cfg->current_bb->add_IRInstr(IRInstr::cmp_lte,INT,params);
 
+    else if(this->operateur==">")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_gt,INT,params);
+    
+    else if(this->operateur=="<")
+        cfg->current_bb->add_IRInstr(IRInstr::cmp_lt,INT,params);
+
     return var;
 }
 
