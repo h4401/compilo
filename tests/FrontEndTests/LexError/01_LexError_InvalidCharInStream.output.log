@@ -1,0 +1,9 @@
+line 1:0 token recognition error at: '@'
+Generating Abstract Syntaxic Tree
+Abstract Syntaxic Tree generated
+
+Generating IR
+IR Generated
+
+Generating Assembly
+Assembly generated to ./asm.s

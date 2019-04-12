@@ -10,7 +10,7 @@ main:
 	movl $2, -12(%rbp)
 	movl -12(%rbp), %eax
 	subl -8(%rbp), %eax
-	movl %eax, !tmp-16(%rbp)
+	movl %eax, -16(%rbp)
 	movl -16(%rbp), %eax
 	movl %eax, -4(%rbp)
 	jmp .main_BB_EPILOGUE

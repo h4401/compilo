@@ -24,3 +24,9 @@ main:
 	movl %eax, -4(%rbp)
 	jmp .main_BB_2
 .main_BB_2:
+	jmp .main_BB_EPILOGUE
+.main_BB_EPILOGUE:
+	addq $32, %rsp
+	popq %rbp
+	ret
+   

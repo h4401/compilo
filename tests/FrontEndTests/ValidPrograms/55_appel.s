@@ -4,7 +4,7 @@ function:
 	pushq  %rbp
 	movq %rsp, %rbp
 	subq $16, %rsp
-	movq %rdi, -4(%rbp)
+	movq %edi, -4(%rbp)
    
 .function_BB_function:
 	movl $1, -8(%rbp)
@@ -27,7 +27,8 @@ main:
 	movl $1, -8(%rbp)
 	movl -8(%rbp), %eax
 	movl %eax, -4(%rbp)
-	movq -4(%rbp), %rdi
+	movl -4(%rbp),%eax
+	movl %eax, %edi
 	callq function
 	movl %eax, -12(%rbp)
 	movl -12(%rbp), %eax

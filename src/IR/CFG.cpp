@@ -80,7 +80,7 @@ void CFG::gen_asm_prologue(ostream& o){
         o << "\tsubq $"<< to_string(arrondi)<<", %rsp"<<endl;
         for(int i = 0 ; i < ast->getParameters().size(); i++){
             int offset = get_var_index(ast->getParameters()[i]->getNames()[0]);
-            o<< "\tmovq %" << param_register[i]<<", "<<to_string(offset)<<"(%rbp)"<<endl;
+            o<< "\tmovl %" << param_register[i]<<", "<<to_string(offset)<<"(%rbp)"<<endl;
         }
         o << "   " << endl;
 

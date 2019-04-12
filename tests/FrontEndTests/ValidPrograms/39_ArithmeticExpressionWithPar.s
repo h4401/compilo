@@ -14,7 +14,7 @@ main:
 	movl %eax, -20(%rbp)
 	movl -20(%rbp), %eax
 	subl -8(%rbp), %eax
-	movl %eax, !tmp-24(%rbp)
+	movl %eax, -24(%rbp)
 	movl $4, -28(%rbp)
 	movl $2, -32(%rbp)
 	movl -32(%rbp), %eax
@@ -26,7 +26,7 @@ main:
 	movl %eax, -44(%rbp)
 	movl -44(%rbp), %eax
 	subl -24(%rbp), %eax
-	movl %eax, !tmp-48(%rbp)
+	movl %eax, -48(%rbp)
 	movl -48(%rbp), %eax
 	movl %eax, -4(%rbp)
 	jmp .main_BB_EPILOGUE
