@@ -56,7 +56,7 @@ public:
 
     BasicBlock* current_bb;
     
-    const std::string param_register[6] = {"rdi","rsi","rdx","rcx","r8","r9"};
+    const std::string param_register[6] = {"edi","esi","edx","ecx","r8d","r9d"};
     
 protected:
     std::map <std::string, Type> SymbolType; /**< part of the symbol table  */

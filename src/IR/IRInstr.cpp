@@ -87,7 +87,7 @@ void CallInstr::gen_asm(ostream &o){
     if(params.size()>6) cout<<"function parameters cannot be more than 6!"<<endl;
     for(int i =0;i<params.size();i++){
         offset = bb->getCfg()->get_var_index(params[i]);
-        o<< "\tmovq " <<offset << "(%rbp), "<<"%" << param_register[i]<<endl;
+        o<< "\tmovl " <<offset << "(%rbp), "<<"%" << param_register[i]<<endl;
     }
     o << "\tcallq " << label << "\n";
 
