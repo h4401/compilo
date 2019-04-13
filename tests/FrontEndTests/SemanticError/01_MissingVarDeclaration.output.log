@@ -1,4 +1,0 @@
-[-] Error (Line 2): Undeclared variable a
-terminate called after throwing an instance of 'std::bad_cast'
-  what():  std::bad_cast
-Generating Abstract Syntaxic Tree
